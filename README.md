@@ -10,3 +10,4 @@ Documentación central del proyecto **Zest**: stack tecnológico, modelo de dato
 | Entender el modelo de base de datos | [`docs/database/modelo.md`](./docs/database/modelo.md) |
 | Ver el sistema de diseño y los wireframes | [`design/`](./design) |
 | Deployar la infraestructura (Terraform + Docker) | [`infra/README.md`](./infra/README.md) |
+| Ver las reglas/convenciones para agentes de IA (Claude Code, Cursor, Copilot, etc.) | [`AGENTS.md`](./AGENTS.md) y [`skills/`](./skills) |
