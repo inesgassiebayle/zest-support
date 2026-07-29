@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="ext-resource-dependency" content="assets/recipes/citrus-salad.png" data-resource-id="img-citrus" />
+<meta name="ext-resource-dependency" content="assets/recipes/pancakes.png" data-resource-id="img-pancakes" />
+<meta name="ext-resource-dependency" content="assets/recipes/pasta.png" data-resource-id="img-pasta" />
+<meta name="ext-resource-dependency" content="assets/recipes/buddha-bowl.png" data-resource-id="img-buddha" />
+<meta name="ext-resource-dependency" content="assets/recipes/tacos.png" data-resource-id="img-tacos" />
+<meta name="ext-resource-dependency" content="assets/recipes/smoothie.png" data-resource-id="img-smoothie" />
+<meta name="ext-resource-dependency" content="assets/recipes/roast-chicken.png" data-resource-id="img-roast" />
+<meta name="ext-resource-dependency" content="assets/recipes/dessert.png" data-resource-id="img-dessert" />
+<meta name="ext-resource-dependency" content="assets/avatars/avatar-1.png" data-resource-id="img-avatar1" />
+<meta name="ext-resource-dependency" content="assets/avatars/avatar-2.png" data-resource-id="img-avatar2" />
+<template id="__bundler_thumbnail" data-bg-color="#faf7f2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#faf7f2"/><circle cx="100" cy="100" r="60" fill="#e8415a"/><text x="100" y="118" font-family="Georgia, serif" font-size="64" font-weight="800" fill="#faf7f2" text-anchor="middle">Z</text></svg>
+</template>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #faf7f2; }
+  input, textarea, select, button { font-family: inherit; }
+  textarea { resize: vertical; }
+  ::selection { background: #f5c842; color: #2c2c2c; }
+  @keyframes zfade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .zscroll::-webkit-scrollbar { height: 6px; }
+  .zscroll::-webkit-scrollbar-thumb { background: #e7e0d3; border-radius: 9999px; }
+</style>
+<script>window.__zestImgErr = function(e) { var s = (e.target.getAttribute("src") || ""); if (s.indexOf("{{") !== -1) e.target.style.visibility = "hidden"; };</script>
+</helmet>
+
+<div onClick="{{ closeProfileMenuIfOpen }}" style="min-height: 100vh; background: #faf7f2; color: #2c2c2c; font-family: 'Geist', system-ui, -apple-system, sans-serif;">
+
+  <!-- ===================== DESKTOP TOP NAV ===================== -->
+  <sc-if value="{{ showDesktop }}" hint-placeholder-val="{{ true }}">
+    <header style="position: sticky; top: 0; z-index: 40; border-bottom: 1px solid #e7e0d3; background: rgba(250,247,242,0.9); backdrop-filter: blur(8px);">
+      <div style="max-width: 1240px; margin: 0 auto; display: flex; height: 64px; align-items: center; gap: 24px; padding: 0 24px;">
+        <button onClick="{{ goFeed }}" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; padding: 0;">
+          <img src="assets/zest-logo.png" alt="Zest" style="height: 34px; width: 34px; object-fit: contain;">
+          <span style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 800; letter-spacing: -0.01em; color: #2c2c2c;">Zest</span>
+        </button>
+
+        <nav style="display: flex; align-items: center; gap: 4px;">
+          <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
+            <button onClick="{{ link.onClick }}" style="border: none; border-radius: 9999px; padding: 8px 16px; font-size: 14px; font-weight: 500; cursor: pointer; background: {{ link.bg }}; color: {{ link.color }};">{{ link.label }}</button>
+          </sc-for>
+        </nav>
+
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 10px;">
+          <button onClick="{{ goCreate }}" style="display: inline-flex; align-items: center; gap: 6px; background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">+ New recipe</button>
+          <span style="position: relative;">
+            <button onClick="{{ toggleProfileMenu }}" aria-label="Profile menu" style="border: none; background: none; padding: 0; cursor: pointer; display: block;">
+              <img src="assets/avatars/avatar-1.png" alt="You" style="height: 36px; width: 36px; border-radius: 9999px; border: 2px solid #f5c842; object-fit: cover;">
+            </button>
+            <sc-if value="{{ profileMenuOpen }}">
+              <div style="position: absolute; right: 0; top: 46px; width: 180px; background: #fff; border: 1px solid #e7e0d3; border-radius: 14px; box-shadow: 0 12px 28px rgba(44,44,44,0.14); overflow: hidden; z-index: 50;">
+                <button onClick="{{ openEditProfile }}" style="width: 100%; text-align: left; border: none; background: none; padding: 12px 16px; font-size: 14px; font-weight: 500; color: #2c2c2c; cursor: pointer;">Edit profile</button>
+                <button onClick="{{ logOut }}" style="width: 100%; text-align: left; border: none; background: none; padding: 12px 16px; font-size: 14px; font-weight: 500; color: #e8415a; cursor: pointer; border-top: 1px solid #e7e0d3;">Log out</button>
+              </div>
+            </sc-if>
+          </span>
+        </div>
+      </div>
+    </header>
+  </sc-if>
+
+  <!-- ===================== MOBILE HEADER ===================== -->
+  <sc-if value="{{ isMobile }}">
+    <header style="position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e7e0d3; background: rgba(250,247,242,0.92); backdrop-filter: blur(8px); padding: 10px 16px;">
+      <button onClick="{{ goFeed }}" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; padding: 0;">
+        <img src="assets/zest-logo.png" alt="Zest" style="height: 30px; width: 30px; object-fit: contain;">
+        <span style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800; color: #2c2c2c;">Zest</span>
+      </button>
+      <button onClick="{{ goCreate }}" style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;">+ New recipe</button>
+      <button onClick="{{ toggleMobileNav }}" aria-label="Menu" style="display: flex; flex-direction: column; gap: 4px; border: none; background: none; cursor: pointer; padding: 8px;">
+        <span style="width: 22px; height: 2px; background: #2c2c2c; border-radius: 2px;"></span>
+        <span style="width: 22px; height: 2px; background: #2c2c2c; border-radius: 2px;"></span>
+        <span style="width: 22px; height: 2px; background: #2c2c2c; border-radius: 2px;"></span>
+      </button>
+    </header>
+  </sc-if>
+
+  <sc-if value="{{ mobileNavOpen }}">
+    <div onClick="{{ closeMobileNav }}" style="position: fixed; inset: 0; z-index: 70; background: rgba(44,44,44,0.45);">
+      <div onClick="{{ stopProp }}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 76%; max-width: 300px; background: #faf7f2; box-shadow: -8px 0 24px rgba(44,44,44,0.18); display: flex; flex-direction: column; padding: 20px;">
+        <button onClick="{{ closeMobileNav }}" aria-label="Close menu" style="align-self: flex-end; border: none; background: none; font-size: 20px; cursor: pointer; padding: 8px; color: #7a756c;">✕</button>
+        <nav style="display: flex; flex-direction: column; gap: 6px; margin-top: 12px;">
+          <button onClick="{{ mobileNavGoFeed }}" style="text-align: left; border: none; background: none; padding: 14px 10px; font-size: 17px; font-weight: 600; color: #2c2c2c; cursor: pointer; border-radius: 12px;">Feed</button>
+          <button onClick="{{ mobileNavGoCollections }}" style="text-align: left; border: none; background: none; padding: 14px 10px; font-size: 17px; font-weight: 600; color: #2c2c2c; cursor: pointer; border-radius: 12px;">Collections</button>
+          <button onClick="{{ mobileNavGoPlanner }}" style="text-align: left; border: none; background: none; padding: 14px 10px; font-size: 17px; font-weight: 600; color: #2c2c2c; cursor: pointer; border-radius: 12px;">Meal Planner</button>
+        </nav>
+        <div style="margin-top: auto; display: flex; align-items: center; gap: 10px; border-top: 1px solid #e7e0d3; padding-top: 16px;">
+          <img src="assets/avatars/avatar-1.png" alt="You" style="height: 36px; width: 36px; border-radius: 9999px; object-fit: cover;">
+          <button onClick="{{ mobileNavLogOut }}" style="border: none; background: none; padding: 0; font-size: 14px; font-weight: 600; color: #e8415a; cursor: pointer;">Log out</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== EDIT PROFILE MODAL ===================== -->
+  <sc-if value="{{ editProfileOpen }}">
+    <div style="position: fixed; inset: 0; z-index: 60; background: rgba(44,44,44,0.45); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div style="width: 100%; max-width: 420px; background: #faf7f2; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(44,44,44,0.3);">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #e7e0d3;">
+          <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800;">Edit profile</h2>
+          <button onClick="{{ closeEditProfile }}" aria-label="Close" style="height: 36px; width: 36px; border-radius: 9999px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; font-size: 16px;">✕</button>
+        </div>
+        <div style="padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600;">Name</span>
+            <input type="text" placeholder="Your name" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600;">Email</span>
+            <input type="email" placeholder="you@example.com" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+          <div style="height: 1px; background: #e7e0d3; margin: 4px 0;"></div>
+          <p style="margin: 0; font-size: 13px; font-weight: 600; color: #7a756c; text-transform: uppercase; letter-spacing: 0.06em;">Change password</p>
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600;">Current password</span>
+            <input type="password" placeholder="••••••••" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600;">New password</span>
+            <input type="password" placeholder="••••••••" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+          <button onClick="{{ closeEditProfile }}" style="margin-top: 6px; background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer;">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== AUTH PAGE ===================== -->
+  <sc-if value="{{ isAuth }}">
+    <div style="min-height: 100vh; display: grid; grid-template-columns: {{ authGridCols }};">
+      <sc-if value="{{ showAuthHero }}">
+      <div style="position: relative; overflow: hidden; background: linear-gradient(135deg, #e8415a, #f2735a); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px; color: #fff; text-align: center;">
+        <img src="assets/zest-logo.png" alt="Zest" style="height: 64px; width: 64px; object-fit: contain; margin-bottom: 20px;">
+        <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 800; line-height: 1.1;">Cook brighter,<br>plan smarter.</h1>
+        <p style="margin: 16px 0 0; max-width: 360px; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.92);">Join thousands of home cooks sharing recipes, building collections, and planning delicious weeks — all in one zesty place.</p>
+      </div>
+      </sc-if>
+      <div style="display: flex; align-items: center; justify-content: center; padding: 24px;">
+      <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 24px;">
+        <button onClick="{{ goLogin }}" style="align-self: center; display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; padding: 0;">
+          <img src="assets/zest-logo.png" alt="Zest" style="height: 40px; width: 40px; object-fit: contain;">
+          <span style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 800; color: #2c2c2c;">Zest</span>
+        </button>
+
+        <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 20px;">
+          <div>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 800; text-align: center;">{{ authTitle }}</h1>
+            <p style="margin: 6px 0 0; font-size: 14px; color: #7a756c; text-align: center;">Cook brighter, plan smarter.</p>
+          </div>
+
+          <sc-if value="{{ isSignup }}">
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 13px; font-weight: 600;">Name</span>
+              <input type="text" placeholder="Your name" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+            </label>
+          </sc-if>
+
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600;">Email</span>
+            <input type="email" placeholder="you@example.com" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600;">Password</span>
+            <input type="password" placeholder="••••••••" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+
+          <button onClick="{{ goLogin }}" style="background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer;">{{ authTitle }}</button>
+
+          <p style="margin: 0; text-align: center; font-size: 14px; color: #7a756c;">
+            {{ authSwitchText }} <button onClick="{{ authSwitchAction }}" style="border: none; background: none; padding: 0; font-size: 14px; font-weight: 600; color: #e8415a; cursor: pointer;">{{ authSwitchLabel }}</button>
+          </p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== MAIN ===================== -->
+  <sc-if value="{{ showHeaderChrome }}">
+  <main style="max-width: 1200px; margin: 0 auto; padding: 24px 16px 110px;">
+
+    <!-- ============ FEED ============ -->
+    <sc-if value="{{ isFeed }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        <section>
+          <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 18px;">
+            <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 800;">Discover</h2>
+            <span style="font-size: 14px; color: #7a756c;">{{ feedCountText }}</span>
+          </div>
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 10px; border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 6px 16px;">
+              <span style="color: #7a756c; font-size: 20px;">⌕</span>
+              <select value="{{ searchField }}" onChange="{{ setSearchFieldEvt }}" style="border: none; background: none; outline: none; font-size: 14px; font-weight: 600; color: #2c2c2c; cursor: pointer; padding: 4px 2px;">
+                <option value="name">Name</option>
+                <option value="ingredient">Ingredient</option>
+              </select>
+              <span style="width: 1px; height: 20px; background: #e7e0d3;"></span>
+              <input type="text" value="{{ feedDraft }}" onChange="{{ setFeedDraft }}" onKeyDown="{{ handleFeedDraftKey }}" placeholder="Search…" style="flex: 1; border: none; outline: none; font-size: 15px; color: #2c2c2c; background: transparent; padding: 10px 0;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; overflow-x: auto; margin-top: 10px; padding: 4px 0 6px;">
+              <span style="flex: none; font-size: 12px; font-weight: 600; color: #7a756c;">Difficulty:</span>
+              <sc-for list="{{ difficultyChips }}" as="m" hint-placeholder-count="4">
+                <button onClick="{{ m.onClick }}" style="flex: none; border: none; border-radius: 9999px; padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; background: {{ m.bg }}; color: {{ m.color }};">{{ m.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasNameTags }}">
+              <div style="display: flex; align-items: center; gap: 6px; overflow-x: auto; margin-top: 10px; padding: 4px 0 6px;">
+                <span style="flex: none; font-size: 12px; font-weight: 600; color: #7a756c;">Name:</span>
+                <sc-for list="{{ nameTagChips }}" as="tag" hint-placeholder-count="0">
+                  <button onClick="{{ tag.remove }}" style="flex: none; display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 9999px; padding: 6px 10px 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; background: #2c2c2c; color: #fff;">{{ tag.label }} <span style="font-size: 11px;">✕</span></button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ hasIngredientTags }}">
+              <div style="display: flex; align-items: center; gap: 6px; overflow-x: auto; margin-top: 10px; padding: 4px 0 6px;">
+                <span style="flex: none; font-size: 12px; font-weight: 600; color: #7a756c;">Ingredients:</span>
+                <sc-for list="{{ ingredientTagChips }}" as="tag" hint-placeholder-count="0">
+                  <button onClick="{{ tag.remove }}" style="flex: none; display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 9999px; padding: 6px 10px 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; background: #2c2c2c; color: #fff;">{{ tag.label }} <span style="font-size: 11px;">✕</span></button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 20px;">
+            <sc-for list="{{ feedRecipes }}" as="r" hint-placeholder-count="8">
+              <div onClick="{{ r.open }}" role="button" tabIndex="0" style="text-align: left; display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; padding: 0;">
+                <div style="position: relative; aspect-ratio: 4/3; overflow: hidden;">
+                  <img src="{{ r.image }}" alt="{{ r.title }}" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+                  <span style="position: absolute; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 4px; border-radius: 9999px; background: rgba(250,247,242,0.92); backdrop-filter: blur(4px); padding: 5px 10px; font-size: 12px; font-weight: 500;"><span style="color: #f2735a;">◷</span> {{ r.time }}</span>
+                  <span style="position: absolute; right: 12px; top: 12px; display: flex; gap: 6px;">
+                    <span style="position: relative; border-radius: 9999px; background: rgba(250,247,242,0.92); backdrop-filter: blur(4px); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #2c2c2c; overflow: hidden;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      <input type="date" aria-label="Add to meal planner" onChange="{{ r.planChange }}" onClick="{{ stopProp }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer; border: none;">
+                    </span>
+                    <button onClick="{{ r.save }}" aria-label="Save to collection" style="border-radius: 9999px; background: rgba(250,247,242,0.92); backdrop-filter: blur(4px); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; color: #2c2c2c; padding: 0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></button>
+                  </span>
+                </div>
+                <div style="display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 16px;">
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                    <sc-for list="{{ r.tags }}" as="tag" hint-placeholder-count="2">
+                      <span style="border-radius: 9999px; background: #f5efe5; padding: 3px 10px; font-size: 12px; font-weight: 500; color: #2c2c2c;">{{ tag }}</span>
+                    </sc-for>
+                  </div>
+                  <h3 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; line-height: 1.2;">{{ r.title }}</h3>
+                  <div style="margin-top: auto; display: flex; align-items: center; gap: 8px; padding-top: 4px;">
+                    <img src="{{ r.authorAvatar }}" alt="{{ r.author }}" onerror="window.__zestImgErr(event)" style="height: 24px; width: 24px; border-radius: 9999px; object-fit: cover;">
+                    <span style="font-size: 13px; color: #7a756c;">{{ r.author }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ feedNoResults }}">
+            <p style="margin: 32px 0; text-align: center; font-size: 15px; color: #7a756c;">No recipes match "{{ feedQuery }}".</p>
+          </sc-if>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- ============ RECIPE DETAIL ============ -->
+    <sc-if value="{{ isRecipe }}">
+      <article style="display: flex; flex-direction: column; gap: 32px;">
+        <sc-if value="{{ isMobile }}">
+          <button onClick="{{ goFeed }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #7a756c; padding: 0;">← Back</button>
+        </sc-if>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 28px;">
+          <div style="flex: 1 1 320px; min-width: 280px; aspect-ratio: 4/3; overflow: hidden; border-radius: 28px;">
+            <img src="{{ recipe.image }}" alt="{{ recipe.title }}" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="flex: 1 1 360px; min-width: 280px; display: flex; flex-direction: column; justify-content: center; gap: 14px;">
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 40px; line-height: 1.05; font-weight: 800;">{{ recipe.title }}</h1>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #7a756c;">{{ recipe.description }}</p>
+            <div style="display: flex; align-items: center; gap: 12px; padding-top: 4px;">
+              <img src="{{ recipe.authorAvatar }}" alt="{{ recipe.author }}" onerror="window.__zestImgErr(event)" style="height: 42px; width: 42px; border-radius: 9999px; object-fit: cover;">
+              <div>
+                <p style="margin: 0; font-size: 14px; font-weight: 600;">{{ recipe.author }}</p>
+                <p style="margin: 0; font-size: 12px; color: #7a756c;">Recipe author</p>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 6px;">
+              <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 14px; text-align: center;">
+                <div style="font-size: 18px; color: #f2735a;">◷</div>
+                <p style="margin: 4px 0 0; font-size: 15px; font-weight: 700;">{{ recipe.time }}</p>
+                <p style="margin: 0; font-size: 12px; color: #7a756c;">Time</p>
+              </div>
+              <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 14px; text-align: center;">
+                <div style="font-size: 18px; color: #7dc242;">☗</div>
+                <p style="margin: 4px 0 0; font-size: 15px; font-weight: 700;">{{ recipe.difficulty }}</p>
+                <p style="margin: 0; font-size: 12px; color: #7a756c;">Level</p>
+              </div>
+              <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 14px; text-align: center;">
+                <div style="font-size: 18px; color: #e8415a;">♥</div>
+                <p style="margin: 4px 0 0; font-size: 15px; font-weight: 700;">{{ recipe.savesText }}</p>
+                <p style="margin: 0; font-size: 12px; color: #7a756c;">Saves</p>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px;">
+              <button onClick="{{ openSaveForCurrent }}" style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 13px 22px; font-size: 14px; font-weight: 600; cursor: pointer; color: #2c2c2c;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save to collection</button>
+              <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 13px 22px; font-size: 14px; font-weight: 600; color: #2c2c2c; cursor: pointer; overflow: hidden;" onClick="{{ openPlanDateForCurrent }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to planner
+                <input type="date" ref="{{ planDateInputRef }}" aria-label="Add to meal planner" onChange="{{ planChangeForCurrent }}" onClick="{{ stopProp }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer; border: none; pointer-events: none;">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start;">
+          <aside style="flex: 1 1 300px; min-width: 280px; border: 1px solid #e7e0d3; background: #fff; border-radius: 22px; padding: 24px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;">Ingredients</h2>
+              <span style="display: inline-flex; align-items: center; gap: 4px; border-radius: 9999px; background: #f5efe5; padding: 4px 10px; font-size: 12px; font-weight: 500;">⛌ {{ servings }}</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; border-radius: 14px; background: #f5efe5; padding: 8px; margin-bottom: 20px;">
+              <span style="padding-left: 8px; font-size: 14px; font-weight: 500;">Servings</span>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <button onClick="{{ decServings }}" style="height: 32px; width: 32px; border-radius: 9999px; border: none; background: #fff; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">−</button>
+                <span style="width: 22px; text-align: center; font-size: 15px; font-weight: 700;">{{ servings }}</span>
+                <button onClick="{{ incServings }}" style="height: 32px; width: 32px; border-radius: 9999px; border: none; background: #e8415a; color: #fff; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">+</button>
+              </div>
+            </div>
+            <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column;">
+              <sc-for list="{{ recipe.ingredients }}" as="ing" hint-placeholder-count="5">
+                <li style="display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid rgba(231,224,211,0.7); padding: 10px 0; font-size: 14px;">
+                  <span>{{ ing.name }}</span>
+                  <span style="flex: none; font-weight: 600; color: #7a756c;">{{ ing.amount }}</span>
+                </li>
+              </sc-for>
+            </ul>
+          </aside>
+
+          <section style="flex: 2 1 380px; min-width: 280px;">
+            <h2 style="margin: 0 0 18px; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 800;">Instructions</h2>
+            <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px;">
+              <sc-for list="{{ recipe.steps }}" as="step" hint-placeholder-count="5">
+                <li style="display: flex; gap: 16px; border: 1px solid #e7e0d3; background: #fff; border-radius: 18px; padding: 18px 20px;">
+                  <span style="flex: none; height: 36px; width: 36px; border-radius: 9999px; background: #f5c842; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 800; color: #2c2c2c; display: flex; align-items: center; justify-content: center;">{{ step.n }}</span>
+                  <p style="margin: 0; padding-top: 6px; line-height: 1.55; font-size: 15px;">{{ step.text }}</p>
+                </li>
+              </sc-for>
+            </ol>
+          </section>
+        </div>
+      </article>
+    </sc-if>
+
+    <!-- ============ CREATE RECIPE ============ -->
+    <sc-if value="{{ isCreate }}">
+      <div style="max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div>
+            <button onClick="{{ goFeed }}" style="display: inline-flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #7a756c; padding: 0; margin-bottom: 6px;">← Cancel</button>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 800;">Create a recipe</h1>
+            <p style="margin: 4px 0 0; font-size: 14px; color: #7a756c;">Share your dish with the Zest community.</p>
+          </div>
+          <button style="flex: none; background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer;">Publish</button>
+        </div>
+
+        <!-- Cover image dropzone -->
+        <div style="border: 2px dashed #e7e0d3; border-radius: 22px; background: repeating-linear-gradient(45deg, #f5efe5, #f5efe5 12px, #f1ebe0 12px, #f1ebe0 24px); aspect-ratio: 21/9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; color: #7a756c;">
+          <div style="font-size: 30px;">⊕</div>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; color: #2c2c2c;">Add a cover photo</p>
+          <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px;">drag &amp; drop or browse — 1600×900 recommended</p>
+        </div>
+
+        <!-- Title + description -->
+        <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600; color: #2c2c2c;">Recipe title</span>
+            <input type="text" placeholder="e.g. Lemon Garlic Pasta" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 16px; outline: none;">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600; color: #2c2c2c;">Description</span>
+            <textarea rows="3" placeholder="A short, mouth-watering summary…" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none; line-height: 1.5;"></textarea>
+          </label>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px;">
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 13px; font-weight: 600;">Total time</span>
+              <input type="text" placeholder="25 min" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 13px; font-weight: 600;">Difficulty</span>
+              <select style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none; color: #2c2c2c;">
+                <option>Easy</option><option>Medium</option><option>Hard</option>
+              </select>
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 13px; font-weight: 600;">Servings</span>
+              <input type="number" placeholder="4" style="border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+            </label>
+          </div>
+        </div>
+
+        <!-- Ingredients builder -->
+        <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 22px; padding: 24px;">
+          <h2 style="margin: 0 0 16px; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;">Ingredients</h2>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <sc-for list="{{ formIngredients }}" as="row" hint-placeholder-count="3">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" placeholder="Ingredient" style="flex: 2 1 0; min-width: 0; border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 11px 14px; font-size: 15px; outline: none;">
+                <input type="text" placeholder="Amount" style="flex: 1 1 0; min-width: 0; border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 11px 14px; font-size: 15px; outline: none;">
+                <button onClick="{{ row.remove }}" aria-label="Remove" style="flex: none; height: 38px; width: 38px; border-radius: 12px; border: 1px solid #e7e0d3; background: #faf7f2; color: #7a756c; cursor: pointer; font-size: 16px;">✕</button>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ addIngredient }}" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; border: 1px dashed #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; color: #e8415a; cursor: pointer;">+ Add ingredient</button>
+        </div>
+
+        <!-- Steps builder -->
+        <div style="border: 1px solid #e7e0d3; background: #fff; border-radius: 22px; padding: 24px;">
+          <h2 style="margin: 0 0 16px; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;">Instructions</h2>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <sc-for list="{{ formSteps }}" as="row" hint-placeholder-count="2">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <span style="flex: none; height: 36px; width: 36px; border-radius: 9999px; background: #f5c842; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 800; color: #2c2c2c; display: flex; align-items: center; justify-content: center;">{{ row.n }}</span>
+                <textarea rows="2" placeholder="Describe this step…" style="flex: 1 1 0; min-width: 0; border: 1px solid #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 11px 14px; font-size: 15px; outline: none; line-height: 1.5;"></textarea>
+                <button onClick="{{ row.remove }}" aria-label="Remove" style="flex: none; height: 38px; width: 38px; border-radius: 12px; border: 1px solid #e7e0d3; background: #faf7f2; color: #7a756c; cursor: pointer; font-size: 16px;">✕</button>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ addStep }}" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; border: 1px dashed #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; color: #e8415a; cursor: pointer;">+ Add step</button>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px;">
+          <button onClick="{{ goFeed }}" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer;">Cancel</button>
+          <button style="background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 12px 28px; font-size: 14px; font-weight: 600; cursor: pointer;">Save</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ COLLECTIONS GRID ============ -->
+    <sc-if value="{{ isCollections }}">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;">
+          <div>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 800;">My Collections</h1>
+            <p style="margin: 6px 0 0; font-size: 15px; color: #7a756c;">Organize your favorite recipes into themed groups.</p>
+          </div>
+          <button onClick="{{ openCreateCollection }}" style="flex: none; display: inline-flex; align-items: center; gap: 6px; background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 11px 22px; font-size: 14px; font-weight: 600; cursor: pointer;">+ New collection</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px;">
+          <button onClick="{{ openCreateCollection }}" style="aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border-radius: 20px; border: 2px dashed #e7e0d3; background: #fff; color: #7a756c; cursor: pointer;">
+            <span style="font-size: 30px;">＋</span>
+            <span style="font-size: 14px; font-weight: 600;">New collection</span>
+          </button>
+          <sc-for list="{{ collectionsList }}" as="col" hint-placeholder-count="6">
+            <div onClick="{{ col.open }}" role="button" tabIndex="0" style="text-align: left; overflow: hidden; border-radius: 20px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; padding: 0; position: relative; aspect-ratio: 1;">
+              <img src="{{ col.cover }}" alt="{{ col.name }}" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,44,44,0.78), rgba(44,44,44,0) 55%);"></div>
+              <button onClick="{{ col.remove }}" aria-label="Delete collection" style="position: absolute; right: 10px; top: 10px; width: 28px; height: 28px; border-radius: 9999px; background: rgba(44,44,44,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; cursor: pointer; border: none; padding: 0;">✕</button>
+              <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 16px;">
+                <h3 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 800; color: #faf7f2;">{{ col.name }}</h3>
+                <p style="margin: 4px 0 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(250,247,242,0.92);"><span style="color: {{ col.accent }};">❤</span> {{ col.countText }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ COLLECTION DETAIL ============ -->
+    <sc-if value="{{ isCollection }}">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <button onClick="{{ goCollections }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #7a756c; padding: 0;">← All collections</button>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
+          <div style="flex: none; width: 140px; height: 140px; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(44,44,44,0.12);">
+            <img src="{{ activeCollection.cover }}" alt="{{ activeCollection.name }}" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="flex: 1 1 280px;">
+            <p style="margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: {{ activeCollection.accent }};">Collection</p>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 800;">{{ activeCollection.name }}</h1>
+            <p style="margin: 8px 0 0; font-size: 15px; color: #7a756c;">{{ activeCollection.countText }} · curated by you</p>
+            <div style="margin-top: 16px; display: flex; gap: 10px;">
+              <button onClick="{{ openCollectionAdd }}" style="background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 11px 22px; font-size: 14px; font-weight: 600; cursor: pointer;">+ Add recipes</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 20px;">
+          <sc-for list="{{ activeCollection.recipes }}" as="r" hint-placeholder-count="4">
+            <div onClick="{{ r.open }}" role="button" tabIndex="0" style="text-align: left; display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; padding: 0;">
+              <div style="position: relative; aspect-ratio: 4/3; overflow: hidden;">
+                <img src="{{ r.image }}" alt="{{ r.title }}" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+                <span style="position: absolute; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 4px; border-radius: 9999px; background: rgba(250,247,242,0.92); backdrop-filter: blur(4px); padding: 5px 10px; font-size: 12px; font-weight: 500;"><span style="color: #f2735a;">◷</span> {{ r.time }}</span>
+                <span style="position: absolute; right: 12px; top: 12px; display: flex; gap: 6px;">
+                  <span style="position: relative; border-radius: 9999px; background: rgba(250,247,242,0.92); backdrop-filter: blur(4px); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #2c2c2c; overflow: hidden;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <input type="date" aria-label="Add to meal planner" onChange="{{ r.planChange }}" onClick="{{ stopProp }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer; border: none;">
+                  </span>
+                  <button onClick="{{ r.save }}" aria-label="Save to collection" style="border-radius: 9999px; background: rgba(250,247,242,0.92); backdrop-filter: blur(4px); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; color: #2c2c2c; padding: 0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></button>
+                </span>
+              </div>
+              <div style="display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 16px;">
+                <h3 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; line-height: 1.2;">{{ r.title }}</h3>
+                <div style="margin-top: auto; display: flex; align-items: center; gap: 8px;">
+                  <img src="{{ r.authorAvatar }}" alt="{{ r.author }}" onerror="window.__zestImgErr(event)" style="height: 24px; width: 24px; border-radius: 9999px; object-fit: cover;">
+                  <span style="font-size: 13px; color: #7a756c;">{{ r.author }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ MEAL PLANNER ============ -->
+    <sc-if value="{{ isPlanner }}">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+          <div>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 800;">Meal Planner</h1>
+            <p style="margin: 6px 0 0; font-size: 15px; color: #7a756c;">Plan your week, one delicious day at a time.</p>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 6px; flex: {{ weekPillFlex }}; width: {{ weekPillWidth }};">
+            <button onClick="{{ prevWeek }}" aria-label="Previous week" style="height: 36px; width: 36px; border-radius: 9999px; border: none; background: #f5efe5; cursor: pointer; font-size: 16px;">‹</button>
+            <button onClick="{{ thisWeek }}" style="font-size: 14px; font-weight: 600; border: none; background: none; cursor: pointer; padding: 0 6px; white-space: nowrap; flex: 1; text-align: center;">{{ weekLabel }}</button>
+            <button onClick="{{ nextWeek }}" aria-label="Next week" style="height: 36px; width: 36px; border-radius: 9999px; border: none; background: #f5efe5; cursor: pointer; font-size: 16px;">›</button>
+          </div>
+        </div>
+
+        <div class="zscroll" style="{{ plannerGridStyle }}">
+          <sc-for list="{{ plannerDays }}" as="day" hint-placeholder-count="7">
+            <div style="display: flex; flex-direction: column; min-height: 320px; border-radius: 20px; border: 1px solid #e7e0d3; background: #fff; overflow: hidden;">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #e7e0d3; background: {{ day.isToday ? '#fdf1e2' : '#faf7f2' }};">
+                <span style="font-size: 13px; font-weight: 600; color: #7a756c; text-transform: uppercase; letter-spacing: 0.06em;">{{ day.label }}</span>
+                <span style="height: 28px; width: 28px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; background: {{ day.isToday ? '#f5c842' : 'transparent' }};">{{ day.dateNum }}</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 12px;">
+                <sc-for list="{{ day.meals }}" as="meal" hint-placeholder-count="1">
+                  <div style="display: flex; gap: 10px; border: 1px solid #e7e0d3; border-radius: 14px; padding: 8px; background: #faf7f2;">
+                    <button onClick="{{ meal.open }}" style="flex: none; width: 44px; height: 44px; border-radius: 10px; overflow: hidden; border: none; padding: 0; cursor: pointer;">
+                      <img src="{{ meal.image }}" alt="{{ meal.title }}" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+                    </button>
+                    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 2px;">
+                      <button onClick="{{ meal.open }}" style="text-align: left; background: none; border: none; padding: 0; cursor: pointer; font-size: 13px; font-weight: 600; line-height: 1.25; color: #2c2c2c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ meal.title }}</button>
+                      <span style="font-size: 11px; color: #7a756c;">{{ meal.time }}</span>
+                    </div>
+                    <div style="flex: none; display: flex; align-items: center; gap: 6px;">
+                      <button onClick="{{ meal.dec }}" aria-label="Remove one" style="height: 22px; width: 22px; border-radius: 9999px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;">−</button>
+                      <span style="width: 14px; text-align: center; font-size: 12px; font-weight: 700;">{{ meal.qty }}</span>
+                      <button onClick="{{ meal.inc }}" aria-label="Add one" style="height: 22px; width: 22px; border-radius: 9999px; border: none; background: #e8415a; color: #fff; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;">+</button>
+                    </div>
+                  </div>
+                </sc-for>
+                <button onClick="{{ day.addMeal }}" style="margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 6px; border: 1px dashed #e7e0d3; background: #faf7f2; border-radius: 12px; padding: 10px; font-size: 13px; font-weight: 600; color: #e8415a; cursor: pointer;">+ Add meal</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+  
+
+  <!-- ===================== QUICK SAVE TO COLLECTION MODAL ===================== -->
+  <sc-if value="{{ quickSaveOpen }}">
+    <div style="position: fixed; inset: 0; z-index: 60; background: rgba(44,44,44,0.45); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div style="width: 100%; max-width: 460px; max-height: 84vh; display: flex; flex-direction: column; background: #faf7f2; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(44,44,44,0.3);">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #e7e0d3;">
+          <div>
+            <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7a756c;">Save to collection</p>
+            <h2 style="margin: 2px 0 0; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800;">{{ quickSaveRecipeTitle }}</h2>
+          </div>
+          <button onClick="{{ closeQuickSave }}" aria-label="Close" style="height: 36px; width: 36px; border-radius: 9999px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; font-size: 16px;">✕</button>
+        </div>
+        <div class="zscroll" style="flex: 1; overflow-y: auto; padding: 16px 22px 22px; display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ quickSaveCollections }}" as="c" hint-placeholder-count="5">
+            <button onClick="{{ c.toggle }}" style="text-align: left; display: flex; align-items: center; gap: 12px; border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 10px 12px; cursor: pointer;">
+              <img src="{{ c.cover }}" alt="{{ c.name }}" onerror="window.__zestImgErr(event)" style="flex: none; width: 44px; height: 44px; border-radius: 10px; object-fit: cover;">
+              <p style="flex: 1; margin: 0; font-size: 14px; font-weight: 600; color: #2c2c2c;">{{ c.name }}</p>
+              <sc-if value="{{ c.already }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#e8415a" stroke="#e8415a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+              </sc-if>
+              <sc-if value="{{ c.notAlready }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7a756c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+              </sc-if>
+            </button>
+          </sc-for>
+          <button onClick="{{ openCreateCollectionFromSave }}" style="display: flex; align-items: center; gap: 12px; border: 1px dashed #e7e0d3; background: #faf7f2; border-radius: 16px; padding: 10px 12px; cursor: pointer; color: #e8415a;">
+            <span style="flex: none; width: 44px; height: 44px; border-radius: 10px; background: #f5efe5; display: flex; align-items: center; justify-content: center; font-size: 20px;">＋</span>
+            <p style="flex: 1; margin: 0; font-size: 14px; font-weight: 600;">New collection</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== ADD RECIPE TO COLLECTION MODAL ===================== -->
+  <sc-if value="{{ collectionAddOpen }}">
+    <div style="position: fixed; inset: 0; z-index: 60; background: rgba(44,44,44,0.45); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div style="width: 100%; max-width: 560px; max-height: 84vh; display: flex; flex-direction: column; background: #faf7f2; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(44,44,44,0.3);">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #e7e0d3;">
+          <div>
+            <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7a756c;">Add to collection</p>
+            <h2 style="margin: 2px 0 0; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;">{{ activeCollection.name }}</h2>
+          </div>
+          <button onClick="{{ closeCollectionAdd }}" aria-label="Close" style="height: 36px; width: 36px; border-radius: 9999px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; font-size: 16px;">✕</button>
+        </div>
+
+        <div style="padding: 14px 22px 0; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px; border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 6px 16px;">
+            <span style="color: #7a756c; font-size: 16px;">⌕</span>
+            <select value="{{ collectionAddField }}" onChange="{{ setCollectionAddFieldEvt }}" style="border: none; background: none; outline: none; font-size: 14px; font-weight: 600; color: #2c2c2c; cursor: pointer; padding: 4px 2px;">
+              <option value="name">Name</option>
+              <option value="ingredient">Ingredient</option>
+            </select>
+            <span style="width: 1px; height: 20px; background: #e7e0d3;"></span>
+            <input type="text" value="{{ collectionAddQuery }}" onChange="{{ setCollectionAddQuery }}" placeholder="Search…" style="flex: 1; border: none; outline: none; font-size: 15px; color: #2c2c2c; background: transparent; padding: 10px 0;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; overflow-x: auto; padding: 4px 0 6px;">
+            <span style="flex: none; font-size: 12px; font-weight: 600; color: #7a756c;">Difficulty:</span>
+            <sc-for list="{{ collectionAddDifficultyChips }}" as="m" hint-placeholder-count="4">
+              <button onClick="{{ m.onClick }}" style="flex: none; border: none; border-radius: 9999px; padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; background: {{ m.bg }}; color: {{ m.color }};">{{ m.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div class="zscroll" style="flex: 1; overflow-y: auto; padding: 16px 22px 22px; display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ collectionAddRecipes }}" as="r" hint-placeholder-count="5">
+            <button onClick="{{ r.add }}" style="text-align: left; display: flex; align-items: center; gap: 12px; border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 10px 12px; cursor: pointer;">
+              <img src="{{ r.image }}" alt="{{ r.title }}" onerror="window.__zestImgErr(event)" style="flex: none; width: 48px; height: 48px; border-radius: 10px; object-fit: cover;">
+              <div style="flex: 1; min-width: 0;">
+                <p style="margin: 0; font-size: 14px; font-weight: 600; color: #2c2c2c;">{{ r.title }}</p>
+                <p style="margin: 2px 0 0; font-size: 12px; color: #7a756c;">{{ r.time }}</p>
+              </div>
+              <sc-if value="{{ r.already }}">
+                <span style="flex: none; font-size: 12px; font-weight: 600; color: #7dc242;">Added</span>
+              </sc-if>
+              <span style="flex: none; font-size: 20px; color: #e8415a;">＋</span>
+            </button>
+          </sc-for>
+          <sc-if value="{{ collectionAddNoResults }}">
+            <p style="margin: 20px 0; text-align: center; font-size: 14px; color: #7a756c;">No recipes match "{{ collectionAddQuery }}".</p>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== CREATE COLLECTION MODAL ===================== -->
+  <sc-if value="{{ showCreateCollection }}">
+    <div style="position: fixed; inset: 0; z-index: 60; background: rgba(44,44,44,0.45); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div style="width: 100%; max-width: 480px; max-height: 88vh; display: flex; flex-direction: column; background: #faf7f2; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(44,44,44,0.3);">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-bottom: 1px solid #e7e0d3;">
+          <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;">New collection</h2>
+          <button onClick="{{ closeCreateCollection }}" aria-label="Close" style="height: 36px; width: 36px; border-radius: 9999px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; font-size: 16px;">✕</button>
+        </div>
+
+        <div class="zscroll" style="flex: 1; overflow-y: auto; padding: 20px 22px; display: flex; flex-direction: column; gap: 20px;">
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13px; font-weight: 600; color: #2c2c2c;">Collection name</span>
+            <input type="text" value="{{ newCollectionName }}" onChange="{{ setNewCollectionName }}" placeholder="e.g. Weeknight Dinners" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; outline: none;">
+          </label>
+
+          <div>
+            <span style="display: block; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: #2c2c2c;">Cover image</span>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+              <sc-for list="{{ coverChoices }}" as="cov" hint-placeholder-count="8">
+                <button onClick="{{ cov.onClick }}" style="aspect-ratio: 1; border-radius: 12px; overflow: hidden; padding: 0; cursor: pointer; border: {{ cov.border }};">
+                  <img src="{{ cov.src }}" alt="" onerror="window.__zestImgErr(event)" style="width: 100%; height: 100%; object-fit: cover;">
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div>
+            <span style="display: block; margin-bottom: 10px; font-size: 13px; font-weight: 600; color: #2c2c2c;">Accent color</span>
+            <div style="display: flex; gap: 12px;">
+              <sc-for list="{{ accentChoices }}" as="acc" hint-placeholder-count="4">
+                <button onClick="{{ acc.onClick }}" aria-label="Choose accent color" style="height: 32px; width: 32px; border-radius: 9999px; border: none; cursor: pointer; background: {{ acc.color }}; box-shadow: {{ acc.ring }};"></button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 16px 22px; border-top: 1px solid #e7e0d3;">
+          <button onClick="{{ closeCreateCollection }}" style="border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; padding: 11px 20px; font-size: 14px; font-weight: 600; cursor: pointer;">Cancel</button>
+          <button onClick="{{ createCollection }}" style="background: #e8415a; color: #fff; border: none; border-radius: 9999px; padding: 11px 24px; font-size: 14px; font-weight: 600; cursor: pointer;">Create collection</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== RECIPE PICKER OVERLAY ===================== -->
+  <sc-if value="{{ isPickerOpen }}">
+    <div style="position: fixed; inset: 0; z-index: 60; background: rgba(44,44,44,0.45); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div style="width: 100%; max-width: 560px; max-height: 84vh; display: flex; flex-direction: column; background: #faf7f2; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(44,44,44,0.3);">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #e7e0d3;">
+          <div>
+            <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7a756c;">Add a meal</p>
+            <h2 style="margin: 2px 0 0; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;">{{ pickerDayLabel }}</h2>
+          </div>
+          <button onClick="{{ closePicker }}" aria-label="Close" style="height: 36px; width: 36px; border-radius: 9999px; border: 1px solid #e7e0d3; background: #fff; cursor: pointer; font-size: 16px;">✕</button>
+        </div>
+
+        <div style="display: flex; gap: 8px; padding: 14px 22px 0;">
+          <sc-for list="{{ pickerTabs }}" as="t" hint-placeholder-count="2">
+            <button onClick="{{ t.onClick }}" style="border: none; border-radius: 9999px; padding: 9px 16px; font-size: 13px; font-weight: 600; cursor: pointer; background: {{ t.bg }}; color: {{ t.color }};">{{ t.label }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ pickerIsRecipesTab }}">
+          <div style="padding: 14px 22px 0; display: flex; align-items: center; gap: 10px; border: 1px solid #e7e0d3; background: #fff; border-radius: 9999px; margin: 14px 22px 0; padding: 6px 16px;">
+            <span style="color: #7a756c; font-size: 16px;">⌕</span>
+            <select value="{{ pickerSearchField }}" onChange="{{ setPickerSearchFieldEvt }}" style="border: none; background: none; outline: none; font-size: 14px; font-weight: 600; color: #2c2c2c; cursor: pointer; padding: 4px 2px;">
+              <option value="name">Name</option>
+              <option value="ingredient">Ingredient</option>
+            </select>
+            <span style="width: 1px; height: 20px; background: #e7e0d3;"></span>
+            <input type="text" value="{{ pickerQuery }}" onChange="{{ setPickerQuery }}" placeholder="Search…" style="flex: 1; border: none; outline: none; font-size: 15px; color: #2c2c2c; background: transparent; padding: 10px 0;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; overflow-x: auto; margin: 10px 22px 0; padding: 4px 0 6px;">
+            <span style="flex: none; font-size: 12px; font-weight: 600; color: #7a756c;">Difficulty:</span>
+            <sc-for list="{{ pickerDifficultyChips }}" as="m" hint-placeholder-count="4">
+              <button onClick="{{ m.onClick }}" style="flex: none; border: none; border-radius: 9999px; padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; background: {{ m.bg }}; color: {{ m.color }};">{{ m.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div class="zscroll" style="flex: 1; overflow-y: auto; padding: 16px 22px 22px; display: flex; flex-direction: column; gap: 10px;">
+
+          <sc-if value="{{ pickerIsRecipesTab }}">
+            <sc-for list="{{ pickerRecipes }}" as="r" hint-placeholder-count="5">
+              <button onClick="{{ r.add }}" style="text-align: left; display: flex; align-items: center; gap: 12px; border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 10px 12px; cursor: pointer;">
+                <img src="{{ r.image }}" alt="{{ r.title }}" onerror="window.__zestImgErr(event)" style="flex: none; width: 48px; height: 48px; border-radius: 10px; object-fit: cover;">
+                <div style="flex: 1; min-width: 0;">
+                  <p style="margin: 0; font-size: 14px; font-weight: 600; color: #2c2c2c;">{{ r.title }}</p>
+                  <p style="margin: 2px 0 0; font-size: 12px; color: #7a756c;">{{ r.time }}</p>
+                </div>
+                <span style="flex: none; font-size: 20px; color: #e8415a;">＋</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{ pickerNoResults }}">
+              <p style="margin: 20px 0; text-align: center; font-size: 14px; color: #7a756c;">No recipes match "{{ pickerQuery }}".</p>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ pickerIsCollectionsTab }}">
+            <sc-if value="{{ pickerCollectionActive }}">
+              <button onClick="{{ backPickerCollections }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-size: 13px; font-weight: 600; color: #7a756c; padding: 0 0 4px;">← Collections</button>
+              <sc-for list="{{ pickerCollectionRecipes }}" as="r" hint-placeholder-count="4">
+                <button onClick="{{ r.add }}" style="text-align: left; display: flex; align-items: center; gap: 12px; border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 10px 12px; cursor: pointer;">
+                  <img src="{{ r.image }}" alt="{{ r.title }}" onerror="window.__zestImgErr(event)" style="flex: none; width: 48px; height: 48px; border-radius: 10px; object-fit: cover;">
+                  <div style="flex: 1; min-width: 0;">
+                    <p style="margin: 0; font-size: 14px; font-weight: 600; color: #2c2c2c;">{{ r.title }}</p>
+                    <p style="margin: 2px 0 0; font-size: 12px; color: #7a756c;">{{ r.time }}</p>
+                  </div>
+                  <span style="flex: none; font-size: 20px; color: #e8415a;">＋</span>
+                </button>
+              </sc-for>
+            </sc-if>
+            <sc-if value="{{ pickerCollectionsListVisible }}">
+              <sc-for list="{{ pickerCollections }}" as="c" hint-placeholder-count="4">
+                <button onClick="{{ c.open }}" style="text-align: left; display: flex; align-items: center; gap: 12px; border: 1px solid #e7e0d3; background: #fff; border-radius: 16px; padding: 10px 12px; cursor: pointer;">
+                  <img src="{{ c.cover }}" alt="{{ c.name }}" style="flex: none; width: 48px; height: 48px; border-radius: 10px; object-fit: cover;">
+                  <div style="flex: 1; min-width: 0;">
+                    <p style="margin: 0; font-size: 14px; font-weight: 600; color: #2c2c2c;">{{ c.name }}</p>
+                    <p style="margin: 2px 0 0; font-size: 12px; color: #7a756c;">{{ c.countText }}</p>
+                  </div>
+                  <span style="flex: none; font-size: 16px; color: #7a756c;">›</span>
+                </button>
+              </sc-for>
+            </sc-if>
+          </sc-if>
+
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== MOBILE BOTTOM NAV (removed: replaced by top menu drawer) ===================== -->
+      </div>
+    </nav>
+  </sc-if>
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultAuthMode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;login&quot;, &quot;options&quot;: [&quot;login&quot;, &quot;signup&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Auth&quot;}}">
+class Component extends DCLogic {
+  res(id, fallback) { return (typeof window !== "undefined" && window.__resources && window.__resources[id]) || fallback; }
+  recipes = [
+    { id: "citrus-avocado-salad", title: "Citrus & Avocado Salad", image: this.res("img-citrus", "assets/recipes/citrus-salad.png"), author: "Lucía Moreno", authorAvatar: this.res("img-avatar1", "assets/avatars/avatar-1.png"), category: "healthy", tags: ["Vegan", "Gluten-free", "Fresh"], time: "15 min", difficulty: "Easy", servings: 2, saves: 1240, description: "A bright, zesty salad that balances creamy avocado with juicy blood orange and a citrus vinaigrette. The perfect light lunch.", ingredients: [{ name: "Blood oranges", amount: "2" }, { name: "Ripe avocado", amount: "1" }, { name: "Mixed greens", amount: "4 cups" }, { name: "Red onion, sliced", amount: "1/4" }, { name: "Pistachios", amount: "1/4 cup" }, { name: "Olive oil", amount: "3 tbsp" }, { name: "Fresh lemon juice", amount: "2 tbsp" }, { name: "Honey", amount: "1 tsp" }], steps: ["Segment the blood oranges over a bowl to catch the juice.", "Whisk the vinaigrette ingredients with the reserved orange juice.", "Arrange greens on a platter, then layer avocado slices and orange segments.", "Scatter red onion and pistachios on top.", "Drizzle with the vinaigrette and serve immediately."] },
+    { id: "lemon-ricotta-pancakes", title: "Lemon Ricotta Pancakes", image: this.res("img-pancakes", "assets/recipes/pancakes.png"), author: "Marco Silva", authorAvatar: this.res("img-avatar2", "assets/avatars/avatar-2.png"), category: "breakfast", tags: ["Brunch", "Vegetarian"], time: "30 min", difficulty: "Easy", servings: 4, saves: 980, description: "Fluffy, tangy ricotta pancakes brightened with lemon zest and topped with fresh berries. A weekend staple.", ingredients: [{ name: "Ricotta cheese", amount: "1 cup" }, { name: "Eggs", amount: "3" }, { name: "All-purpose flour", amount: "3/4 cup" }, { name: "Lemon zest", amount: "2 tbsp" }, { name: "Mixed berries", amount: "1 cup" }], steps: ["Separate eggs; whisk yolks with ricotta and lemon zest.", "Fold in flour until just combined.", "Beat egg whites to soft peaks and fold into the batter.", "Cook spoonfuls on a buttered skillet until golden on both sides.", "Serve stacked with berries and a dusting of powdered sugar."] },
+    { id: "lemon-garlic-pasta", title: "Lemon Garlic Pasta", image: this.res("img-pasta", "assets/recipes/pasta.png"), author: "Lucía Moreno", authorAvatar: this.res("img-avatar1", "assets/avatars/avatar-1.png"), category: "dinner", tags: ["Comfort", "Vegetarian"], time: "25 min", difficulty: "Easy", servings: 4, saves: 2100, description: "Silky pasta tossed in a bright lemon-garlic sauce with parmesan and fresh herbs. Simple weeknight elegance.", ingredients: [{ name: "Spaghetti", amount: "400 g" }, { name: "Garlic cloves", amount: "4" }, { name: "Lemon", amount: "1" }, { name: "Parmesan", amount: "1/2 cup" }, { name: "Fresh parsley", amount: "1/4 cup" }], steps: ["Cook pasta until al dente, reserving 1 cup of pasta water.", "Sauté garlic in olive oil until fragrant.", "Add lemon juice, zest, and a splash of pasta water.", "Toss in pasta and parmesan until glossy.", "Finish with parsley and cracked pepper."] },
+    { id: "rainbow-buddha-bowl", title: "Rainbow Buddha Bowl", image: this.res("img-buddha", "assets/recipes/buddha-bowl.png"), author: "Marco Silva", authorAvatar: this.res("img-avatar2", "assets/avatars/avatar-2.png"), category: "healthy", tags: ["Vegan", "Meal prep", "Protein"], time: "40 min", difficulty: "Medium", servings: 2, saves: 1560, description: "A nourishing bowl of roasted vegetables, quinoa, and chickpeas finished with a creamy tahini dressing.", ingredients: [{ name: "Quinoa", amount: "1 cup" }, { name: "Chickpeas", amount: "1 can" }, { name: "Sweet potato", amount: "1" }, { name: "Kale", amount: "2 cups" }, { name: "Tahini", amount: "3 tbsp" }], steps: ["Roast cubed sweet potato and chickpeas until crisp.", "Cook quinoa according to package directions.", "Massage kale with olive oil and lemon.", "Whisk tahini with lemon juice and water until pourable.", "Assemble bowls and drizzle with dressing."] },
+    { id: "baja-fish-tacos", title: "Baja Fish Tacos", image: this.res("img-tacos", "assets/recipes/tacos.png"), author: "Lucía Moreno", authorAvatar: this.res("img-avatar1", "assets/avatars/avatar-1.png"), category: "lunch", tags: ["Quick", "Pescatarian"], time: "20 min", difficulty: "Easy", servings: 3, saves: 870, description: "Crisp fish tacos with a tangy lime cabbage slaw and cilantro. Bright, fresh, and ready in twenty minutes.", ingredients: [{ name: "White fish fillets", amount: "400 g" }, { name: "Corn tortillas", amount: "6" }, { name: "Cabbage", amount: "2 cups" }, { name: "Lime", amount: "2" }, { name: "Cilantro", amount: "1/4 cup" }], steps: ["Season and pan-sear the fish until flaky.", "Toss shredded cabbage with lime juice and salt.", "Warm the tortillas in a dry skillet.", "Flake fish into tortillas and top with slaw.", "Finish with cilantro and a squeeze of lime."] },
+    { id: "mango-citrus-smoothie-bowl", title: "Mango Citrus Smoothie Bowl", image: this.res("img-smoothie", "assets/recipes/smoothie.png"), author: "Marco Silva", authorAvatar: this.res("img-avatar2", "assets/avatars/avatar-2.png"), category: "quick", tags: ["Vegan", "5-ingredient", "Breakfast"], time: "10 min", difficulty: "Easy", servings: 1, saves: 640, description: "A sunny smoothie bowl blending mango and orange, topped with granola and fresh fruit for crunch.", ingredients: [{ name: "Frozen mango", amount: "1 cup" }, { name: "Orange juice", amount: "1/2 cup" }, { name: "Banana", amount: "1" }, { name: "Granola", amount: "1/4 cup" }, { name: "Fresh berries", amount: "1/4 cup" }], steps: ["Blend mango, banana, and orange juice until thick.", "Pour into a chilled bowl.", "Top with granola and fresh berries.", "Serve immediately with a spoon."] },
+    { id: "lemon-herb-roast-chicken", title: "Lemon Herb Roast Chicken", image: this.res("img-roast", "assets/recipes/roast-chicken.png"), author: "Lucía Moreno", authorAvatar: this.res("img-avatar1", "assets/avatars/avatar-1.png"), category: "dinner", tags: ["Sunday roast", "Family"], time: "1 hr 30 min", difficulty: "Medium", servings: 6, saves: 3200, description: "Golden, juicy roast chicken infused with lemon and herbs, surrounded by caramelized vegetables.", ingredients: [{ name: "Whole chicken", amount: "1.5 kg" }, { name: "Lemons", amount: "2" }, { name: "Fresh thyme", amount: "1 bunch" }, { name: "Garlic head", amount: "1" }, { name: "Root vegetables", amount: "500 g" }], steps: ["Pat chicken dry and season generously.", "Stuff cavity with lemon halves and thyme.", "Arrange vegetables in a roasting pan.", "Roast at 200°C until the juices run clear.", "Rest before carving and serving."] },
+    { id: "vegan-lemon-tart", title: "Vegan Lemon Tart", image: this.res("img-dessert", "assets/recipes/dessert.png"), author: "Marco Silva", authorAvatar: this.res("img-avatar2", "assets/avatars/avatar-2.png"), category: "dinner", tags: ["Vegan", "Dessert", "Citrus"], time: "50 min", difficulty: "Medium", servings: 8, saves: 1120, description: "A silky vegan lemon tart with a crisp crust and bright citrus curd, topped with fresh berries.", ingredients: [{ name: "Cashews", amount: "1.5 cups" }, { name: "Lemons", amount: "3" }, { name: "Coconut cream", amount: "1/2 cup" }, { name: "Maple syrup", amount: "1/3 cup" }, { name: "Almond flour", amount: "1.5 cups" }], steps: ["Blend almond flour crust and press into a tart pan.", "Blend soaked cashews with lemon, coconut cream, and maple.", "Pour filling into the crust.", "Chill until set, at least 4 hours.", "Top with berries before serving."] },
+  ];
+
+  collections = [
+    { id: "postres-veganos", name: "Postres Veganos", cover: this.res("img-dessert", "assets/recipes/dessert.png"), count: 12, accent: "#e8415a", recipeIds: ["vegan-lemon-tart", "mango-citrus-smoothie-bowl"] },
+    { id: "favoritos", name: "Favoritos", cover: this.res("img-pasta", "assets/recipes/pasta.png"), count: 28, accent: "#f5c842", recipeIds: ["lemon-garlic-pasta", "lemon-herb-roast-chicken", "citrus-avocado-salad"] },
+    { id: "desayunos", name: "Desayunos", cover: this.res("img-pancakes", "assets/recipes/pancakes.png"), count: 9, accent: "#7dc242", recipeIds: ["lemon-ricotta-pancakes", "mango-citrus-smoothie-bowl"] },
+    { id: "comida-rapida", name: "Comida Rápida", cover: this.res("img-tacos", "assets/recipes/tacos.png"), count: 15, accent: "#f2735a", recipeIds: ["baja-fish-tacos", "mango-citrus-smoothie-bowl"] },
+    { id: "saludable", name: "Saludable", cover: this.res("img-buddha", "assets/recipes/buddha-bowl.png"), count: 21, accent: "#7dc242", recipeIds: ["rainbow-buddha-bowl", "citrus-avocado-salad", "mango-citrus-smoothie-bowl"] },
+    { id: "para-compartir", name: "Para Compartir", cover: this.res("img-roast", "assets/recipes/roast-chicken.png"), count: 7, accent: "#e8415a", recipeIds: ["lemon-herb-roast-chicken", "lemon-garlic-pasta"] },
+  ];
+
+  categories = [
+    { id: "all", label: "All" }, { id: "breakfast", label: "Breakfast" }, { id: "lunch", label: "Lunch" },
+    { id: "dinner", label: "Dinner" }, { id: "quick", label: "Quick" }, { id: "healthy", label: "Healthy" },
+  ];
+
+  dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  state = {
+    view: "feed",
+    recipeId: "lemon-garlic-pasta",
+    collectionId: null,
+    isMobile: false,
+    servings: 4,
+    saved: false,
+    category: "all",
+    ingredients: [{ k: 1 }, { k: 2 }, { k: 3 }],
+    steps: [{ k: 1 }, { k: 2 }],
+    nextKey: 100,
+    weekOffset: 0,
+    planner: {},
+    pickerDay: null,
+    pickerTab: "recipes",
+    pickerCollectionId: null,
+    pickerQuery: "",
+    pickerSearchField: "name",
+    pickerDifficulty: "all",
+    feedTags: [],
+    feedDraft: "",
+    searchField: "name",
+    difficultyFilter: "all",
+    customCollections: [],
+    showCreateCollection: false,
+    newCollectionName: "",
+    newCollectionCover: "",
+    newCollectionAccent: "#e8415a",
+    extraRecipesByCollection: {},
+    removedFromCollection: {},
+    collectionAddOpen: false,
+    collectionAddQuery: "",
+    collectionAddField: "name",
+    collectionAddDifficulty: "all",
+    quickSaveRecipeId: null,
+    quickPlanRecipeId: null,
+    profileMenuOpen: false,
+    mobileNavOpen: false,
+    editProfileOpen: false,
+    authMode: this.props.defaultAuthMode ?? "login",
+    quickPlanMonthOffset: 0,
+  };
+
+  componentDidMount() {
+    this.mq = window.matchMedia("(max-width: 767px)");
+    this._apply = () => this.setState({ isMobile: this.mq.matches });
+    this._apply();
+    this.mq.addEventListener("change", this._apply);
+  }
+  componentWillUnmount() {
+    if (this.mq && this._apply) this.mq.removeEventListener("change", this._apply);
+  }
+
+  go = (view, extra) => {
+    if (typeof window !== "undefined") window.scrollTo(0, 0);
+    this.setState({ view, ...(extra || {}) });
+  };
+  goFeed = () => this.go("feed");
+  goCreate = () => this.go("create");
+  goCollections = () => this.go("collections");
+  goPlanner = () => this.go("planner");
+  openRecipe = (id) => {
+    const r = this.recipes.find((x) => x.id === id);
+    this.go("recipe", { recipeId: id, servings: r ? r.servings : 4, saved: false });
+  };
+  allCollections = () => [...this.collections, ...this.state.customCollections];
+  deleteCollection = (id, e) => {
+    e.stopPropagation();
+    this.setState((s) => ({
+      customCollections: s.customCollections.filter((c) => c.id !== id),
+      deletedCollectionIds: [...(s.deletedCollectionIds || []), id],
+    }));
+  };
+  toggleProfileMenu = (e) => { e.stopPropagation(); this.setState((s) => ({ profileMenuOpen: !s.profileMenuOpen })); };
+  closeProfileMenu = () => this.setState({ profileMenuOpen: false });
+  openEditProfile = () => this.setState({ editProfileOpen: true, profileMenuOpen: false });
+  closeEditProfile = () => this.setState({ editProfileOpen: false });
+  toggleMobileNav = () => this.setState((s) => ({ mobileNavOpen: !s.mobileNavOpen }));
+  closeMobileNav = () => this.setState({ mobileNavOpen: false });
+  mobileNavGo = (fn) => { this.closeMobileNav(); fn(); };
+  logOut = () => this.setState({ profileMenuOpen: false, view: "auth", authMode: "login" });
+  goLogin = () => this.setState({ view: "feed" });
+  setAuthMode = (mode) => this.setState({ authMode: mode });
+  openCollectionAdd = () => this.setState({ collectionAddOpen: true, collectionAddQuery: "" });
+  closeCollectionAdd = () => this.setState({ collectionAddOpen: false });
+  setCollectionAddQuery = (e) => this.setState({ collectionAddQuery: e.target.value });
+  setCollectionAddField = (e) => this.setState({ collectionAddField: e.target.value });
+  setCollectionAddDifficulty = (d) => this.setState({ collectionAddDifficulty: d });
+  openQuickSave = (recipeId) => this.setState({ quickSaveRecipeId: recipeId });
+  closeQuickSave = () => this.setState({ quickSaveRecipeId: null });
+  toggleRecipeInCollectionQuick = (collectionId, recipeId, isIn) => {
+    this.setState((s) => {
+      const base = this.collections.find((c) => c.id === collectionId);
+      const extra = s.extraRecipesByCollection[collectionId] || [];
+      if (isIn) {
+        if (base && base.recipeIds.includes(recipeId)) {
+          const removed = { ...s.removedFromCollection, [collectionId]: [...(s.removedFromCollection[collectionId] || []), recipeId] };
+          return { removedFromCollection: removed };
+        }
+        return { extraRecipesByCollection: { ...s.extraRecipesByCollection, [collectionId]: extra.filter((id) => id !== recipeId) } };
+      }
+      const removedList = (s.removedFromCollection[collectionId] || []).filter((id) => id !== recipeId);
+      return {
+        extraRecipesByCollection: extra.includes(recipeId) ? s.extraRecipesByCollection : { ...s.extraRecipesByCollection, [collectionId]: [...extra, recipeId] },
+        removedFromCollection: { ...s.removedFromCollection, [collectionId]: removedList },
+      };
+    });
+  };
+  openCreateCollectionFromSave = () => this.setState({ showCreateCollection: true, newCollectionName: "", newCollectionCover: this.coverChoices[0], newCollectionAccent: "#e8415a" });
+  handlePlanDateChange = (recipeId, e) => {
+    const val = e.target.value;
+    if (!val) return;
+    const [y, m, d] = val.split("-").map(Number);
+    const dateKey = new Date(y, m - 1, d).toDateString();
+    this.addMealQuick(dateKey, recipeId);
+    e.target.value = "";
+  };
+  addMealQuick = (dayKey, recipeId) => {
+    this.addMeal(dayKey, recipeId);
+    this.setState({ quickPlanRecipeId: null });
+  };
+  addRecipeToActiveCollection = (recipeId) => {
+    this.setState((s) => {
+      const id = s.collectionId || this.allCollections()[0].id;
+      const existing = s.extraRecipesByCollection[id] || [];
+      if (existing.includes(recipeId)) return { collectionAddOpen: false };
+      return { extraRecipesByCollection: { ...s.extraRecipesByCollection, [id]: [...existing, recipeId] }, collectionAddOpen: false };
+    });
+  };
+  openCollection = (id) => this.go("collection", { collectionId: id });
+  setCategory = (id) => this.setState({ category: id });
+  setFeedDraft = (e) => this.setState({ feedDraft: e.target.value });
+  setSearchField = (field) => this.setState({ searchField: field });
+  handleFeedDraftKey = (e) => {
+    if (e.key === "Enter" && e.target.value.trim()) {
+      e.preventDefault();
+      const val = e.target.value.trim().toLowerCase();
+      this.setState((s) => {
+        const exists = s.feedTags.some((t) => t.field === s.searchField && t.value === val);
+        return exists ? { feedDraft: "" } : { feedTags: [...s.feedTags, { field: s.searchField, value: val }], feedDraft: "" };
+      });
+    } else if (e.key === "Backspace" && !e.target.value) {
+      this.setState((s) => ({ feedTags: s.feedTags.slice(0, -1) }));
+    }
+  };
+  removeFeedTag = (field, value) => this.setState((s) => ({ feedTags: s.feedTags.filter((t) => !(t.field === field && t.value === value)) }));
+  setDifficultyFilter = (d) => this.setState({ difficultyFilter: d });
+
+  accentChoices = ["#e8415a", "#f2735a", "#f5c842", "#7dc242"];
+  coverChoices = [
+    this.res("img-citrus", "assets/recipes/citrus-salad.png"), this.res("img-pancakes", "assets/recipes/pancakes.png"),
+    this.res("img-pasta", "assets/recipes/pasta.png"), this.res("img-buddha", "assets/recipes/buddha-bowl.png"),
+    this.res("img-tacos", "assets/recipes/tacos.png"), this.res("img-smoothie", "assets/recipes/smoothie.png"),
+    this.res("img-roast", "assets/recipes/roast-chicken.png"), this.res("img-dessert", "assets/recipes/dessert.png"),
+  ];
+
+  openCreateCollection = () => this.setState({ showCreateCollection: true, newCollectionName: "", newCollectionCover: this.res("img-citrus", "assets/recipes/citrus-salad.png"), newCollectionAccent: "#e8415a" });
+  closeCreateCollection = () => this.setState({ showCreateCollection: false });
+  setNewCollectionName = (e) => this.setState({ newCollectionName: e.target.value });
+  setNewCollectionCover = (cover) => this.setState({ newCollectionCover: cover });
+  setNewCollectionAccent = (accent) => this.setState({ newCollectionAccent: accent });
+  createCollection = () => {
+    this.setState((s) => {
+      const name = s.newCollectionName.trim() || "Untitled collection";
+      const id = "custom-" + s.nextKey;
+      const recipeIds = s.quickSaveRecipeId ? [s.quickSaveRecipeId] : [];
+      const col = { id, name, cover: s.newCollectionCover, count: recipeIds.length, accent: s.newCollectionAccent, recipeIds };
+      return { customCollections: [...s.customCollections, col], showCreateCollection: false, nextKey: s.nextKey + 1, quickSaveRecipeId: s.quickSaveRecipeId ? null : s.quickSaveRecipeId };
+    });
+  };
+  incServings = () => this.setState((s) => ({ servings: Math.min(20, s.servings + 1) }));
+  decServings = () => this.setState((s) => ({ servings: Math.max(1, s.servings - 1) }));
+  toggleSaved = () => this.setState((s) => ({ saved: !s.saved }));
+
+  addIngredient = () => this.setState((s) => ({ ingredients: [...s.ingredients, { k: s.nextKey }], nextKey: s.nextKey + 1 }));
+  removeIngredient = (k) => this.setState((s) => ({ ingredients: s.ingredients.length > 1 ? s.ingredients.filter((r) => r.k !== k) : s.ingredients }));
+  addStep = () => this.setState((s) => ({ steps: [...s.steps, { k: s.nextKey }], nextKey: s.nextKey + 1 }));
+  removeStep = (k) => this.setState((s) => ({ steps: s.steps.length > 1 ? s.steps.filter((r) => r.k !== k) : s.steps }));
+
+  prevWeek = () => this.setState((s) => ({ weekOffset: s.weekOffset - 1 }));
+  nextWeek = () => this.setState((s) => ({ weekOffset: s.weekOffset + 1 }));
+  thisWeek = () => this.setState({ weekOffset: 0 });
+
+  weekStart(offset) {
+    const today = new Date(2026, 6, 27); // Mon anchor: current date
+    const dow = (today.getDay() + 6) % 7; // Mon=0
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - dow + offset * 7);
+    return monday;
+  }
+
+  openPicker = (dayIdx) => this.setState({ pickerDay: dayIdx, pickerTab: "recipes", pickerCollectionId: null, pickerQuery: "" });
+  closePicker = () => this.setState({ pickerDay: null, pickerCollectionId: null, pickerQuery: "" });
+  setPickerTab = (tab) => this.setState({ pickerTab: tab, pickerCollectionId: null });
+  setPickerQuery = (q) => this.setState({ pickerQuery: q });
+  setPickerSearchField = (f) => this.setState({ pickerSearchField: f });
+  setPickerDifficulty = (d) => this.setState({ pickerDifficulty: d });
+  openPickerCollection = (id) => this.setState({ pickerCollectionId: id });
+  backPickerCollections = () => this.setState({ pickerCollectionId: null });
+
+  addMeal = (dayKey, recipeId) => {
+    this.setState((s) => {
+      const list = s.planner[dayKey] || [];
+      const existing = list.find((m) => m.recipeId === recipeId);
+      const newList = existing
+        ? list.map((m) => (m.recipeId === recipeId ? { ...m, qty: m.qty + 1 } : m))
+        : [...list, { key: s.nextKey, recipeId, qty: 1 }];
+      return { planner: { ...s.planner, [dayKey]: newList }, nextKey: s.nextKey + 1, pickerDay: null, pickerCollectionId: null };
+    });
+  };
+  changeQty = (dayKey, key, delta) => {
+    this.setState((s) => {
+      const list = s.planner[dayKey] || [];
+      const newList = list
+        .map((m) => (m.key === key ? { ...m, qty: m.qty + delta } : m))
+        .filter((m) => m.qty > 0);
+      return { planner: { ...s.planner, [dayKey]: newList } };
+    });
+  };
+
+  scale(amount, factor) {
+    if (factor === 1) return amount;
+    const m = amount.match(/^(\d+\/\d+|\d+(?:\.\d+)?)/);
+    if (!m) return amount;
+    const t = m[1];
+    let v;
+    if (t.includes("/")) { const [n, d] = t.split("/").map(Number); v = n / d; }
+    else v = parseFloat(t);
+    const r = Math.round(v * factor * 100) / 100;
+    return amount.replace(t, String(r));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const view = s.view;
+    const allCols = this.allCollections();
+
+    const navDefs = [
+      { label: "Feed", active: view === "feed", onClick: this.goFeed },
+      { label: "Collections", active: view === "collections" || view === "collection", onClick: this.goCollections },
+      { label: "Meal Planner", active: view === "planner", onClick: this.goPlanner },
+    ];
+    const navLinks = navDefs.map((l) => ({
+      label: l.label, onClick: l.onClick,
+      bg: l.active ? "#f5efe5" : "transparent",
+      color: l.active ? "#2c2c2c" : "#7a756c",
+    }));
+
+    const cats = this.categories.map((c) => ({
+      label: c.label, onClick: () => this.setCategory(c.id),
+      bg: s.category === c.id ? "#e8415a" : "#fff",
+      color: s.category === c.id ? "#fff" : "#7a756c",
+      border: s.category === c.id ? "#e8415a" : "#e7e0d3",
+    }));
+
+    const draftTerm = s.feedDraft.trim().toLowerCase();
+    const terms = [...s.feedTags, ...(draftTerm ? [{ field: s.searchField, value: draftTerm }] : [])];
+    const termMatch = (r, term) =>
+      term.field === "name"
+        ? r.title.toLowerCase().includes(term.value)
+        : r.ingredients.some((i) => i.name.toLowerCase().includes(term.value));
+    const textMatch = (r) => terms.length === 0 || terms.every((term) => termMatch(r, term));
+    const feedList = this.recipes
+      .filter((r) => s.category === "all" || r.category === s.category)
+      .filter((r) => s.difficultyFilter === "all" || r.difficulty.toLowerCase() === s.difficultyFilter)
+      .filter(textMatch);
+    const feedRecipes = feedList.map((r) => ({
+      image: r.image, title: r.title, time: r.time, author: r.author, authorAvatar: r.authorAvatar,
+      tags: r.tags.slice(0, 2), open: () => this.openRecipe(r.id),
+      save: (e) => { e.stopPropagation(); this.openQuickSave(r.id); },
+      planChange: (e) => { e.stopPropagation(); this.handlePlanDateChange(r.id, e); },
+    }));
+
+    const base = this.recipes.find((r) => r.id === s.recipeId) || this.recipes[0];
+    const factor = s.servings / base.servings;
+    const recipe = {
+      image: base.image, title: base.title, description: base.description, tags: base.tags,
+      author: base.author, authorAvatar: base.authorAvatar, time: base.time, difficulty: base.difficulty,
+      savesText: base.saves.toLocaleString(),
+      ingredients: base.ingredients.map((i) => ({ name: i.name, amount: this.scale(i.amount, factor) })),
+      steps: base.steps.map((t, i) => ({ n: i + 1, text: t })),
+    };
+
+    const collectionsList = allCols.map((c) => ({
+      id: c.id, name: c.name, cover: c.cover, accent: c.accent,
+      countText: c.count + " recipes", open: () => this.openCollection(c.id),
+      remove: (e) => { e.stopPropagation(); this.deleteCollection(c.id, e); },
+    }));
+
+    const ac = allCols.find((c) => c.id === s.collectionId) || allCols[0];
+    const acExtra = s.extraRecipesByCollection[ac.id] || [];
+    const acRemoved = s.removedFromCollection[ac.id] || [];
+    const acRecipeIds = [...ac.recipeIds, ...acExtra.filter((id) => !ac.recipeIds.includes(id))].filter((id) => !acRemoved.includes(id));
+    const activeCollection = {
+      id: ac.id, name: ac.name, cover: ac.cover, accent: ac.accent, countText: acRecipeIds.length + " recipes",
+      recipes: acRecipeIds.map((id) => {
+        const r = this.recipes.find((x) => x.id === id);
+        return {
+          image: r.image, title: r.title, time: r.time, author: r.author, authorAvatar: r.authorAvatar, open: () => this.openRecipe(r.id),
+          save: (e) => { e.stopPropagation(); this.openQuickSave(r.id); },
+          planChange: (e) => { e.stopPropagation(); this.handlePlanDateChange(r.id, e); },
+        };
+      }),
+    };
+
+    const quickSaveRecipe = s.quickSaveRecipeId ? this.recipes.find((r) => r.id === s.quickSaveRecipeId) : null;
+    const quickSaveCollections = quickSaveRecipe
+      ? allCols.map((c) => {
+          const extra = s.extraRecipesByCollection[c.id] || [];
+          const removed = s.removedFromCollection[c.id] || [];
+          const already = (c.recipeIds.includes(quickSaveRecipe.id) || extra.includes(quickSaveRecipe.id)) && !removed.includes(quickSaveRecipe.id);
+          return {
+            name: c.name, cover: c.cover, already, notAlready: !already,
+            toggle: () => this.toggleRecipeInCollectionQuick(c.id, quickSaveRecipe.id, already),
+          };
+        })
+      : [];
+
+
+
+    const caq = s.collectionAddQuery.trim().toLowerCase();
+    const collectionAddRecipes = this.recipes
+      .filter((r) => s.collectionAddDifficulty === "all" || r.difficulty.toLowerCase() === s.collectionAddDifficulty)
+      .filter((r) => !caq || (s.collectionAddField === "name" ? r.title.toLowerCase().includes(caq) : r.ingredients.some((i) => i.name.toLowerCase().includes(caq))))
+      .map((r) => ({
+        title: r.title, image: r.image, time: r.time,
+        already: acRecipeIds.includes(r.id),
+        add: () => this.addRecipeToActiveCollection(r.id),
+      }));
+
+    const formIngredients = s.ingredients.map((row) => ({ remove: () => this.removeIngredient(row.k) }));
+    const formSteps = s.steps.map((row, i) => ({ n: i + 1, remove: () => this.removeStep(row.k) }));
+
+    const monday = this.weekStart(s.weekOffset);
+    const weekEnd = new Date(monday); weekEnd.setDate(monday.getDate() + 6);
+    const sameMonth = monday.getMonth() === weekEnd.getMonth();
+    const weekLabel = sameMonth
+      ? `${this.monthNames[monday.getMonth()]} ${monday.getDate()} – ${weekEnd.getDate()}, ${weekEnd.getFullYear()}`
+      : `${this.monthNames[monday.getMonth()]} ${monday.getDate()} – ${this.monthNames[weekEnd.getMonth()]} ${weekEnd.getDate()}, ${weekEnd.getFullYear()}`;
+    const todayKey = this.weekStart(0).toDateString() === monday.toDateString() ? new Date(2026, 6, 27).toDateString() : null;
+
+    const plannerDays = this.dayNames.map((label, i) => {
+      const d = new Date(monday); d.setDate(monday.getDate() + i);
+      const dayKey = d.toDateString();
+      const meals = (s.planner[dayKey] || []).map((m) => {
+        const r = this.recipes.find((x) => x.id === m.recipeId);
+        return {
+          key: m.key, title: r.title, image: r.image, time: r.time, qty: m.qty,
+          inc: () => this.changeQty(dayKey, m.key, 1), dec: () => this.changeQty(dayKey, m.key, -1),
+          open: () => this.openRecipe(r.id),
+        };
+      });
+      return {
+        label, dateNum: d.getDate(), isToday: dayKey === todayKey, dayKey, meals,
+        hasMeals: meals.length > 0, addMeal: () => this.openPicker(i),
+      };
+    });
+
+    const isPickerOpen = s.pickerDay !== null;
+    const pickerDayLabel = isPickerOpen ? plannerDays[s.pickerDay].label : "";
+    const pickerDayKey = isPickerOpen ? plannerDays[s.pickerDay].dayKey : null;
+    const pickerTabs = ["recipes", "collections"].map((t) => ({
+      label: t === "recipes" ? "Discover" : "Collections", tab: t,
+      onClick: () => this.setPickerTab(t),
+      bg: s.pickerTab === t ? "#e8415a" : "#f5efe5", color: s.pickerTab === t ? "#fff" : "#2c2c2c",
+    }));
+    const q = s.pickerQuery.trim().toLowerCase();
+    const pickerRecipes = isPickerOpen && s.pickerTab === "recipes"
+      ? this.recipes
+          .filter((r) => s.pickerDifficulty === "all" || r.difficulty.toLowerCase() === s.pickerDifficulty)
+          .filter((r) => !q || (s.pickerSearchField === "name" ? r.title.toLowerCase().includes(q) : r.ingredients.some((i) => i.name.toLowerCase().includes(q))))
+          .map((r) => ({ id: r.id, title: r.title, image: r.image, time: r.time, add: () => this.addMeal(pickerDayKey, r.id) }))
+      : [];
+    const pickerNoResults = isPickerOpen && s.pickerTab === "recipes" && pickerRecipes.length === 0;
+    const pickerCollections = isPickerOpen && s.pickerTab === "collections" && !s.pickerCollectionId
+      ? allCols.map((c) => ({ id: c.id, name: c.name, cover: c.cover, countText: c.count + " recipes", open: () => this.openPickerCollection(c.id) }))
+      : [];
+    const pickerCollectionActive = isPickerOpen && s.pickerTab === "collections" && s.pickerCollectionId
+      ? allCols.find((c) => c.id === s.pickerCollectionId) : null;
+    const pickerCollectionRecipes = pickerCollectionActive
+      ? pickerCollectionActive.recipeIds.map((id) => {
+          const r = this.recipes.find((x) => x.id === id);
+          return { id: r.id, title: r.title, image: r.image, time: r.time, add: () => this.addMeal(pickerDayKey, r.id) };
+        }) : [];
+
+    return {
+      isMobile: s.isMobile && view !== "auth", showDesktop: !s.isMobile && view !== "auth", showHeaderChrome: view !== "auth",
+      isFeed: view === "feed", isRecipe: view === "recipe", isCreate: view === "create",
+      isCollections: view === "collections", isCollection: view === "collection", isPlanner: view === "planner",
+      isAuth: view === "auth", logOut: this.logOut, goLogin: this.goLogin,
+      isLogin: s.authMode === "login", isSignup: s.authMode === "signup",
+      showLogin: () => this.setAuthMode("login"), showSignup: () => this.setAuthMode("signup"),
+      authTitle: s.authMode === "login" ? "Log in" : "Create your account",
+      authSwitchText: s.authMode === "login" ? "New to Zest?" : "Already have an account?",
+      authSwitchLabel: s.authMode === "login" ? "Sign up" : "Log in",
+      authSwitchAction: s.authMode === "login" ? () => this.setAuthMode("signup") : () => this.setAuthMode("login"),
+      goFeed: this.goFeed, goCreate: this.goCreate, goCollections: this.goCollections, goPlanner: this.goPlanner,
+      weekLabel, plannerDays, prevWeek: this.prevWeek, nextWeek: this.nextWeek, thisWeek: this.thisWeek,
+      isPickerOpen, pickerDayLabel, pickerTabs, pickerIsRecipesTab: s.pickerTab === "recipes",
+      pickerIsCollectionsTab: s.pickerTab === "collections", pickerRecipes, pickerNoResults, pickerCollections,
+      pickerQuery: s.pickerQuery, setPickerQuery: (e) => this.setPickerQuery(e.target.value),
+      pickerSearchField: s.pickerSearchField, setPickerSearchFieldEvt: (e) => this.setPickerSearchField(e.target.value),
+      pickerDifficultyChips: [
+        { id: "all", label: "Any difficulty" }, { id: "easy", label: "Easy" }, { id: "medium", label: "Medium" }, { id: "hard", label: "Hard" },
+      ].map((m) => ({
+        label: m.label, onClick: () => this.setPickerDifficulty(m.id),
+        bg: s.pickerDifficulty === m.id ? "#2c2c2c" : "#f5efe5", color: s.pickerDifficulty === m.id ? "#fff" : "#2c2c2c",
+      })),
+      pickerCollectionActive, pickerCollectionRecipes, pickerCollectionsListVisible: !pickerCollectionActive,
+      closePicker: this.closePicker, backPickerCollections: this.backPickerCollections,
+      navLinks, categories: cats, feedRecipes, feedCountText: feedList.length + " recipes",
+      feedDraft: s.feedDraft, setFeedDraft: this.setFeedDraft, handleFeedDraftKey: this.handleFeedDraftKey,
+      searchField: s.searchField, setSearchFieldEvt: (e) => this.setSearchField(e.target.value),
+      nameTagChips: s.feedTags.filter((t) => t.field === "name").map((t) => ({ label: t.value, remove: () => this.removeFeedTag(t.field, t.value) })),
+      ingredientTagChips: s.feedTags.filter((t) => t.field === "ingredient").map((t) => ({ label: t.value, remove: () => this.removeFeedTag(t.field, t.value) })),
+      hasNameTags: s.feedTags.some((t) => t.field === "name"),
+      hasIngredientTags: s.feedTags.some((t) => t.field === "ingredient"),
+      feedNoResults: feedList.length === 0,
+      difficultyChips: [
+        { id: "all", label: "Any difficulty" }, { id: "easy", label: "Easy" }, { id: "medium", label: "Medium" }, { id: "hard", label: "Hard" },
+      ].map((m) => ({
+        label: m.label, onClick: () => this.setDifficultyFilter(m.id),
+        bg: s.difficultyFilter === m.id ? "#2c2c2c" : "#f5efe5", color: s.difficultyFilter === m.id ? "#fff" : "#2c2c2c",
+      })),
+      recipe, servings: s.servings, incServings: this.incServings, decServings: this.decServings,
+      toggleSaved: this.toggleSaved,
+      openSaveForCurrent: () => this.openQuickSave(s.recipeId),
+      planChangeForCurrent: (e) => this.handlePlanDateChange(s.recipeId, e),
+      planDateInputRef: (el) => { this._planDateInput = el; },
+      openPlanDateForCurrent: () => {
+        const el = this._planDateInput;
+        if (!el) return;
+        el.focus();
+        try { el.showPicker(); } catch (err) { el.click(); }
+      },
+      stopProp: (e) => e.stopPropagation(),
+      hideImgOnError: (e) => { e.target.style.visibility = "hidden"; },
+      showAuthHero: !s.isMobile,
+      authGridCols: s.isMobile ? "1fr" : "1fr 1fr",
+      profileMenuOpen: s.profileMenuOpen, toggleProfileMenu: this.toggleProfileMenu, closeProfileMenu: this.closeProfileMenu,
+      mobileNavOpen: s.mobileNavOpen, toggleMobileNav: this.toggleMobileNav, closeMobileNav: this.closeMobileNav,
+      mobileNavGoFeed: () => this.mobileNavGo(this.goFeed), mobileNavGoCollections: () => this.mobileNavGo(this.goCollections),
+      mobileNavGoPlanner: () => this.mobileNavGo(this.goPlanner), mobileNavGoCreate: () => this.mobileNavGo(this.goCreate),
+      mobileNavLogOut: () => this.mobileNavGo(this.logOut),
+      editProfileOpen: s.editProfileOpen, openEditProfile: this.openEditProfile, closeEditProfile: this.closeEditProfile,
+      weekPillFlex: s.isMobile ? "1 1 auto" : "none",
+      weekPillWidth: s.isMobile ? "100%" : "auto",
+      plannerGridStyle: s.isMobile
+        ? { display: "flex", flexDirection: "column", gap: "14px" }
+        : { display: "grid", gridAutoFlow: "column", gridAutoColumns: "minmax(220px, 1fr)", overflowX: "auto", gap: "14px", paddingBottom: "8px" },
+      closeProfileMenuIfOpen: s.profileMenuOpen ? this.closeProfileMenu : undefined,
+      collectionsList, activeCollection,
+      collectionAddOpen: s.collectionAddOpen, openCollectionAdd: this.openCollectionAdd,
+      closeCollectionAdd: this.closeCollectionAdd, collectionAddQuery: s.collectionAddQuery,
+      setCollectionAddQuery: this.setCollectionAddQuery, collectionAddRecipes,
+      collectionAddNoResults: collectionAddRecipes.length === 0,
+      collectionAddField: s.collectionAddField, setCollectionAddFieldEvt: this.setCollectionAddField,
+      collectionAddDifficultyChips: [
+        { id: "all", label: "Any difficulty" }, { id: "easy", label: "Easy" }, { id: "medium", label: "Medium" }, { id: "hard", label: "Hard" },
+      ].map((m) => ({
+        label: m.label, onClick: () => this.setCollectionAddDifficulty(m.id),
+        bg: s.collectionAddDifficulty === m.id ? "#2c2c2c" : "#f5efe5", color: s.collectionAddDifficulty === m.id ? "#fff" : "#2c2c2c",
+      })),
+      quickSaveOpen: !!quickSaveRecipe, quickSaveRecipeTitle: quickSaveRecipe ? quickSaveRecipe.title : "",
+      quickSaveCollections, closeQuickSave: this.closeQuickSave,
+      openCreateCollectionFromSave: this.openCreateCollectionFromSave,
+
+      showCreateCollection: s.showCreateCollection, openCreateCollection: this.openCreateCollection,
+      closeCreateCollection: this.closeCreateCollection, createCollection: this.createCollection,
+      newCollectionName: s.newCollectionName, setNewCollectionName: this.setNewCollectionName,
+      coverChoices: this.coverChoices.map((c) => ({
+        src: c, onClick: () => this.setNewCollectionCover(c),
+        border: s.newCollectionCover === c ? "3px solid #e8415a" : "3px solid transparent",
+      })),
+      accentChoices: this.accentChoices.map((a) => ({
+        color: a, onClick: () => this.setNewCollectionAccent(a),
+        ring: s.newCollectionAccent === a ? "0 0 0 2px #fff, 0 0 0 4px " + a : "none",
+      })),
+      formIngredients, addIngredient: this.addIngredient,
+      formSteps, addStep: this.addStep,
+      tabFeed: view === "feed" ? "#e8415a" : "#7a756c",
+      tabCollections: (view === "collections" || view === "collection") ? "#e8415a" : "#7a756c",
+      tabPlanner: view === "planner" ? "#e8415a" : "#7a756c",
+    };
+  }
+}
+</script>
+</body>
+</html>
