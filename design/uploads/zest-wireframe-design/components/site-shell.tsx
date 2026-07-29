@@ -12,7 +12,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
       {/* Mobile header */}
       <header className="sticky top-0 z-40 flex items-center gap-3 border-b border-border bg-background/90 px-4 py-3 backdrop-blur md:hidden">
-        <Link href="/" aria-label="Zest home" className="flex items-center gap-2">
+        <Link href="/design/uploads/zest-wireframe-design/public" aria-label="Zest home" className="flex items-center gap-2">
           <Image
             src="/zest-logo.png"
             alt="Zest logo"

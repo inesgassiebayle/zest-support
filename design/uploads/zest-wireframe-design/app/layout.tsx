@@ -14,9 +14,9 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Zest — Recipes & Weekly Meal Planning',
+  title: 'zest — Recipes & Weekly Meal Planning',
   description:
-    'Discover community recipes, organize your collections, and plan your week with Zest, the fresh way to cook.',
+    'Discover community recipes, organize your collections, and plan your week with zest, the fresh way to cook.',
   generator: 'v0.app',
 }
 

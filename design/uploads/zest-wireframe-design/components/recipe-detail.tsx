@@ -24,7 +24,7 @@ export function RecipeDetail({ recipe }: { recipe: Recipe }) {
   return (
     <article className="flex flex-col gap-8">
       <Link
-        href="/"
+        href="/design/uploads/zest-wireframe-design/public"
         className="inline-flex w-fit items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />

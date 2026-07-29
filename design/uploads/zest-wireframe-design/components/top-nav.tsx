@@ -19,7 +19,7 @@ export function TopNav() {
   return (
     <header className="sticky top-0 z-40 hidden border-b border-border bg-background/90 backdrop-blur md:block">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-6">
-        <Link href="/" aria-label="Zest home">
+        <Link href="/design/uploads/zest-wireframe-design/public" aria-label="Zest home">
           <Logo />
         </Link>
 
@@ -56,7 +56,7 @@ export function TopNav() {
 
         <div className="flex items-center gap-2">
           <Link
-            href="/"
+            href="/design/uploads/zest-wireframe-design/public"
             className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
           >
             <Plus className="h-4 w-4" />
