@@ -13,6 +13,11 @@ Option A from [`../design/tech-stack.md`](../design/tech-stack.md): a single EC2
 - Always run `terraform plan` and read the diff before `terraform apply` — especially for anything touching RDS or security groups.
 - Secrets (DB passwords, Auth0 keys) go through a secrets mechanism (e.g. `.tfvars` excluded from git, or a secrets manager) — never hardcoded in `.tf` files.
 
+## Object storage (S3)
+- One bucket per environment (e.g. `zest-images-dev`, `zest-images-prod`) — don't share a bucket across environments.
+- The backend only ever hands out pre-signed URLs; it doesn't proxy file bytes. See [`backend.md`](./backend.md#images-s3).
+- Bucket policy should block public write, and only allow public (or CDN-fronted) read for object keys the app actually generated — don't make the whole bucket world-writable to work around CORS issues.
+
 ## Deploy
 - Deploy is `git pull` + `docker compose up -d --build` over SSH on the EC2 box (per the current architecture decision). Don't introduce a different deploy mechanism (e.g. a CI/CD pipeline to a different target) without updating `design/tech-stack.md` to match.
 - HTTPS via Let's Encrypt/Certbot, auto-renewed — don't disable TLS or fall back to plain HTTP, including for "quick testing" on the shared server.

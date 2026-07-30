@@ -19,6 +19,11 @@
 - JWT validation via a Nest guard that checks tokens against Auth0's JWKS endpoint. No passwords, no server-side sessions. Details: [`auth.md`](./auth.md).
 - `users.auth0_sub` is how a validated token maps to an internal user row — look the user up by that field, don't assume `sub` is a local UUID.
 
+## Images (S3)
+- Images never touch the database as binary data — `recipe_images.image_url` stores only the URL, per [`../design/db.md`](../design/db.md).
+- Don't stream file uploads through the NestJS server. Have the backend issue a pre-signed S3 upload URL, let the client (frontend) upload the file bytes directly to the bucket, then have the client send the resulting object URL to the backend to save as a `recipe_images` row.
+- The backend is responsible for `position` (ordering) and `is_cover` (which image is the thumbnail) — validate that exactly one image per recipe is marked `is_cover` if that invariant matters to the team.
+
 ## Errors & responses
 - Use Nest's built-in `HttpException` subclasses (`NotFoundException`, `BadRequestException`, etc.) instead of throwing raw errors or returning ad-hoc error objects.
 - Consistent response shapes across endpoints — don't mix "return the entity directly" and "return `{ data: entity }`" across different controllers.

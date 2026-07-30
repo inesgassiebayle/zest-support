@@ -28,6 +28,9 @@ src/
 ## Auth
 - Use the official Auth0 React SDK (`@auth0/auth0-react`) for login/logout/session — don't hand-roll token storage or refresh logic. Details: [`auth.md`](./auth.md).
 
+## Image uploads
+- Images go straight to the S3 bucket, not through the backend as file bytes: request a pre-signed upload URL from the backend, `PUT` the file to that URL directly, then send the resulting object URL to the backend to persist as a `recipe_images` row. See [`backend.md`](./backend.md#images-s3).
+
 ## General
 - TypeScript strict mode on. Fix type errors, don't suppress them with `@ts-ignore` unless there's a documented reason.
 - No unused imports/variables — clean up before committing.

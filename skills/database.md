@@ -18,3 +18,8 @@
 ## Queries
 - Prefer Prisma's relation includes/filters over N+1 loops in application code.
 - For the `follows` self-referential relation (`follower_id`/`followed_id`, both → `users`), be explicit about direction in query names/variables (`following` vs `followers`) — it's easy to flip these by accident.
+
+## Schema nuances worth knowing
+- `weekly_plans` is per-user, per-week (`week_start_date`); `planning_entries` links a plan to a recipe on a given `day_of_week` (0–6) with a `servings` count. A recipe assigned in a plan can belong to a different user than the plan's owner (per `design/tech-stack.md`) — don't add a constraint that recipe and plan must share the same `user_id`.
+- `recipe_images.position` orders the gallery; `is_cover` marks the thumbnail. These are independent — the cover image isn't necessarily `position = 0`, so don't derive one from the other.
+- `collection_recipes` intentionally allows a collection to hold recipes the collection owner didn't create — don't scope that join to "recipes where `recipes.user_id` = `collections.user_id`".
