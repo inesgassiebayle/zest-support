@@ -25,3 +25,7 @@ A recipe app: users create recipes (ingredients, steps, images), organize them i
 | Git & PR workflow | [`skills/git-workflow.md`](./skills/git-workflow.md) |
 
 If your tool supports a specific skills/rules format (e.g. Claude Code's `.claude/skills/`, Cursor's `.cursor/rules/`), point it at the relevant file(s) in `skills/` rather than duplicating the content.
+
+## Found a gap?
+
+If an agent ignores one of these rules or you hit something none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) instead of silently working around it — see [`skills/README.md`](./skills/README.md#reporting-a-miss).

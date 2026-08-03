@@ -1,0 +1,64 @@
+name: Skill / convention miss
+description: An AI coding agent ignored, misunderstood, or wasn't covered by a rule in AGENTS.md or skills/
+title: "[skill-miss] "
+labels: ["skill-miss"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when an AI agent (Claude Code, Cursor, Copilot, etc.) did something the `skills/` docs were supposed to prevent — or when you hit a situation those docs just don't cover. The goal is to keep AGENTS.md/skills/ accurate as the real codebase grows, so file this even for small stuff.
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Which file is this about?
+      options:
+        - AGENTS.md (general/project-wide)
+        - skills/frontend.md
+        - skills/backend.md
+        - skills/database.md
+        - skills/auth.md
+        - skills/infra.md
+        - skills/git-workflow.md
+        - Not covered by any existing file
+    validations:
+      required: true
+
+  - type: input
+    id: agent
+    attributes:
+      label: Which agent/tool were you using?
+      placeholder: "e.g. Claude Code, Cursor, GitHub Copilot"
+    validations:
+      required: false
+
+  - type: textarea
+    id: task
+    attributes:
+      label: What were you asking the agent to do?
+      placeholder: "e.g. Add an endpoint to upload a recipe image"
+    validations:
+      required: true
+
+  - type: textarea
+    id: miss
+    attributes:
+      label: What did the agent actually do (the miss)?
+      placeholder: "e.g. It streamed the file through the NestJS controller instead of using a pre-signed S3 URL"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened, per the docs (or what's missing from them)?
+    validations:
+      required: true
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suggested fix to the doc (optional)
+      placeholder: "A specific line/section to add or reword, if you have one in mind"
+    validations:
+      required: false
