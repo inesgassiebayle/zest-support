@@ -1,7 +1,7 @@
 # Infra — Docker + Terraform
 
 ## Current decision
-Option A from [`../design/tech-stack.md`](../design/tech-stack.md): a single EC2 instance running `docker compose` (nginx reverse proxy + TLS, frontend container, backend container), RDS PostgreSQL in a private subnet, S3 for images. Don't switch to the PaaS alternative (Vercel + App Runner) without checking with the team — it's a documented, deliberate tradeoff, not an oversight.
+Option A from [`../docs/tech-stack.md`](../docs/tech-stack.md): a single EC2 instance running `docker compose` (nginx reverse proxy + TLS, frontend container, backend container), RDS PostgreSQL in a private subnet, S3 for images. Don't switch to the PaaS alternative (Vercel + App Runner) without checking with the team — it's a documented, deliberate tradeoff, not an oversight.
 
 ## Docker
 - One `Dockerfile` per service (frontend, backend), multi-stage builds so the final image doesn't ship build tools/dev dependencies.
@@ -19,5 +19,5 @@ Option A from [`../design/tech-stack.md`](../design/tech-stack.md): a single EC2
 - Bucket policy should block public write, and only allow public (or CDN-fronted) read for object keys the app actually generated — don't make the whole bucket world-writable to work around CORS issues.
 
 ## Deploy
-- Deploy is `git pull` + `docker compose up -d --build` over SSH on the EC2 box (per the current architecture decision). Don't introduce a different deploy mechanism (e.g. a CI/CD pipeline to a different target) without updating `design/tech-stack.md` to match.
+- Deploy is `git pull` + `docker compose up -d --build` over SSH on the EC2 box (per the current architecture decision). Don't introduce a different deploy mechanism (e.g. a CI/CD pipeline to a different target) without updating `docs/tech-stack.md` to match.
 - HTTPS via Let's Encrypt/Certbot, auto-renewed — don't disable TLS or fall back to plain HTTP, including for "quick testing" on the shared server.
