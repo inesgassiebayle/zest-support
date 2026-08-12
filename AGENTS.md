@@ -1,6 +1,6 @@
 # AGENTS.md — Zest
 
-This file is the entry point for any AI coding assistant (Claude Code, Cursor, Copilot, Windsurf, etc.) working on Zest. It applies to the future `zest` source repo once it's created — this support repo is where the rules live and get updated.
+This file is the entry point for any AI coding assistant working on Zest — currently Codex and Claude Code, the two tools the devs use. Codex reads this file natively; Claude Code is pointed here by a `CLAUDE.md` (see [`templates/agent-config/`](./templates/agent-config)). It applies to the future `zest` source repo once it's created — this support repo is where the rules live and get updated.
 
 ## What is Zest
 
@@ -26,7 +26,7 @@ A recipe app: users create recipes (ingredients, steps, images), bookmark recipe
 | Infra (Docker/Terraform) | [`skills/infra.md`](./skills/infra.md) |
 | Git & PR workflow | [`skills/git-workflow.md`](./skills/git-workflow.md) |
 
-If your tool supports a specific skills/rules format (e.g. Claude Code's `.claude/skills/`, Cursor's `.cursor/rules/`), point it at the relevant file(s) in `skills/` rather than duplicating the content.
+When the source repo is bootstrapped, copy this file and `skills/` in as-is, plus the extra Claude Code files (`CLAUDE.md`, a `zest-convention-check` skill) from [`templates/agent-config/`](./templates/agent-config) — see that folder's README for exactly what goes where.
 
 ## Found a gap?
 

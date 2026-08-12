@@ -11,10 +11,9 @@ Each file here is a set of rules for one part of the Zest stack. They're plain m
 
 These are a starting point, not a finished spec. As the team hits real decisions (state management, testing library, folder structure) update the relevant file so the next person — human or agent — doesn't relitigate it.
 
-If you're using an agent that supports auto-loaded rule files, point it here:
-- **Claude Code**: reference these files from `.claude/skills/` or your project's `CLAUDE.md`.
-- **Cursor**: reference these files from `.cursor/rules/`.
-- **Other tools**: paste the relevant file into your system prompt / context, or link it in your tool's config.
+The two tools in use on this project auto-load rule files, so nobody has to paste these in manually:
+- **Codex** reads [`../AGENTS.md`](../AGENTS.md) natively — no extra setup.
+- **Claude Code** looks for `CLAUDE.md`; see [`../templates/agent-config/`](../templates/agent-config) for a `CLAUDE.md` that points it at `AGENTS.md`, plus a `zest-convention-check` skill that reviews a branch's changes against these files before a PR goes up.
 
 ## Reporting a miss
 
