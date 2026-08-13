@@ -28,6 +28,10 @@ A recipe app: users create recipes (ingredients, steps, images), bookmark recipe
 
 When the source repo is bootstrapped, copy this file and `skills/` in as-is, plus the extra Claude Code files (`CLAUDE.md`, a `zest-convention-check` skill) from [`templates/agent-config/`](./templates/agent-config) — see that folder's README for exactly what goes where.
 
+## Live project context via MCP
+
+If your agent supports MCP, connect the [`mcp-server/`](./mcp-server) in this repo instead of relying on whatever's pasted into context — it fetches `skills/`, `docs/db.md`, and the live design tokens straight from `main` via the GitHub API, and can file a skill-miss issue for you (`report_skill_miss`). Setup for both Codex and Claude Code is in [`mcp-server/README.md`](./mcp-server/README.md).
+
 ## Found a gap?
 
-If an agent ignores one of these rules or you hit something none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) instead of silently working around it — see [`skills/README.md`](./skills/README.md#reporting-a-miss).
+If an agent ignores one of these rules or you hit something none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) instead of silently working around it (or use the `report_skill_miss` MCP tool above) — see [`skills/README.md`](./skills/README.md#reporting-a-miss).
