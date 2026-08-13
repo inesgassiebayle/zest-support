@@ -26,7 +26,7 @@ A recipe app: users create recipes (ingredients, steps, images), bookmark recipe
 | Infra (Docker/Terraform) | [`skills/infra.md`](./skills/infra.md) |
 | Git & PR workflow | [`skills/git-workflow.md`](./skills/git-workflow.md) |
 
-When the source repo is bootstrapped, copy this file and `skills/` in as-is, plus the extra Claude Code files (`CLAUDE.md`, a `zest-convention-check` skill) from [`templates/agent-config/`](./templates/agent-config) — see that folder's README for exactly what goes where.
+When the source repo is bootstrapped, copy this file and `skills/` in as-is, plus the extra Claude Code files (`CLAUDE.md`, a `zest-convention-check` skill) from [`templates/agent-config/`](./templates/agent-config) — see that folder's README for exactly what goes where — and a CI workflow (lint/typecheck/build on every PR) adapted from the [ingredients CRUD challenge repo](https://github.com/lizlubelczyk/zest-ingredients-crud-challenge)'s `.github/workflows/ci.yml`, per [`skills/git-workflow.md`](./skills/git-workflow.md#ci).
 
 ## Live project context via MCP
 

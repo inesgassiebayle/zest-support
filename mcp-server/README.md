@@ -31,10 +31,10 @@ You need a `GITHUB_TOKEN` with read access to this repo (and, for `report_skill_
 ### Claude Code
 
 ```bash
-claude mcp add zest-docs -e GITHUB_TOKEN="$(gh auth token)" -- node /absolute/path/to/zest-support/mcp-server/dist/index.js
+claude mcp add --env GITHUB_TOKEN="$(gh auth token)" --transport stdio zest-docs -- node /absolute/path/to/zest-support/mcp-server/dist/index.js
 ```
 
-(Replace the path with wherever you actually cloned `zest-support`.) Or add it to a project's `.mcp.json`:
+(Replace the path with wherever you actually cloned `zest-support`. Note the order: `--env`/`--transport` come *before* the server name, not after — `claude mcp add` misparses `-e KEY=value <name>` as another env pair otherwise.) Or add it to a project's `.mcp.json`:
 
 ```json
 {
@@ -50,13 +50,19 @@ claude mcp add zest-docs -e GITHUB_TOKEN="$(gh auth token)" -- node /absolute/pa
 
 ### Codex
 
-Add to `~/.codex/config.toml`:
+```bash
+codex mcp add zest-docs --env GITHUB_TOKEN="$(gh auth token)" -- node /absolute/path/to/zest-support/mcp-server/dist/index.js
+```
+
+Or add directly to `~/.codex/config.toml`:
 
 ```toml
 [mcp_servers.zest-docs]
 command = "node"
 args = ["/absolute/path/to/zest-support/mcp-server/dist/index.js"]
-env = { GITHUB_TOKEN = "your-token-here" }
+
+[mcp_servers.zest-docs.env]
+GITHUB_TOKEN = "your-token-here"
 ```
 
 ## Config (env vars)

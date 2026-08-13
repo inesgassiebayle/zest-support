@@ -15,6 +15,10 @@
 - For UI changes, include a screenshot or short clip in the PR description.
 - At least one other person reviews before merging — don't self-merge unreviewed changes to `main`.
 
+## CI
+
+Every PR should run lint + typecheck + build automatically — this is the one check that applies no matter which agent (or human) wrote the code, since it runs on the PR itself, not in anyone's editor. There's no CI in this repo (nothing to build), but a working GitHub Actions setup already exists in the [ingredients CRUD challenge repo](https://github.com/lizlubelczyk/zest-ingredients-crud-challenge)'s `.github/workflows/ci.yml` — copy that in and adjust paths/commands for the real project's structure rather than writing one from scratch.
+
 ## What NOT to do
 - Don't force-push to `main` or shared branches.
 - Don't commit directly to `main` — always go through a PR, even for small fixes.
