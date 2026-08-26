@@ -28,7 +28,7 @@ Usuarios de la app. La autenticación la maneja Auth0 — por eso **no hay campo
 | `description` | text | |
 | `category` | varchar | |
 | `time` | int | Tiempo de preparación (minutos) |
-| `difficulty` | varchar | |
+| `difficulty` | enum (`Difficulty`) | `FACIL`, `MEDIA`, `DIFICIL` |
 | `servings` | int | |
 
 ### `recipe_steps`
@@ -56,7 +56,8 @@ Tabla intermedia: qué ingredientes usa cada receta, con cantidad.
 |---|---|---|
 | `recipe_id` | uuid (FK → recipes, PK compuesta) | |
 | `ingredient_id` | uuid (FK → ingredients, PK compuesta) | |
-| `amount` | varchar | |
+| `amount` | numeric | Cantidad numérica (ej: 2, 0.5) |
+| `unit` | enum (`Unit`) | `CUCHARADA`, `CUCHARADITA`, `TAZA`, `G`, `KG`, `OZ`, `ML`, `L`, `UNIDAD`, `PIZCA` |
 
 ### `recipe_images`
 Sin orden ni bandera de portada — todas las imágenes de una receta tienen el mismo peso.
@@ -64,8 +65,8 @@ Sin orden ni bandera de portada — todas las imágenes de una receta tienen el 
 | Campo | Tipo | Notas |
 |---|---|---|
 | `id` | uuid (PK) | |
-| `recipe_id` | uuid (FK → recipes) | |
-| `image_url` | varchar | URL al objeto en S3 (la imagen no se guarda en la DB) |
+| `recipe_id` | uuid (FK → recipes) | Indexado — la query principal siempre es "todas las imágenes de esta receta" |
+| `image_key` | varchar | Key del objeto en S3 (ej: `recipes/{recipeId}/{id}.webp`). El backend arma la URL (presigned si el bucket es privado) a partir de `S3_BUCKET`/`S3_REGION`. No se persiste la URL final. |
 
 ### `collections`
 Listas de recetas armadas por un usuario (ej: "Postres", "Semana saludable"). Permite guardar tanto recetas propias como de otros usuarios (vía `collection_recipes`).
@@ -114,3 +115,11 @@ Qué receta cocina un usuario en qué fecha, sin agrupamiento semanal ni distinc
 - **Catálogo separado para ingredientes**: evita duplicar/ensuciar datos y permite búsquedas y filtros confiables por ingrediente.
 - **Tablas intermedias** (`recipe_ingredients`, `collection_recipes`, `saved_recipes`) para todas las relaciones muchos-a-muchos — patrón estándar en bases relacionales.
 - **Autenticación con Auth0**: no hay tabla ni campo de contraseña; `users.auth0_sub` conecta el usuario de Auth0 con el registro local.
+- **`difficulty` como enum**: evita texto libre inconsistente ("facil"/"Facil"/"FACIL") que
+  rompería los filtros de búsqueda (RF-03).
+- **`amount` + `unit` separados en `recipe_ingredients`**: permite escalar porciones y mostrar
+  la unidad en un selector, en vez de un string libre.
+- **`recipe_images.image_key` en vez de `image_url`**: evita hardcodear bucket/región en cada
+  fila; si el bucket es privado, la URL se genera on-demand como presigned URL. *(Corrige la
+  decisión anterior de este mismo documento, que decía guardar la URL completa — ajuste
+  posterior a la review de PR #6.)*
