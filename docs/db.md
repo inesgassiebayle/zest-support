@@ -66,7 +66,7 @@ Sin orden ni bandera de portada — todas las imágenes de una receta tienen el 
 |---|---|---|
 | `id` | uuid (PK) | |
 | `recipe_id` | uuid (FK → recipes) | Indexado — la query principal siempre es "todas las imágenes de esta receta" |
-| `image_key` | varchar | Key del objeto en S3 (ej: `recipes/{recipeId}/{id}.webp`). El backend arma la URL (presigned si el bucket es privado) a partir de `S3_BUCKET`/`S3_REGION`. No se persiste la URL final. |
+| `s3_key` | varchar | Key del objeto en S3 (ej: `recipes/{recipeId}/{id}.webp`). El backend arma la URL (presigned si el bucket es privado) a partir de `AWS_S3_BUCKET`/`AWS_S3_REGION`. No se persiste la URL final. |
 
 ### `collections`
 Listas de recetas armadas por un usuario (ej: "Postres", "Semana saludable"). Permite guardar tanto recetas propias como de otros usuarios (vía `collection_recipes`).
@@ -119,7 +119,8 @@ Qué receta cocina un usuario en qué fecha, sin agrupamiento semanal ni distinc
   rompería los filtros de búsqueda (RF-03).
 - **`amount` + `unit` separados en `recipe_ingredients`**: permite escalar porciones y mostrar
   la unidad en un selector, en vez de un string libre.
-- **`recipe_images.image_key` en vez de `image_url`**: evita hardcodear bucket/región en cada
+- **`recipe_images.s3_key` en vez de `image_url`**: evita hardcodear bucket/región en cada
   fila; si el bucket es privado, la URL se genera on-demand como presigned URL. *(Corrige la
   decisión anterior de este mismo documento, que decía guardar la URL completa — ajuste
-  posterior a la review de PR #6.)*
+  posterior a la review de PR #6. El nombre de columna es `s3_key`, no `image_key` — así quedó
+  en la migración `20260826190000_add_recipe_units_and_s3_keys` que ya está aplicada en `dev`.)*

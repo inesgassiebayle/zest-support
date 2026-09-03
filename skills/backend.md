@@ -21,8 +21,8 @@
 - `users.auth0_sub` is how a validated token maps to an internal user row — look the user up by that field, don't assume `sub` is a local UUID.
 
 ## Images (S3)
-- Images never touch the database as binary data — `recipe_images.image_url` stores only the URL, per [`../docs/db.md`](../docs/db.md).
-- Don't stream file uploads through the NestJS server. Have the backend issue a pre-signed S3 upload URL, let the client (frontend) upload the file bytes directly to the bucket, then have the client send the resulting object URL to the backend to save as a `recipe_images` row.
+- Images never touch the database as binary data — `recipe_images.s3_key` stores only the S3 object key, not a URL, per [`../docs/db.md`](../docs/db.md). The backend builds the URL (presigned, since the bucket is private per [`infra.md`](./infra.md)) from `AWS_S3_BUCKET`/`AWS_S3_REGION` when it responds; the full URL is never persisted.
+- Don't stream file uploads through the NestJS server. Have the backend issue a pre-signed S3 *upload* URL for a given key, let the client (frontend) PUT the file bytes directly to the bucket, then have the client send the resulting `s3Key` back to the backend to save as a `recipe_images` row.
 - `recipe_images` has no `position` or `is_cover` column — every image for a recipe is equal weight. Don't add ordering/cover logic on the backend unless the schema is extended for it first.
 
 ## Errors & responses
