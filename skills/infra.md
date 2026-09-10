@@ -1,23 +1,25 @@
-# Infra — Docker + Terraform
+# Infra — Render + Vercel + Neon
 
 ## Current decision
-Option A from [`../docs/tech-stack.md`](../docs/tech-stack.md): a single EC2 instance running `docker compose` (nginx reverse proxy + TLS, frontend container, backend container), RDS PostgreSQL in a private subnet, S3 for images. Don't switch to the PaaS alternative (Vercel + App Runner) without checking with the team — it's a documented, deliberate tradeoff, not an oversight.
+Backend en **Render** (Web Service Docker), frontend en **Vercel**, base de datos en **Neon** (Postgres serverless), imágenes en **S3**. Ver [`../docs/tech-stack.md`](../docs/tech-stack.md) para el diagrama y el porqué. Don't switch back to a self-managed EC2 box (or introduce Terraform) without checking with the team — moving off that option was a deliberate call, not an oversight.
 
 ## Docker
-- One `Dockerfile` per service (frontend, backend), multi-stage builds so the final image doesn't ship build tools/dev dependencies.
-- Local dev should use `docker-compose` mirroring the prod topology (nginx + frontend + backend + db) so "works on my machine" actually means something.
+- Backend only: one multi-stage `Dockerfile` (`backend/Dockerfile`) — Render builds and runs it directly, no docker-compose in prod. The frontend builds natively on Vercel, no Dockerfile needed there.
+- Local dev still uses `docker-compose` (backend + postgres) so "works on my machine" actually means something — see [`backend.md`](./backend.md).
 - `.env.example` stays in git with placeholder values; real `.env` files never get committed.
 
-## Terraform
-- Infra changes go through Terraform, not manual changes in the AWS console. If someone changes something by hand, reconcile it back into Terraform (`terraform plan` should show no drift) as soon as possible.
-- Always run `terraform plan` and read the diff before `terraform apply` — especially for anything touching RDS or security groups.
-- Secrets (DB passwords, Auth0 keys) go through a secrets mechanism (e.g. `.tfvars` excluded from git, or a secrets manager) — never hardcoded in `.tf` files.
+## Database (Neon)
+- Two connection strings: `DATABASE_URL` (pooled, used by the running app) and `DIRECT_URL` (direct, used only for `prisma migrate`) — set both `url` and `directUrl` in `schema.prisma`.
+- Migrations run automatically via Render's `preDeployCommand` (`prisma migrate deploy`) before traffic is routed to the new version. Never run migrations by hand against prod.
 
 ## Object storage (S3)
 - One bucket per environment (e.g. `zest-images-dev`, `zest-images-prod`) — don't share a bucket across environments.
 - The backend only ever hands out pre-signed URLs; it doesn't proxy file bytes. See [`backend.md`](./backend.md#images-s3).
-- Bucket policy should block public write, and only allow public (or CDN-fronted) read for object keys the app actually generated — don't make the whole bucket world-writable to work around CORS issues.
+- Bucket policy should block public write, and only allow public (or CDN-fronted) read for object keys the app actually generated. The IAM user needs `s3:GetObject`, `s3:PutObject`, `s3:DeleteObject`, `s3:HeadObject` on the object keys **and** `s3:ListBucket` on the bucket itself — without `ListBucket`, a `HeadObject` on a missing key returns 403 instead of 404 and the backend turns that into a 500.
 
 ## Deploy
-- Deploy is `git pull` + `docker compose up -d --build` over SSH on the EC2 box (per the current architecture decision). Don't introduce a different deploy mechanism (e.g. a CI/CD pipeline to a different target) without updating `docs/tech-stack.md` to match.
-- HTTPS via Let's Encrypt/Certbot, auto-renewed — don't disable TLS or fall back to plain HTTP, including for "quick testing" on the shared server.
+- **Backend (Render)**: push to `main` with CI green → Render builds `backend/Dockerfile` and deploys automatically (`render.yaml`, "wait for CI to pass before deploying"). `healthCheckPath: /health` — a deploy that leaves `/health` down doesn't replace the previous version.
+- **Frontend (Vercel)**: push to `main` → production deploy; every PR gets its own preview URL. `frontend/vercel.json` rewrites all routes to `/index.html` so deep-linked routes don't 404 on refresh.
+- HTTPS is automatic on both platforms — no certs to manage, no Let's Encrypt/Certbot.
+- Don't introduce a different deploy mechanism (e.g. a manual SSH/`docker compose up` step) without updating `docs/tech-stack.md` to match.
+- Full setup checklist lives in the Multica tickets ZEST-77 through ZEST-80 — see [`multica.md`](./multica.md) before re-provisioning something from scratch.

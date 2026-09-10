@@ -9,9 +9,10 @@
 | Backend | Node.js + TypeScript + NestJS | Estructura ordenada, poca curva de aprendizaje |
 | ORM | Prisma | Migraciones y queries tipadas contra la DB |
 | Base de datos | PostgreSQL | Relacional — encaja con las relaciones many-to-many (ingredientes, labels, colecciones) |
-| Imágenes | Bucket de object storage (S3 o equivalente) | No van en la DB, solo se guarda la URL |
+| Imágenes | S3 | No van en la DB, solo se guarda la URL |
 | Autenticación | Auth0 | Login, passwords y tokens los maneja Auth0, no nosotros |
-| Contenedores | Docker | Empaqueta frontend y backend igual en cualquier entorno |
+| Contenedores | Docker (solo backend) | El backend se empaqueta igual en cualquier entorno; el frontend se buildea nativo en Vercel |
+| Hosting | Render (backend) + Vercel (frontend) + Neon (DB) | PaaS gestionado: deploys automáticos y HTTPS sin mantener un servidor propio |
 
 ## Autenticación (Auth0)
 
@@ -31,63 +32,32 @@ Puntos clave del diseño:
 
 🔗 Diagrama editable (ERD): [ver en Lucidchart](https://lucid.app/lucidchart/86c7ca25-b806-491e-ab7c-cc99829d15a9/edit) — más detalle en [`docs/database/modelo.md`](./database/modelo.md)
 
-## Dos alternativas de arquitectura
+## Arquitectura de despliegue
 
-### Opción A — Docker en EC2 (la elegida)
-
-🔗 Diagrama: [ver en Lucidchart](https://lucid.app/lucidchart/b06b157d-6290-49b0-a5c4-c00cb6b7a74a/edit)
+🔗 Diagrama: [ver en Lucidchart](https://lucid.app/lucidchart/b9e47df1-c281-429c-80bd-9d240c7a5e9b/edit) *(dibujado para la opción PaaS anterior con App Runner/RDS — actualizar para reflejar Render/Neon)*
 
 ```
-Internet ─▶ EC2 (nginx: reverse proxy + TLS) ─▶ contenedor frontend (React)
-                                              └─▶ contenedor backend (NestJS)
-                                                        │
-                                                  RDS PostgreSQL (privada)
-                                                        │
-                                                  S3 (imágenes)
-```
-
-- Un solo servidor EC2 corriendo `docker compose`: nginx + frontend + backend.
-- HTTPS con Let's Encrypt/Certbot, renovado automáticamente.
-- Base de datos RDS en subnet privada, solo accesible desde el backend.
-- **Usa los créditos de estudiante de AWS/Azure.**
-- Requiere que el equipo entienda Docker, nginx y un poco de Linux/redes.
-- Todo el código de Terraform + `docker-compose.yml` + `nginx.conf` ya está armado.
-
-### Opción B — PaaS híbrido (Vercel + App Runner)
-
-🔗 Diagrama: [ver en Lucidchart](https://lucid.app/lucidchart/b9e47df1-c281-429c-80bd-9d240c7a5e9b/edit)
-
-```
-Internet ─▶ Vercel (frontend, HTTPS automático)
-         └─▶ AWS App Runner (backend en contenedor, HTTPS automático)
+Internet ─▶ Vercel (frontend, HTTPS automático, preview por PR)
+         └─▶ Render (backend en contenedor Docker, HTTPS automático)
                     │
-              RDS PostgreSQL (privada)
+              Neon PostgreSQL (serverless, pooled + direct connection)
                     │
-              S3 (imágenes, el browser las carga directo)
+              S3 (imágenes, el browser las carga directo vía pre-signed URLs)
 ```
 
-- El frontend se despliega en Vercel (plan Hobby, gratis para uso no comercial, sin límite de tiempo — solo límites de uso mensual).
-- El backend corre en AWS App Runner: mismo Dockerfile que la Opción A, pero sin EC2, nginx ni certbot — AWS maneja el HTTPS y el deploy.
-- La base de datos y el bucket S3 son los mismos que en la Opción A.
-- **El backend sigue consumiendo créditos de AWS**, pero el frontend queda afuera (gratis en Vercel).
-- Mucho menos mantenimiento de infraestructura: no hay servidor que administrar.
+- **Frontend en Vercel**: build de Vite (`frontend/`, output `dist`). Merge a `main` publica producción; cada PR genera su propio preview URL navegable.
+- **Backend en Render**: Web Service Docker (`backend/Dockerfile`). Merge a `main` con CI en verde dispara el deploy automáticamente; `healthCheckPath: /health` evita que una versión caída reemplace a la anterior.
+- **Base de datos en Neon**: Postgres serverless con dos connection strings — `DATABASE_URL` (pooled, la usa la app) y `DIRECT_URL` (direct, la usa `prisma migrate`). Las migraciones corren en el `preDeployCommand` de Render antes de rutear tráfico a la versión nueva.
+- **Imágenes en S3**: sin cambios — el backend solo entrega pre-signed URLs, nunca proxya los bytes.
+- Todo PaaS gestionado: sin EC2, nginx, Terraform ni certbot que mantener a mano. HTTPS automático en ambas plataformas desde el día uno.
 
-### Comparación rápida
+Esta fue la decisión original de este documento como "Opción B" (frente a Docker en EC2 con RDS), adoptada finalmente para minimizar la infraestructura que el equipo tiene que operar a mano — con Render en vez de App Runner para el backend. Es una decisión deliberada — no volver a Docker-en-EC2 sin avisar al equipo.
 
-| | A: Docker en EC2 | B: PaaS híbrido |
-|---|---|---|
-| Setup inicial | Terraform + Docker + nginx + certbot | Conectar repo a Vercel + App Runner |
-| HTTPS | Manual (Let's Encrypt) | Automático |
-| Deploy | `git pull` + `docker compose up` por SSH | Push a `main` → deploy automático |
-| Créditos usados | Todo (frontend + backend + DB) | Solo backend + DB |
-| Aprendizaje de infra | Alto (Docker, nginx, Linux) | Bajo |
-
-**Decisión actual: Opción A (Docker en EC2)**, ya que es la que más aprovecha los créditos de estudiante y le da al equipo experiencia real con Docker e infraestructura.
+Detalle de implementación (variables de entorno, `render.yaml`, `vercel.json`, permisos de S3) en los tickets ZEST-77 a ZEST-80 de Multica — ver [`skills/multica.md`](../skills/multica.md).
 
 ## Archivos del proyecto
 
-- `terraform/` — infraestructura como código (VPC, EC2, RDS, S3, security groups)
-- `app/docker-compose.yml` — orquesta frontend, backend, nginx y certbot
-- `app/nginx.conf` — reverse proxy + TLS
-- `app/.env.example` — variables de entorno del backend
+- `render.yaml` — configuración del Web Service de backend en Render (build, `preDeployCommand`, health check)
+- `frontend/vercel.json` — rewrite de SPA para Vercel (todas las rutas → `/index.html`)
+- `.env.example` (backend y frontend) — variables de entorno, sin valores reales
 - `README.md` — instrucciones paso a paso de deploy
