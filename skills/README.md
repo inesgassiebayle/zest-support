@@ -6,8 +6,9 @@ Each file here is a set of rules for one part of the Zest stack. They're plain m
 - [`backend.md`](./backend.md) — Node.js + TypeScript + NestJS
 - [`database.md`](./database.md) — PostgreSQL + Prisma
 - [`auth.md`](./auth.md) — Auth0
-- [`infra.md`](./infra.md) — Docker + Terraform
+- [`infra.md`](./infra.md) — Render + Vercel + Neon
 - [`git-workflow.md`](./git-workflow.md) — branches, commits, PRs
+- [`multica.md`](./multica.md) — project tracking: connecting to the Multica CLI and ticket conventions
 
 These are a starting point, not a finished spec. As the team hits real decisions (state management, testing library, folder structure) update the relevant file so the next person — human or agent — doesn't relitigate it.
 
