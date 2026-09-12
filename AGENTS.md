@@ -1,6 +1,6 @@
 # AGENTS.md — Zest
 
-This file is the entry point for any AI coding assistant (Claude Code, Cursor, Copilot, Windsurf, etc.) working on Zest. It applies to the future `zest` source repo once it's created — this support repo is where the rules live and get updated.
+This file is the entry point for any AI coding assistant working on Zest — currently Codex and Claude Code, the two tools the devs use. Codex reads this file natively; Claude Code is pointed here by a `CLAUDE.md` (see [`templates/agent-config/`](./templates/agent-config)). It applies to the future `zest` source repo once it's created — this support repo is where the rules live and get updated.
 
 ## What is Zest
 
@@ -27,8 +27,12 @@ A recipe app: users create recipes (ingredients, steps, images), bookmark recipe
 | Git & PR workflow | [`skills/git-workflow.md`](./skills/git-workflow.md) |
 | Project tracking (Multica) | [`skills/multica.md`](./skills/multica.md) |
 
-If your tool supports a specific skills/rules format (e.g. Claude Code's `.claude/skills/`, Cursor's `.cursor/rules/`), point it at the relevant file(s) in `skills/` rather than duplicating the content.
+When the source repo is bootstrapped, copy this file and `skills/` in as-is, plus the extra Claude Code files (`CLAUDE.md`, a `zest-convention-check` skill) from [`templates/agent-config/`](./templates/agent-config) — see that folder's README for exactly what goes where — and a CI workflow (lint/typecheck/build on every PR) adapted from the [ingredients CRUD challenge repo](https://github.com/lizlubelczyk/zest-ingredients-crud-challenge)'s `.github/workflows/ci.yml`, per [`skills/git-workflow.md`](./skills/git-workflow.md#ci).
+
+## Live project context via MCP
+
+If your agent supports MCP, connect the [`mcp-server/`](./mcp-server) in this repo instead of relying on whatever's pasted into context — it fetches `skills/`, `docs/db.md`, and the live design tokens straight from `main` via the GitHub API, and can file a skill-miss issue for you (`report_skill_miss`). Setup for both Codex and Claude Code is in [`mcp-server/README.md`](./mcp-server/README.md).
 
 ## Found a gap?
 
-If an agent ignores one of these rules or you hit something none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) instead of silently working around it — see [`skills/README.md`](./skills/README.md#reporting-a-miss).
+If an agent ignores one of these rules or you hit something none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) instead of silently working around it (or use the `report_skill_miss` MCP tool above) — see [`skills/README.md`](./skills/README.md#reporting-a-miss).

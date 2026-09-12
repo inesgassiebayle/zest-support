@@ -12,11 +12,12 @@ Each file here is a set of rules for one part of the Zest stack. They're plain m
 
 These are a starting point, not a finished spec. As the team hits real decisions (state management, testing library, folder structure) update the relevant file so the next person — human or agent — doesn't relitigate it.
 
-If you're using an agent that supports auto-loaded rule files, point it here:
-- **Claude Code**: reference these files from `.claude/skills/` or your project's `CLAUDE.md`.
-- **Cursor**: reference these files from `.cursor/rules/`.
-- **Other tools**: paste the relevant file into your system prompt / context, or link it in your tool's config.
+The two tools in use on this project auto-load rule files, so nobody has to paste these in manually:
+- **Codex** reads [`../AGENTS.md`](../AGENTS.md) natively — no extra setup.
+- **Claude Code** looks for `CLAUDE.md`; see [`../templates/agent-config/`](../templates/agent-config) for a `CLAUDE.md` that points it at `AGENTS.md`, plus a `zest-convention-check` skill that reviews a branch's changes against these files before a PR goes up.
+
+Both tools can also connect to [`../mcp-server/`](../mcp-server) to fetch these files (and `docs/db.md`, live design tokens) directly from `main` via MCP, instead of relying on whatever's already in context.
 
 ## Reporting a miss
 
-If your agent ignores one of these rules, gets it wrong, or you hit a situation none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) — don't just work around it silently. These docs are only useful if they stay accurate as the real codebase grows, and the fastest way for that to happen is for gaps to get reported instead of quietly re-discovered by the next person (or agent).
+If your agent ignores one of these rules, gets it wrong, or you hit a situation none of these files cover, [file a "Skill / convention miss" issue](../../issues/new?template=skill-miss.yml) — don't just work around it silently. These docs are only useful if they stay accurate as the real codebase grows, and the fastest way for that to happen is for gaps to get reported instead of quietly re-discovered by the next person (or agent). (Or use the `report_skill_miss` tool from [`../mcp-server/`](../mcp-server) if your agent has it connected.)
