@@ -36,6 +36,8 @@ Puntos clave del diseño:
 
 🔗 Diagrama: [ver en Lucidchart](https://lucid.app/lucidchart/b9e47df1-c281-429c-80bd-9d240c7a5e9b/edit) *(dibujado para la opción PaaS anterior con App Runner/RDS — actualizar para reflejar Render/Neon)*
 
+El frontend de producción fue provisionado en **Vercel** mediante ZEST-102: [URL y configuración verificadas del despliegue](./deployments.md).
+
 ```
 Internet ─▶ Vercel (frontend, HTTPS automático, preview por PR)
          └─▶ Render (backend en contenedor Docker, HTTPS automático)
