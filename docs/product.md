@@ -84,7 +84,7 @@ Restricción que lo explica todo: **6 horas semanales por desarrollador**.
 | RF-02 Gestión de recetas | Crear, editar y eliminar recetas con ingredientes, pasos e imagen | Hecho |
 | RF-03 Exploración y búsqueda | Feed de la comunidad con búsqueda por texto y filtros (categoría, dificultad, ingredientes) | Hecho |
 | RF-04 Organización | Guardar recetas y armarlas en colecciones | Hecho |
-| RF-05 Planificación | Planificador: qué receta se cocina qué día | Sprint 3, MVP 12/11 |
+| RF-05 Planificación | Planificador: qué receta se cocina qué día, con stepper de porciones y acción rápida "Add to planner" | Sprint 3 (29/10 → 12/11), 0% al 29/10 |
 
 No funcionales: **RNF-01** primera receta en menos de 5 minutos sin
 capacitación · **RNF-02** accesible por navegador, mínimo 50 usuarios
@@ -96,7 +96,9 @@ calificaciones, reseñas), importar recetas de redes, e-commerce o pagos,
 asistente de IA, multi-idioma.
 
 Recortado por control de cambios (13/10, challenge de KPIs): el **stepper de
-porciones** y la **acción rápida del planificador**. No vuelven.
+porciones** y la **acción rápida del planificador**. **Después se recuperaron,
+con autorización del profesor**, y volvieron al cronograma del Sprint 3 (del
+05/11 al 12/11). Son los últimos en prioridad dentro del planificador.
 
 ## Qué está construido (ver el código antes de afirmarlo)
 

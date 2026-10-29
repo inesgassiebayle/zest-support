@@ -67,9 +67,16 @@ el del **subconjunto de desarrollo**, que es el único que mide avance real.
 La v2 se aprobó por control de cambios el 13/10: el challenge de KPIs sumó 46 h
 (19 de desarrollo + 27 de gestión) que costaron USD 460, financiados con USD 70
 liberados del planificador (se cortaron el stepper de porciones y la acción
-rápida del planificador, que no vuelven), USD 120 de contingencia y USD 270 del
-presupuesto de gestión. El BAC no cambió. La línea base v1 (en ARS, memo del
-01/09) se conserva y no se mezcla con la v2.
+rápida del planificador), USD 120 de contingencia y USD 270 del presupuesto de
+gestión. El BAC no cambió. La línea base v1 (en ARS, memo del 01/09) se conserva
+y no se mezcla con la v2.
+
+**Después, el profesor autorizó recuperar esas dos funciones.** Volvieron al
+cronograma (tickets del 05/11 al 12/11). Es un segundo cambio de alcance y se
+registra como tal: fecha de la autorización, horas estimadas y de dónde salen
+(lo más probable, de la contingencia de actividades), y cuánta contingencia
+queda después. **Pendiente de completar:** fecha y horas, que todavía no
+están documentadas acá.
 
 Todo el proyecto se ejecuta sobre free tiers (desembolso real ≈ 0). El
 presupuesto valoriza el proyecto **como si fuera real**, a precios de mercado:
@@ -120,9 +127,15 @@ planilla y decí qué encontraste.
 4. **Contingencia.** Reportar cuánto queda sobre el trabajo restante, no cuánto
    se usó, y no vaciarla antes del cierre (integración, despliegue y pruebas son
    los períodos de más riesgo).
-5. **Alcance recortado.** El stepper de porciones y la acción rápida del
-   planificador tienen que estar cerrados en Multica con el motivo y la
-   referencia al control de cambios del 13/10.
+5. **Alcance recuperado.** El stepper de porciones y la acción rápida del
+   planificador se recortaron el 13/10 y volvieron con autorización del
+   profesor. En el Steering 2 se dijo "las 2 funciones no se recuperan", así que
+   el Steering 3 tiene que mostrar el cambio explícitamente (qué vuelve, horas,
+   de dónde salen, riesgo). La justificación es que el challenge cerró antes de
+   lo estimado y la contingencia alcanza sin mover el BAC ni el 12/11, no que
+   "vamos adelantados". Los dos tickets terminan el día del MVP, sin holgura:
+   tienen que quedar últimos en prioridad, para que lo primero que se caiga sean
+   ellos y no el planificador base.
 
 ## Momento del proyecto: el SPI ya no alcanza
 
