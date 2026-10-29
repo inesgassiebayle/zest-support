@@ -1,103 +1,112 @@
-# Storytelling — turn features into a story
+# Storytelling y demo: de funcionalidades a una historia
 
-The user says what they want to show ("the collections module", "everything
-from Sprint 2", "the KPI challenge") and who will be watching (the steering
-committee, the Lab II teachers, a demo day, a final exam). This skill returns
-the whole story ready to present: the narrative arc, the demo script with
-clicks and lines, and the transitions. It answers in Spanish.
+La persona dice qué quiere mostrar ("colecciones y el planificador", "todo lo del
+Sprint 3") y para quién (steering, Lab II, demo day, final). La skill arma el
+**paquete de demo completo**: la historia, el guion clic por clic con lo que dice
+cada presentador, versiones cortas, preguntas probables con respuesta, plan B y
+checklists. También sirve para **ensayar**: hace de profesor y devuelve feedback.
+Responde en español.
 
-## Context to read first
+## Archivos de este módulo
 
-| What | Where |
+| Archivo | Qué tiene |
 |---|---|
-| Purpose, pitch, problem, personas, KPIs, scope, team, milestones, risks | [`../docs/product.md`](../docs/product.md) |
-| What every screen looks like and its copy | [`../design/zest/Zest.dc.html`](../design/zest/Zest.dc.html) |
-| What is really built | `zest/frontend/src/features/` and `zest/backend/src/` — check the code (or `git log`) before claiming a feature works |
-| Numbers (budget, EV, SPI/CPI) | [`project-management.md`](./project-management.md) |
-| How previous presentations told it | Decks *Steering 1 - Zest* and *Zest - Steering 2* in the team Drive |
+| Este archivo | El proceso y las reglas |
+| [`storytelling/README.md`](./storytelling/README.md) | Guía para personas: cómo pedirle cosas |
+| [`storytelling/frameworks.md`](./storytelling/frameworks.md) | Estructuras: hacé lo último primero, sparkline, SCAR, tarjeta funcionalidad → valor, versiones por duración |
+| [`storytelling/personas.md`](./storytelling/personas.md) | Sofi y Lucía, y los datos de la demo (cuentas, recetas, colecciones) |
+| [`storytelling/demo-kit.md`](./storytelling/demo-kit.md) | Formato del paquete, mapa de fallas de Zest, checklists, banco de preguntas, modo ensayo |
+| [`../docs/product.md`](../docs/product.md) | Pitch, problema, KPIs, alcance, lista de NOs, qué está construido |
 
-Rules for the content:
+## El proceso
 
-- **Only show what exists.** If the user asks to show something that is not
-  built (the planner before 12/11, tags, following users), say so and offer to
-  tell it as "what's next", not as a demo.
-- Respect the "lista de NOs" in `product.md`: never pitch an out-of-scope
-  feature (social, AI assistant, mobile app) as if it were coming.
-- Use the real vocabulary of the app (the copy in the prototype), not
-  invented feature names.
+### 1. Entrevista corta
 
-## The arc
+Antes de escribir, preguntá **solo lo que falte**, en un solo mensaje y como
+máximo cuatro preguntas:
 
-Every story, long or short, follows the same five beats. Scale each beat to the
-time available.
+- ¿Para quién es? (steering, Lab II, demo day, final)
+- ¿Cuánto dura todo y cuánto la demo?
+- ¿Quién presenta y quién maneja la compu?
+- ¿Qué cambió desde la última presentación? (para el hilo entre steerings)
 
-1. **Hook — the person and the problem.** Start with a concrete person, not the
-   product: "Sofi tiene recetas en Instagram, en capturas de WhatsApp y en un
-   cuaderno. Es jueves a la noche y no sabe qué cocinar." Use the real problem
-   from `product.md` (3+ sources, repeating the same dishes).
-2. **Tension — why it matters.** What it costs today: time lost, recipes lost,
-   monotony. One data point or KPI if there is one.
-3. **The turn — Zest.** The pitch in one sentence. No feature list yet.
-4. **The journey — the features, as the person's steps.** Each feature is a
-   moment in the persona's week, in the order she would live it (discover →
-   save → organize → plan), never in the order of the backlog. For each one:
-   what she wants, what she does in Zest, what she gets.
-5. **Resolution — the result and what's next.** Back to the hook ("el jueves,
-   Sofi abre Zest y...") and tie it to the KPI the feature moves (70% manage
-   their recipes in Zest, 50% use the planner). Close with the next milestone.
+Si la persona ya lo dijo, no lo vuelvas a preguntar.
 
-Personas to draw from (from the Charter's stakeholders): the **planner** who
-cooks for the week, the **content creator** who publishes recipes and wants
-visibility. Give the persona a name and one concrete detail; keep it the same
-person throughout.
+### 2. Verificar qué existe
 
-## Adapt it to the audience
+Para cada funcionalidad pedida, confirmá que está **terminada y en producción**:
 
-| Audience | Emphasis |
+- Código de la app (`frontend/src/features/` del repo `zest`, si está clonado al
+  lado; solo lectura).
+- Multica: el ticket en `done`. `in_review` no se demuestra.
+- La sección "Qué está construido" de `docs/product.md`.
+
+Lo que no esté terminado se cuenta como "lo que viene", nunca como demo. Si no
+podés verificarlo, preguntá: no lo des por hecho.
+
+### 3. Tarjetas funcionalidad → valor
+
+Llená una tarjeta por funcionalidad ([`frameworks.md`](./storytelling/frameworks.md)
+§4). La que no tiene dolor, prueba visible o KPI no entra.
+
+### 4. Elegir la estructura
+
+| Situación | Estructura |
 |---|---|
-| Steering committee (Lab IV) | Value delivered vs plan, decisions taken, trade-offs (scope/time/cost), risks. The story frames the demo; the numbers come from `project-management.md`. |
-| Lab II teachers | How it was built: architecture, quality (tests, CI), the devs' work. |
-| Demo day / users | Only the persona and the journey. No metrics, no stack. |
-| Final exam | Link every beat to a concept from the course (scope, quality, risks...), the way the exam guide does. |
+| Poco tiempo o público no técnico | Hacé lo último primero |
+| Steering o cierre, donde importa el porqué | Sparkline, con SCAR por funcionalidad |
+| Lab II | Recorrido de la persona + cómo está hecho cada paso |
+| Final de la materia | Sparkline, y cada beat conectado con un concepto de la cátedra |
 
-## What to deliver
+Decí cuál elegiste y por qué, en una línea.
 
-```
-## Mensaje central
-<one sentence: what the audience must remember>
+### 5. Armar el paquete
 
-## Arco
-1. Gancho — ...
-2. Tensión — ...
-3. Giro — ...
-4. Recorrido — ...
-5. Cierre — ...
+Con el formato de [`demo-kit.md`](./storytelling/demo-kit.md) §1. Reglas del
+guion:
 
-## Guion de demo
-| # | Pantalla / acción | Qué se dice | Qué tiene que verse |
-|---|---|---|---|
-| 1 | Login → feed | "..." | ... |
+- **Una protagonista**, de principio a fin (Sofi, salvo que se pida otra cosa).
+- **Ordenado por el recorrido de la persona**: descubrir → guardar → organizar →
+  planificar. Nunca por módulo ni por backlog.
+- **Un clic por fila**, con lo que tiene que verse después, así quien presenta se
+  da cuenta enseguida si algo falló.
+- **Columna "Si falla"** en cada paso que toque backend, login, imágenes o red
+  (mapa de fallas, `demo-kit.md` §2).
+- **Quién habla en cada fila** si presentan varias personas, con el pase entre
+  ellas escrito ("Les dejo con Santi, que les muestra...").
+- **Datos de [`personas.md`](./storytelling/personas.md)**, siempre los mismos.
+- **Números solo con fuente**: los del proyecto salen de
+  [`project-management.md`](./project-management.md); los KPIs de producto, del
+  reporte de KPIs.
+- **Versiones de 30 s, 2 min y 5 min** del mismo mensaje.
+- **Cierre**: volver al gancho, el KPI que se mueve y el próximo hito. En un
+  steering, cerrar con lo que se le pide al comité, si hay algo.
 
-## Transiciones
-<the sentence that links each block to the next, including into and out of the demo>
+Si el paquete alimenta un deck, agregá un esquema de una línea por slide para la
+skill [`steering-deck.md`](./steering-deck.md).
 
-## Plan B
-<what to show if the demo fails: screenshots or a recording, and which ones>
+### 6. Ensayo (si lo piden)
 
-## Tiempos
-<minutes per beat, adding up to the time slot>
-```
+El modo ensayo de [`demo-kit.md`](./storytelling/demo-kit.md) §5: hacé de público,
+cronometrá, preguntá y devolvé primero el cambio más importante.
 
-If the story feeds a deck, also hand over a one-line-per-slide outline that the
-[`steering-deck.md`](./steering-deck.md) skill can build from.
+## Adaptar al público
 
-## Demo script rules
+| Público | Énfasis | Evitar |
+|---|---|---|
+| Steering (Lab IV) | Valor entregado contra el plan, decisiones, trade-offs, riesgos; la historia enmarca la demo | Detalle técnico |
+| Lab II | Cómo se construyó: arquitectura, calidad (tests, CI), el trabajo de los devs | Métricas de gestión |
+| Demo day / usuarios | Solo la persona y su recorrido | Métricas, stack, jerga |
+| Final de la materia | Cada beat conectado con un concepto (alcance, calidad, riesgos...) | Leer la lista de pantallas |
 
-- Prepare the data: name the recipes, the collection and the user the demo will
-  use (a seeded account, never a teammate's real one). The recipe images in
-  `design/zest/assets/recipes/` match the prototype.
-- One click per line in the script. Say what should be on screen after each
-  one, so whoever presents knows when something went wrong.
-- The demo shows the happy path; the edge cases are for Q&A.
-- Always a plan B: screenshots or a recording, because the backend on Render's
-  free tier can take a while to wake up.
+## Reglas que no se negocian
+
+- **Solo se demuestra lo que existe** y está en producción.
+- **Nunca se promete algo de la lista de NOs** (social, IA, app mobile,
+  importar de redes, pagos): si preguntan, se dice que está fuera de alcance y
+  por qué.
+- **Vocabulario real de la app**: los textos del prototipo
+  (`design/zest/Zest.dc.html`), no nombres inventados.
+- **Ningún número sin fuente.**
+- **Nunca una cuenta real** de alguien del equipo ni datos de usuarios reales.
+- **No se modifica el repo `zest`**: la skill solo lo lee.
