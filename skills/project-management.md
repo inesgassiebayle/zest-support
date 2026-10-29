@@ -1,176 +1,194 @@
-# Project management — effort, budget and earned value
+# Gestión del proyecto: esfuerzo, presupuesto y valor ganado
 
-Helps whoever is acting as PM (the role rotates) estimate effort, build or
-revise the budget, compute earned value metrics (PV, EV, AC, SPI, CPI, EAC...)
-and, above all, **understand** what the numbers say about the project. It
-answers in Spanish, the language the team and the course use.
+Asiste a quien tenga el rol de PM (rota entre steerings) para estimar esfuerzo,
+armar o revisar el presupuesto, calcular el valor ganado (PV, EV, AC, SPI, CPI,
+EAC, ETC, VAC, TCPI) y, sobre todo, **entender qué dicen los números de Zest** y
+poder defenderlos. Responde en español.
 
-This is not a calculator that spits out numbers. Every metric it gives comes
-with the formula, the inputs it used, where each input came from, and a
-one-paragraph reading of what it means for Zest.
+No es una calculadora. Cada número que da viene con la fórmula, los datos que
+usó, de dónde salió cada dato, la fecha de corte y una lectura de qué significa
+para el proyecto.
 
-## Where the numbers come from
+## Archivos de este módulo
 
-Never invent a PV, EV or AC. Ask for it or read it from one of these sources,
-and say which one you used and as of what date.
-
-| What | Source |
+| Archivo | Cuándo leerlo |
 |---|---|
-| Baseline (PV per period, BAC, reserves) | Spreadsheet **"10B-Equipo 02 - EVM y Curva S - Avance por %"** (Google Drive, sheet `PRESUPUESTO`) |
-| Cost assumptions (rates, HH per role) | Spreadsheet **"Zest_Presupuesto_EVM"**, sheet `Supuestos` |
-| Why each number is what it is | Doc **"Memo_Respaldo_Gestion_Financiera_Zest"** |
-| How the team runs EVM week to week | Doc **"Guía EVM"** |
-| Latest numbers presented to the committee | Deck **"Zest - Steering 2"** (15/10/2026), slides *Presupuesto* and *Valor ganado* |
-| Ticket progress (input for EV of discrete work) | Multica — see [`multica.md`](./multica.md) (`multica issue list --project ... --status done`) |
-| What actually shipped | `git log` / merged PRs in the `zest` repo |
-| Platform health (not EVM, but useful context) | KPI report in `zest/kpis/` — see its README |
+| Este archivo | Siempre: fuentes de Zest, composición del presupuesto, último corte conocido, hallazgos abiertos y cómo responder |
+| [`project-management/evm-manual.md`](./project-management/evm-manual.md) | Siempre que haya que calcular, auditar, pronosticar o defender un número: métodos de EV, diagnóstico, EAC, chequeos, reservas, rebaseline |
+| [`project-management/course.md`](./project-management/course.md) | Preguntas de estudio o de examen, o "cómo lo pide la cátedra": teoría de Gestión Financiera y Valor Ganado, glosario y ejercicios resueltos |
+| [`../docs/product.md`](../docs/product.md) | Alcance, hitos, equipo y riesgos |
 
-If the session has a Google Drive connector, read the spreadsheets directly.
-If not, ask the user to paste the current row values. If Multica is not
-reachable, say so and ask for the ticket counts instead of guessing them.
+## De dónde salen los números de Zest
 
-## Last known snapshot (Steering 2, cut 15/10/2026, baseline v2)
+Nunca inventes un PV, EV o AC: leelo de una de estas fuentes o pedilo, y decí
+cuál usaste y a qué fecha de corte.
 
-Use it as a sanity check and as context, **not** as current data: check the
-spreadsheet for anything newer.
-
-| | Value |
+| Qué | Fuente |
 |---|---|
-| Total project budget | USD 7.916 |
-| BAC (cost baseline) | USD 7.256 |
-| Management reserve | USD 660 |
-| Development | 192 HH plan (2 devs × 6 h/week = 180 h + 12 h of the KPI challenge) at USD 10/h → USD 1.920; 159 HH real |
-| Management (PM, PO, TL, QA) | 384 HH plan at USD 10/h → USD 3.840; 240 HH real |
-| Infra, domain and tools | USD 956 |
-| Activity contingency | 54 of 66 h left (8%) |
-| PV | USD 4.493 (61,9% of the project) |
-| EV | USD 6.124 (84,4%) |
-| AC | USD 4.591 (399 h incurred + services) |
-| SPI / CPI | 1,36 / 1,33 |
-| SV / CV | +USD 1.631 / +USD 1.533 |
-| MVP in production | 12/11/2026 |
+| Línea base (PV por período, BAC, reservas) | Planilla **"10B-Equipo 02 - EVM y Curva S - Avance por %"** (Drive, hoja `PRESUPUESTO`) |
+| Supuestos de costo (tarifas, HH por rol) | Planilla **"Zest_Presupuesto_EVM"**, hoja `Supuestos` |
+| Por qué cada número es el que es | Doc **"Memo_Respaldo_Gestion_Financiera_Zest"** |
+| Rutina semanal de EVM del equipo | Doc **"Guía EVM"** |
+| Últimos números presentados | Deck **"Zest - Steering 2"** (15/10/2026), slides *Presupuesto* y *Valor ganado* |
+| Qué está terminado (EV del desarrollo) | Multica: tickets en `done` (ver [`multica.md`](./multica.md)). `in_review` **no** cuenta como terminado |
+| Qué se integró de verdad | PRs mergeados y `git log` del repo `zest` |
+| Horas reales | Parte de horas de la planilla; si falta, estimación desde el repo (manual §7) |
+| Salud de la plataforma (no es EVM, pero da contexto) | Reporte de KPIs en `zest/kpis/` |
 
-Baseline v2 was approved through change control on 13/10: the KPI-reporting
-challenge added 46 h (19 dev + 27 management) and cost USD 460, covered by
-USD 70 freed from the planner (the portion stepper and the planner quick
-action were dropped and will not come back), USD 120 of contingency and
-USD 270 of the management budget. BAC did not change.
+Si la sesión tiene conector de Google Drive, leé las planillas directamente. Si
+no, pedile al usuario los valores de las filas. Si Multica no responde, decilo y
+pedí la cantidad de tickets en vez de adivinarla.
 
-History worth knowing when reading trends: the first baseline (memo of
-01/09, in ARS) had SPI 1,00 → 0,42 → 0,75 → 0,89 over periods 1–4. The dip
-was a measurement artifact (tickets closed on 27/08 were only recognised at the
-end of period 3), not a real slowdown. At that point AC only counted cash
-outlays, so CPI was meaningless; the team started logging real hours later.
+## Composición del presupuesto (línea base v2)
 
-## Course theory (Dirección de Proyectos / Laboratorio IV)
+Es lo primero que hay que tener en la cabeza, porque define qué miden los
+índices.
 
-### Earned value
+| Línea | USD | % del BAC | Tipo de medición |
+|---|---|---|---|
+| Desarrollo (2 devs, 192 HH a USD 10/h) | 1.920 | 26,5% | **Impulsada por alcance**: tickets terminados |
+| Gestión (PM, PO, TL, QA; 384 HH a USD 10/h) | 3.840 | 52,9% | **Nivel de esfuerzo** (EV = PV) |
+| Infraestructura, dominio y herramientas | 956 | 13,2% | **Nivel de esfuerzo** (EV = PV) |
+| Costo de actividades | 6.716 | | |
+| Contingencia de actividades (quedan 54 de 66 h) | 540 | 7,4% | Reserva dentro del BAC |
+| **BAC: línea base de costos** | **7.256** | 100% | |
+| Reserva de gestión | 660 | | Fuera del BAC |
+| **Presupuesto total del proyecto** | **7.916** | | |
 
-| Metric | Formula | Reads as |
+**El 66% del BAC es nivel de esfuerzo.** Según el manual (§2), por encima de
+~60% los índices globales solos son casi inútiles: hablan de composición, no de
+eficiencia. En Zest **siempre** se reportan dos juegos de índices: el global y
+el del **subconjunto de desarrollo**, que es el único que mide avance real.
+
+La v2 se aprobó por control de cambios el 13/10: el challenge de KPIs sumó 46 h
+(19 de desarrollo + 27 de gestión) que costaron USD 460, financiados con USD 70
+liberados del planificador (se cortaron el stepper de porciones y la acción
+rápida del planificador, que no vuelven), USD 120 de contingencia y USD 270 del
+presupuesto de gestión. El BAC no cambió. La línea base v1 (en ARS, memo del
+01/09) se conserva y no se mezcla con la v2.
+
+Todo el proyecto se ejecuta sobre free tiers (desembolso real ≈ 0). El
+presupuesto valoriza el proyecto **como si fuera real**, a precios de mercado:
+decilo cada vez que alguien pregunte por qué "gastamos" plata.
+
+## Último corte conocido (Steering 2, 15/10/2026)
+
+Úsalo como contexto y control de cordura, **no como dato actual**: buscá en la
+planilla un corte más nuevo.
+
+| | Valor | Cómo se lee |
 |---|---|---|
-| PV — planned value | baseline cost of the work scheduled to date | what the plan promised by now |
-| EV — earned value | % really done × BAC (at plan prices) | what we finished, valued at plan |
-| AC — actual cost | what was really spent (hours × rate + services) | what it cost us |
-| SV | EV − PV | ahead (+) or behind (−) schedule, in money |
-| CV | EV − AC | under (+) or over (−) budget for the work done |
-| SPI | EV / PV | < 1 late, > 1 ahead |
-| CPI | EV / AC | < 1 inefficient, > 1 efficient. The most important EVM indicator |
-| EAC | BAC / CPI (if the current efficiency continues) · AC + (BAC − EV) (if the deviation was a one-off) · AC + (BAC − EV) / (CPI × SPI) (if both cost and schedule keep pressing) | what the project will cost at the end |
-| ETC | EAC − AC | what is left to spend |
-| VAC | BAC − EAC | the margin (or hole) we will close with |
-| TCPI | (BAC − EV) / (BAC − AC) | the efficiency needed from now on to finish on BAC; > 1 means we have to do better than so far |
+| PV | USD 4.493 | 61,9% del BAC |
+| EV | USD 6.124 | 84,4% del BAC |
+| AC | USD 4.591 | 399 HH incurridas (159 dev + 240 gestión) + servicios |
+| SPI | 1,36 | 6.124 / 4.493 |
+| CPI | 1,33 | 6.124 / 4.591 |
+| SV | +USD 1.631 | En dinero, no en días |
+| CV | +USD 1.533 | Margen restante, no ahorro |
+| MVP en producción | 12/11/2026 | |
 
-Always say which EAC formula you used and why. For Zest the default is
-`BAC / CPI`, unless the deviation has a known one-off cause (then
-`AC + (BAC − EV)`).
+Historia útil para leer la tendencia: con la línea base v1 el SPI fue
+1,00 → 0,42 → 0,75 → 0,89 en los períodos 1 a 4. La caída fue de medición (los
+tickets cerrados el 27/08 se reconocieron recién al final del período 3), no un
+frenazo. En ese momento el AC solo incluía gastos de caja, así que el CPI no
+significaba nada. El equipo empezó a cargar horas reales después.
 
-Rules the course stresses and the team agreed on:
+## Hallazgos abiertos: auditar antes del próximo steering
 
-- **"Done" has to be defined** with PO and Tech Lead (works, tested, can be
-  shown) before EV means anything. Work in progress earns nothing.
-- **Hours worked ≠ earned value.** Being busy is not progress.
-- **LOE (level of effort) lines** — management, infra, tools, domain,
-  contingencies — have no discrete deliverable: by convention EV = PV for them.
-  Only development (tickets) is measured as discrete work.
-- **EV of development** = weighted % complete per WBS activity (weighted by its
-  number of tickets) × the development line budget.
-- **Look at the S-curve, not one cut.** One bad week can be noise; EV below PV
-  for several weeks in a row is a real problem.
-- **CPI < 1 and SPI < 1 together = double alert.** Ask: unreported blockers?
-  QA showing up only at the end? PO adding scope instead of trimming it? Too
-  many fronts open at once?
-- **An EVM meeting ends with a decision**: trim scope (PO), simplify the
-  technical solution (TL), unblock something (PM), or recalculate EAC and warn
-  early that the budget will not be enough.
-- A positive CV is **remaining margin, not savings** (that is how the team
-  phrased it at Steering 2).
-- Once a measuring criterion is chosen (the two templates: "Avance por EV" and
-  "Avance por %"), keep it for the whole project.
+Son cosas que, con los números del Steering 2, **no cierran** o no se pueden
+reconstruir. No las des por ciertas ni por falsas: verificalas contra la
+planilla y decí qué encontraste.
 
-### Estimating effort and cost
+1. **El EV parece calculado con un único % sobre todo el BAC.** Si gestión e
+   infraestructura se midieran como nivel de esfuerzo (EV = PV, SV = 0), todo el
+   SV tendría que venir de desarrollo + contingencia, que en total valen 2.460.
+   Para un SV de +1.631, el PV de esas líneas al 15/10 tendría que ser ≤ 829
+   (un 34% de ellas). Con desarrollo repartido parejo desde el período 2, al
+   período 11 el plan ya pedía cerca de dos tercios. **Si se confirma, el SPI
+   1,36 y el CPI 1,33 están inflados por composición** (error n.º 1 del manual).
+   Recalcular: EV = EV de desarrollo por tickets terminados + PV de las líneas
+   LOE.
+2. **Relación de esfuerzo.** Calcular `HH reales / HH planificadas al corte`
+   (399 contra el plan acumulado de la planilla). Si se parece al SPI, el
+   adelanto es volumen, no eficiencia (manual §4).
+3. **CPI de desarrollo por separado.** `CPI_dev = EV_dev / (159 h × USD 10)`. Si
+   da cerca de 1 mientras el global da 1,33, la diferencia es composición.
+4. **Contingencia.** Reportar cuánto queda sobre el trabajo restante, no cuánto
+   se usó, y no vaciarla antes del cierre (integración, despliegue y pruebas son
+   los períodos de más riesgo).
+5. **Alcance recortado.** El stepper de porciones y la acción rápida del
+   planificador tienen que estar cerrados en Multica con el motivo y la
+   referencia al control de cambios del 13/10.
 
-- **Analogous** (from a similar past task), **parametric** (unit × rate,
-  e.g. HH × USD/h), **bottom-up** (sum of the WBS work packages),
-  **expert judgement / Delphi**, **Planning Poker** for story points.
-- **PERT three-point**: E = (O + 4M + P) / 6, σ = (P − O) / 6. Triangular:
-  E = (O + M + P) / 3. Give the range, not just the expected value.
-- Zest's binding constraint (theory of constraints) is **6 h/week per
-  developer**. Any estimate in calendar time goes through that number.
-- Typical estimation mistakes the course lists: misreading scope, a wrong WBS,
-  optimistic deadlines, the wrong technique.
+## Momento del proyecto: el SPI ya no alcanza
 
-### Budget
+El proyecto va del 06/08 al 23/11 (16 períodos semanales). Desde fines de
+octubre estamos en el **último tercio**: EV y PV convergen al BAC y el SPI tiende
+a 1 aunque haya atraso. A partir de ahora:
 
-- **Cost baseline (BAC)** = sum of the estimates, periodised (1 period = 1
-  week, aligned with the Thursday classes).
-- **Contingency reserve** covers *known* risks (the risk log) and is part of the
-  baseline. **Management reserve** covers unknown unknowns, sits above it and
-  needs approval to use.
-- Calibrate the contingency against the **EMV** of the known risks
-  (EMV = probability × impact in money). In the Charter the EMV of the five
-  threats was ~USD 3.180 against a contingency of ~USD 830 — a gap the team
-  already acknowledged.
-- Separate OPEX (people's hours) from CAPEX (infra, licences, tools).
-- Market rates, not made-up ones. The ARS baseline used the Sysarmy/OpenQube
-  2026.1 salary survey and the BNA official rate; baseline v2 values every hour
-  at USD 10.
-- The project runs on free tiers (real cash outlay ≈ 0). The budget values the
-  project **as if it were real**, at market prices — say so whenever someone
-  asks why we "spend" money.
+- Acompañar el SPI con la ruta crítica hacia el MVP del 12/11 (días reales de
+  atraso del planificador y de la corrección de errores).
+- Calcular el **cronograma ganado**: `SPI(t) = ES / AT` (manual §3).
+- Para el EAC, usar **ETC ascendente**, no `BAC / CPI`: con 66% de LOE las
+  fórmulas fallan (manual §5).
 
-### Change control
+```
+ETC = (períodos restantes × costo LOE por período)
+    + (HH de desarrollo pendientes × USD 10)
+    + riesgos cuantificados que todavía no ocurrieron
+```
 
-Any change to scope, time or cost that touches the baseline goes through change
-control (like the KPI challenge on 13/10): what is added, what is dropped, how
-many hours and from where (released work, contingency, management budget), and
-whether BAC changes. The "short blanket": stretching one dimension forces you to
-shrink another.
+## Estimar AC desde el repositorio
 
-## How to answer
+Si faltan horas de desarrollo, usá el método del manual (§7) sobre el repo
+`zest`, **con todas las ramas** (`git fetch --all`, y verificá con
+`git rev-parse --is-shallow-repository` que el clon no sea superficial). Excluí a
+las personas de gestión: ya están presupuestadas como LOE. Presentalo como piso
+reproducible, no como valor exacto.
 
-1. **Get the inputs** from the sources above. List them with their date and
-   source. If one is missing, ask — do not fill it in.
-2. **Compute** with the formula written out (`SPI = EV / PV = 6.124 / 4.493 =
-   1,36`). Two decimals for indices, whole dollars for money, Spanish number
-   format (`1.234,56`).
-3. **Interpret**: what it means for Zest specifically, compared with the
-   previous cut (trend, not a snapshot), and whether there is a double alert.
-4. **Recommend a decision** and who owns it (PO / TL / PM), per the Guía EVM.
-5. **Flag what is shaky**: AC without real hours, EV based on tickets that are
-   not really "done", a baseline changed without change control, rounding
-   artifacts like the −USD 7 of period 2.
+## Estimar esfuerzo y armar presupuesto para Zest
 
-When the user is studying rather than reporting, explain the concept first, then
-apply it to Zest's real numbers — the course rewards linking theory to the
-project.
+- La restricción que manda (teoría de restricciones) son las **6 h semanales
+  por desarrollador**. Toda estimación en calendario pasa por ese número.
+- Tarifa de la línea base v2: **USD 10/h** para todos los roles. La v1 usó
+  mercado en ARS (encuesta de sueldos Sysarmy/OpenQube 2026.1 y dólar BNA). No
+  mezclar monedas ni líneas base en una misma cuenta.
+- Dar rango, no un número: PERT `E = (O + 4M + P) / 6` con `σ = (P − O) / 6`, y
+  el nivel de confianza.
+- Para una tarea nueva, documentar la **base de la estimación** como en la
+  plantilla de clase: paquete de la WBS, costos directos e indirectos,
+  contingencia, método, supuestos, rango y confianza.
+- La contingencia se calibra con el **VME** de los riesgos conocidos. En el
+  Charter, el VME de las cinco amenazas sumaba ~USD 3.180 contra una
+  contingencia de ~USD 830; es una brecha que el equipo ya reconoció.
 
-## What NOT to do
+## Cómo responder
 
-- Don't present a CPI computed from an AC that leaves out people's hours as if
-  it measured efficiency.
-- Don't move the baseline (PV/BAC) to make the indices look better. Only a
-  formal scope change does that.
-- Don't mix currencies or baselines in one calculation (the ARS baseline of
-  September and the USD baseline v2 are different series).
-- Don't write anything to the spreadsheet or Multica without the user asking
-  for it explicitly.
+1. **Traé los datos** de las fuentes de arriba y listalos con fecha de corte y
+   fuente. Si falta uno, pedilo; no lo completes.
+2. **Seguí el procedimiento del manual (§10)**: clasificar líneas, medir EV por
+   tipo, calcular, recalcular sobre el subconjunto de desarrollo, ETC
+   ascendente, reservas, chequeos (§6).
+3. **Mostrá la cuenta**: `SPI = EV / PV = 6.124 / 4.493 = 1,36`. Dos decimales
+   para índices, dólares enteros para montos, formato argentino (`1.234,56`).
+4. **Interpretá para Zest**: comparación con el corte anterior (tendencia, no
+   foto), doble alerta (CPI < 1 y SPI < 1), composición.
+5. **Recomendá una decisión y quién la toma**, como pide la Guía EVM: recortar o
+   simplificar alcance (PO), simplificar la solución técnica (TL), destrabar un
+   bloqueo (PM), o recalcular el EAC y avisar temprano. Una reunión de EVM sin
+   decisión es "estar ocupados", no avanzar.
+6. **Decí vos las debilidades** de la medición antes de que te las pregunten
+   (manual §11).
+
+Si la persona está estudiando y no reportando, primero el concepto como lo da la
+cátedra (`course.md`), después aplicado a los números reales de Zest: el examen
+premia conectar la teoría con el proyecto.
+
+## Qué NO hacer
+
+- No inflar un número ni mover la línea base para que los índices se vean
+  mejor. Solo un cambio formal de alcance mueve la línea base.
+- No presentar un CPI calculado con un AC sin las horas del equipo como si
+  midiera eficiencia.
+- No contar tickets en `in_review` o PRs sin mergear como valor ganado.
+- No escribir en la planilla ni en Multica sin que el usuario lo pida.
