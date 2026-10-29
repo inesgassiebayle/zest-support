@@ -30,19 +30,28 @@ máximo cuatro preguntas:
 - ¿Quién presenta y quién maneja la compu?
 - ¿Qué cambió desde la última presentación? (para el hilo entre steerings)
 
-Si la persona ya lo dijo, no lo vuelvas a preguntar.
+Si la persona ya lo dijo, no lo vuelvas a preguntar. Si responde solo una
+parte, **no repreguntes**: seguí con supuestos razonables y escribilos arriba de
+todo del paquete ("Supuse que...") para que los corrija.
 
 ### 2. Verificar qué existe
 
 Para cada funcionalidad pedida, confirmá que está **terminada y en producción**:
 
-- Código de la app (`frontend/src/features/` del repo `zest`, si está clonado al
-  lado; solo lectura).
+- Código de la app en `main` (`frontend/src/features/` del repo `zest`, si está
+  clonado al lado; **solo lectura**).
+- Para saber qué viene en camino: las ramas y los PRs abiertos (solo lectura) y
+  los tickets en curso, en Multica o en el cronograma del equipo, con sus fechas.
 - Multica: el ticket en `done`. `in_review` no se demuestra.
 - La sección "Qué está construido" de `docs/product.md`.
 
 Lo que no esté terminado se cuenta como "lo que viene", nunca como demo. Si no
 podés verificarlo, preguntá: no lo des por hecho.
+
+**Si algo pedido no está terminado pero tiene fecha antes de la presentación,**
+armá dos guiones: **A** con esa funcionalidad y **B** sin ella (contada como
+"lo que viene"). Los pasos comunes se escriben una vez, y el checklist fija el
+día del ensayo general como el momento de elegir A o B.
 
 ### 3. Tarjetas funcionalidad → valor
 
@@ -82,8 +91,13 @@ guion:
 - **Cierre**: volver al gancho, el KPI que se mueve y el próximo hito. En un
   steering, cerrar con lo que se le pide al comité, si hay algo.
 
-Si el paquete alimenta un deck, agregá un esquema de una línea por slide para la
-skill [`steering-deck.md`](./steering-deck.md).
+Guardá el paquete en `decks/<evento>/demo.md` (por ejemplo,
+`decks/steering-3/demo.md`), al lado del deck, y avisá dónde quedó. Si el
+paquete alimenta un deck, agregá un esquema de una línea por slide para la skill
+[`steering-deck.md`](./steering-deck.md), que lo lee de ahí.
+
+Antes de guardarlo, recordá que este repo es público: nada de credenciales,
+mails ni datos de usuarios reales.
 
 ### 6. Ensayo (si lo piden)
 
@@ -105,8 +119,13 @@ cronometrá, preguntá y devolvé primero el cambio más importante.
 - **Nunca se promete algo de la lista de NOs** (social, IA, app mobile,
   importar de redes, pagos): si preguntan, se dice que está fuera de alcance y
   por qué.
-- **Vocabulario real de la app**: los textos del prototipo
-  (`design/zest/Zest.dc.html`), no nombres inventados.
+- **Vocabulario real de la app**: los textos que muestra la app hoy. El
+  prototipo (`design/zest/Zest.dc.html`) solo para pantallas que todavía no
+  existen, y avisando que el texto puede cambiar (el prototipo está en inglés y
+  la app en español).
+- **Los datos tienen que existir con ese nombre**: por ejemplo, el catálogo de
+  ingredientes está en inglés, así que un filtro por ingrediente busca "lemon",
+  no "limón".
 - **Ningún número sin fuente.**
 - **Nunca una cuenta real** de alguien del equipo ni datos de usuarios reales.
 - **No se modifica el repo `zest`**: la skill solo lo lee.

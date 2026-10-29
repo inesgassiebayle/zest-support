@@ -53,6 +53,10 @@ Las credenciales no van en este repo ni en el guion: las tiene quien presenta.
 
 ### Recetas
 
+Si ya hay un seed de demo cargado en producción (el equipo tiene uno de más de 30
+recetas, ZEST-82), **usá esas recetas** y adaptá esta tabla a lo que exista. La
+tabla de abajo es el set mínimo que la historia necesita.
+
 | Receta | Autora | Categoría | Dificultad | Tiempo | Imagen |
 |---|---|---|---|---|---|
 | Ensalada de cítricos y palta | Lucía | Saludable | FACIL | 15 min | `citrus-salad.png` |

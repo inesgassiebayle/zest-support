@@ -75,8 +75,7 @@ y no se mezcla con la v2.
 cronograma (tickets del 05/11 al 12/11). Es un segundo cambio de alcance y se
 registra como tal: fecha de la autorización, horas estimadas y de dónde salen
 (lo más probable, de la contingencia de actividades), y cuánta contingencia
-queda después. **Pendiente de completar:** fecha y horas, que todavía no
-están documentadas acá.
+queda después.
 
 Todo el proyecto se ejecuta sobre free tiers (desembolso real ≈ 0). El
 presupuesto valoriza el proyecto **como si fuera real**, a precios de mercado:
