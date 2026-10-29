@@ -1,27 +1,32 @@
 ---
 name: zest-steering-deck
-description: Build the Zest Steering Committee deck as a React + Vite + Tailwind app with React Bits animations and an Awwwards-style editorial design on Zest's Citrus brand — slide structure, data files, deck shell with notes and PDF export. Use when creating or updating a steering deck or any slide presentation of the project.
+description: Build the Zest Steering Committee deck (or any Zest presentation) as a React + Vite + Tailwind web deck from the working template in decks/_template — assertion headlines approved first, three visual directions to choose from, React Bits backgrounds and text effects on the Citrus brand, animated S-curve and metrics, presenter view with notes and timer, automatic layout check with screenshots, and PDF export. Use when creating, updating or converting a steering deck or any slide presentation of the project.
 ---
 
 # Zest steering deck
 
-The rules live in `skills/steering-deck.md`. **Read it first.** The deck
-is built in this repo, under `decks/steering-<n>/`.
+The process lives in `skills/steering-deck.md`. **Read it first**, then as the
+step needs them:
 
-## Always read
-- `skills/steering-deck.md` — structure, visual direction, React Bits
-  usage, deck shell and checks.
+- `skills/steering-deck/design.md` — assertion–evidence, density, type, color,
+  charts, motion, anti-slop list.
+- `skills/steering-deck/react-bits.md` — catalogue, which effect per slide,
+  `npm run add-bit`, license, Pro.
+- `decks/_template/README.md` — how the template works.
 
 ## Content comes from
-- Numbers → the `zest-project-management` skill.
-- Narrative, demo script and speaker notes → the `zest-storytelling` skill.
+- Numbers → `skills/project-management.md`.
+- Story, demo script and speaker notes → `skills/storytelling.md` and
+  `decks/<event>/demo.md` if it exists.
 - Team, scope, milestones, risks → `docs/product.md`.
-- Brand tokens → `design/uploads/zest-wireframe-design/app/globals.css`.
 
 ## Non-negotiable
-- Every number lives in `src/data/` with its source and cut date; no invented
-  numbers — leave a visible TODO and ask.
-- One hero effect per slide, animations play once, `prefers-reduced-motion`
-  respected.
-- `npm run build` passes and the PDF backup is exported before presenting.
+- Titles-only outline approved before building; three visual previews shown as
+  screenshots before committing to a style.
+- Every number in `src/data/` with source and cut date; missing data stays
+  `isExample` or a visible TODO.
+- `npm run check` passes and you have looked at every screenshot in `check/`
+  before showing the deck. `npm run pdf` before presenting.
+- This repo is public: no credentials, no real user data, no React Bits Pro
+  license key. Never modify the `zest` app repo.
 - Slide copy in Spanish.
