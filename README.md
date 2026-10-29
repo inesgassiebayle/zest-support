@@ -6,8 +6,13 @@ Documentación central del proyecto **Zest**: stack tecnológico, modelo de dato
 
 | Quiero... | Ir a |
 |---|---|
+| Entender el producto: visión, alcance, equipo, hitos y riesgos | [`docs/product.md`](./docs/product.md) |
 | Ver qué tecnologías usamos y por qué | [`docs/tech-stack.md`](./docs/tech-stack.md) |
 | Entender el modelo de base de datos | [`docs/db.md`](./docs/db.md) |
 | Ver el sistema de diseño y los wireframes | [`design/`](./design) |
 | Deployar la infraestructura (Render + Vercel + Neon) | [`docs/tech-stack.md`](./docs/tech-stack.md#arquitectura-de-despliegue) |
 | Ver las reglas/convenciones para agentes de IA (Claude Code, Cursor, Copilot, etc.) | [`AGENTS.md`](./AGENTS.md) y [`skills/`](./skills) |
+| Calcular esfuerzos, presupuesto o valor ganado (SPI/CPI) | [`skills/project-management.md`](./skills/project-management.md) |
+| Pensar una decisión con un comité (en contra, a favor, neutral) | [`skills/decision-committee.md`](./skills/decision-committee.md) |
+| Armar el storytelling de una demo o presentación | [`skills/storytelling.md`](./skills/storytelling.md) |
+| Armar el deck del Steering Committee | [`skills/steering-deck.md`](./skills/steering-deck.md) |

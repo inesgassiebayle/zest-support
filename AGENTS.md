@@ -27,6 +27,17 @@ A recipe app: users create recipes (ingredients, steps, images), bookmark recipe
 | Git & PR workflow | [`skills/git-workflow.md`](./skills/git-workflow.md) |
 | Project tracking (Multica) | [`skills/multica.md`](./skills/multica.md) |
 
+## Project management and presentations
+
+| Task | File |
+|---|---|
+| Estimate effort, budget, earned value (SPI/CPI) | [`skills/project-management.md`](./skills/project-management.md) |
+| Think a decision through with a three-member committee | [`skills/decision-committee.md`](./skills/decision-committee.md) |
+| Tell the story of the features you want to show | [`skills/storytelling.md`](./skills/storytelling.md) |
+| Build the Steering Committee deck | [`skills/steering-deck.md`](./skills/steering-deck.md) |
+
+Product and project context (pitch, scope, team, milestones, risks) for all of them: [`docs/product.md`](./docs/product.md).
+
 If your tool supports a specific skills/rules format (e.g. Claude Code's `.claude/skills/`, Cursor's `.cursor/rules/`), point it at the relevant file(s) in `skills/` rather than duplicating the content.
 
 ## Found a gap?
