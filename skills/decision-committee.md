@@ -60,6 +60,24 @@ Answer in Spanish.
    the neutral member's reading is as far as the committee goes. If the user
    asks for Claude's own opinion explicitly, give it, labelled as such.
 
+## When one option is clearly indefensible
+
+Sometimes the facts rule an option out (it breaks a rule, repeats a known
+mistake). Then the three members will lean the same way, and that is fine — it
+is not bias, as long as each one still does its job:
+
+- The **devil's advocate** does not defend the dead option for the sake of it.
+  It attacks the surviving option *as proposed*: its weak version, the costs and
+  side effects nobody mentioned, the facts it rests on that are not verified.
+- The **advocate** argues for the best version of the surviving option, not
+  just against the dead one.
+- The **neutral** says plainly that one option is out and why, and puts the
+  weight on the condition that would bring it back.
+
+Say it in the output, right under "La decisión": *"Una de las opciones no se
+sostiene con los datos; el comité discute cómo hacer bien la otra."* That way
+the user doesn't read the agreement as three copies of the same opinion.
+
 ## Scale it to the decision
 
 - Small, reversible decision (a name, the order of two slides): a short version
