@@ -38,6 +38,8 @@ A recipe app: users create recipes (ingredients, steps, images), bookmark recipe
 
 Product and project context (pitch, scope, team, milestones, risks) for all of them: [`docs/product.md`](./docs/product.md).
 
+In Claude Code these four are ready to use when you open this repo: the skills are in [`.claude/skills/`](./.claude/skills) (`/zest-project-management`, `/zest-decision-committee`, `/zest-storytelling`, `/zest-steering-deck`) and the committee's three subagents in [`.claude/agents/`](./.claude/agents). They point at the files above, so updating `skills/` updates them.
+
 If your tool supports a specific skills/rules format (e.g. Claude Code's `.claude/skills/`, Cursor's `.cursor/rules/`), point it at the relevant file(s) in `skills/` rather than duplicating the content.
 
 ## Found a gap?

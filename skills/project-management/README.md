@@ -22,7 +22,7 @@ lo pide.
 
 ## Cómo llamarla
 
-**En Claude Code, dentro del repo `zest`:** escribí `/zest-project-management`
+**En Claude Code, dentro de este repo (`zest-support`):** escribí `/zest-project-management`
 seguido de lo que necesitás, o directamente pedí algo que tenga que ver con
 presupuesto o valor ganado; Claude la carga solo.
 
