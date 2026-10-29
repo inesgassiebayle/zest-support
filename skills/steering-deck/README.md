@@ -83,5 +83,4 @@ celular por si falla la compu.
 - Los números de la planilla (o pedile a `/zest-project-management` que los
   calcule).
 - Las fotos del equipo, si van en la slide de roles.
-- Si quieren usar componentes de **React Bits Pro**, la licencia (es paga). Sin
-  licencia se usan los gratuitos, que alcanzan.
+- Nada de React Bits Pro: el equipo no tiene licencia, se usan los gratuitos.

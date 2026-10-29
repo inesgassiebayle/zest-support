@@ -11,7 +11,7 @@ step needs them:
 - `skills/steering-deck/design.md` — assertion–evidence, density, type, color,
   charts, motion, anti-slop list.
 - `skills/steering-deck/react-bits.md` — catalogue, which effect per slide,
-  `npm run add-bit`, license, Pro.
+  `npm run add-bit`, license.
 - `decks/_template/README.md` — how the template works.
 
 ## Content comes from
@@ -27,6 +27,6 @@ step needs them:
   `isExample` or a visible TODO.
 - `npm run check` passes and you have looked at every screenshot in `check/`
   before showing the deck. `npm run pdf` before presenting.
-- This repo is public: no credentials, no real user data, no React Bits Pro
-  license key. Never modify the `zest` app repo.
+- Free React Bits only: the team has no React Bits Pro license.
+- This repo is public: no credentials, no real user data. Never modify the `zest` app repo.
 - Slide copy in Spanish.

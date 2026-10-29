@@ -86,25 +86,8 @@ TrueFocus, VariableProximity, WarpText.
 Si un nombre no existe más, `add-bit` avisa: revisá
 [el repo](https://github.com/DavidHDev/react-bits/tree/main/src/ts-tailwind).
 
-## React Bits Pro
+## React Bits Pro: no se usa
 
-[pro.reactbits.dev](https://pro.reactbits.dev) es **paga** (licencia por
-desarrollador, pago único): más fondos y efectos de texto, y bloques de UI
-enteros. Se instala por el registro de shadcn una vez activada la licencia:
-
-```
-npx shadcn@latest add @reactbits-pro/<componente>
-```
-
-con el registro de Pro configurado en `components.json` según su
-[documentación de instalación](https://pro.reactbits.dev/docs/installation).
-
-Reglas:
-
-- **Solo si el equipo tiene licencia.** Si no, se usan los gratuitos: el
-  catálogo de arriba alcanza para un steering.
-- **La clave de licencia nunca va al repo** (este repo es público): va en un
-  `.env` local, que ya está en el `.gitignore` de la plantilla.
-- Un componente Pro copiado al repo público queda visible para cualquiera.
-  Revisá si la licencia de Pro lo permite antes de commitear su código; si no,
-  dejalo fuera del repo (en `.gitignore`) y documentá cómo instalarlo.
+[pro.reactbits.dev](https://pro.reactbits.dev) es paga y **el equipo no tiene
+licencia**. Usá solo el catálogo gratuito de arriba. Si alguien pide un
+componente de Pro, proponé el gratuito más parecido.
