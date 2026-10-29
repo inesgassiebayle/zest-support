@@ -12,7 +12,7 @@ Each file here is a set of rules for one part of the Zest stack. They're plain m
 
 Project management and presentations (not tied to a layer of the stack):
 
-- [`project-management.md`](./project-management.md) — effort and cost estimation, budget, earned value (PV/EV/AC, SPI/CPI, EAC) with the course theory and the project's numbers
+- [`project-management.md`](./project-management.md) — effort and cost estimation, budget, earned value (PV/EV/AC, SPI/CPI, EAC) with the course theory and the project's numbers — [how to use it](./project-management/README.md)
 - [`decision-committee.md`](./decision-committee.md) — a three-member committee (devil's advocate, advocate, neutral) for any decision
 - [`storytelling.md`](./storytelling.md) — turns the features you want to show into a story and a demo script
 - [`steering-deck.md`](./steering-deck.md) — builds the Steering Committee deck in React with React Bits

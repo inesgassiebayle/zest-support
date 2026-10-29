@@ -11,6 +11,10 @@ para el proyecto.
 
 ## Archivos de este módulo
 
+Si sos una persona y no un agente, empezá por
+[`project-management/README.md`](./project-management/README.md): cómo llamar
+la skill, qué datos darle y ejemplos de pedidos.
+
 | Archivo | Cuándo leerlo |
 |---|---|
 | Este archivo | Siempre: fuentes de Zest, composición del presupuesto, último corte conocido, hallazgos abiertos y cómo responder |
