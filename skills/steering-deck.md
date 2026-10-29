@@ -16,7 +16,7 @@ skill no arranca de cero: copia la plantilla y la llena.
 | Este archivo | El proceso, de punta a punta |
 | [`steering-deck/README.md`](./steering-deck/README.md) | Guía para personas: cómo pedirlo, cómo presentar, atajos de teclado |
 | [`steering-deck/design.md`](./steering-deck/design.md) | Reglas de diseño: aseveración + evidencia, densidad, tipografía, color, gráficos, movimiento, lista anti-"slop" |
-| [`steering-deck/react-bits.md`](./steering-deck/react-bits.md) | Catálogo de React Bits (64 fondos, 33 efectos de texto), cuál usar en cada slide, cómo instalar, licencia, Pro |
+| [`steering-deck/react-bits.md`](./steering-deck/react-bits.md) | Catálogo de React Bits (64 fondos, 33 efectos de texto), cuál usar en cada slide, cómo instalar y licencia (solo gratuitos) |
 | [`../decks/_template/README.md`](../decks/_template/README.md) | Cómo está hecha la plantilla y sus comandos |
 
 El contenido sale de las otras skills:
@@ -137,8 +137,7 @@ nombres de archivo, notas del pedido). Que elijan una, o que mezclen.
 - Resumí: dónde quedó, cuántas slides, qué estilo, cómo se presenta y qué quedó
   como ejemplo o pendiente.
 - **Este repo es público.** El deck se puede versionar acá, pero sin
-  credenciales, sin mails ni datos de usuarios reales, y sin la clave de React
-  Bits Pro. No publiques el deck en una URL pública sin que el equipo lo pida.
+  credenciales, sin mails ni datos de usuarios reales. No publiques el deck en una URL pública sin que el equipo lo pida.
 
 ## Reglas que no se negocian
 
@@ -163,4 +162,4 @@ nombres de archivo, notas del pedido). Que elijan una, o que mezclen.
   visual; una idea por slide.
   [Harvard Catalyst](https://catalyst.harvard.edu/writing-communication-center/visualize-science/slides),
   [CMU](https://www.cmu.edu/student-success/other-resources/handouts/comm-supp-pdfs/designing-powerpoint-slides.pdf).
-- **React Bits** y **React Bits Pro**: ver [`react-bits.md`](./steering-deck/react-bits.md).
+- **React Bits** (versión gratuita): ver [`react-bits.md`](./steering-deck/react-bits.md).
