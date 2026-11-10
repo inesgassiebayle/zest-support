@@ -8,6 +8,7 @@ Documentación central del proyecto **Zest**: stack tecnológico, modelo de dato
 |---|---|
 | Ver qué tecnologías usamos y por qué | [`docs/tech-stack.md`](./docs/tech-stack.md) |
 | Entender el modelo de base de datos | [`docs/db.md`](./docs/db.md) |
+| Aprender a usar la app (manual de usuario) | [`docs/manual-usuario/`](./docs/manual-usuario/README.md) |
 | Ver el sistema de diseño y los wireframes | [`design/`](./design) |
 | Deployar la infraestructura (Render + Vercel + Neon) | [`docs/tech-stack.md`](./docs/tech-stack.md#arquitectura-de-despliegue) |
 | Ver las reglas/convenciones para agentes de IA (Claude Code, Cursor, Copilot, etc.) | [`AGENTS.md`](./AGENTS.md) y [`skills/`](./skills) |
