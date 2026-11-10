@@ -4,9 +4,7 @@ This file is the entry point for any AI coding assistant (Claude Code, Cursor, C
 
 ## What is Zest
 
-A recipe app: users create recipes (ingredients, steps, images), bookmark recipes and organize them into collections, and plan which recipe to cook on which date. Full schema: [`docs/db.md`](./docs/db.md). Stack and architecture: [`docs/tech-stack.md`](./docs/tech-stack.md). Design system and wireframes: [`design/`](./design) — see [`skills/frontend.md`](./skills/frontend.md).
-
-> `docs/tech-stack.md` hasn't caught up with the current schema yet — it still mentions `labels`, `follows`, and `weekly_plans`, none of which exist in `docs/db.md` anymore (no tagging system, no following other users, no weekly grouping for meal planning). Treat `docs/db.md` as authoritative until that's reconciled.
+A recipe app: users create recipes (ingredients, steps, images), save recipes into collections, and plan which recipe to cook on which date. Full schema: [`docs/db.md`](./docs/db.md). Stack and architecture: [`docs/tech-stack.md`](./docs/tech-stack.md). Design system and wireframes: [`design/`](./design) — see [`skills/frontend.md`](./skills/frontend.md).
 
 ## Ground rules for any agent
 

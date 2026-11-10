@@ -8,7 +8,7 @@
 | Estilos | Tailwind CSS | Rápido de aplicar, sin escribir CSS a mano |
 | Backend | Node.js + TypeScript + NestJS | Estructura ordenada, poca curva de aprendizaje |
 | ORM | Prisma | Migraciones y queries tipadas contra la DB |
-| Base de datos | PostgreSQL | Relacional — encaja con las relaciones many-to-many (ingredientes, labels, colecciones) |
+| Base de datos | PostgreSQL | Relacional — encaja con las relaciones many-to-many (ingredientes de una receta, recetas de una colección) |
 | Imágenes | S3 | No van en la DB, solo se guarda la URL |
 | Autenticación | Auth0 | Login, passwords y tokens los maneja Auth0, no nosotros |
 | Contenedores | Docker (solo backend) | El backend se empaqueta igual en cualquier entorno; el frontend se buildea nativo en Vercel |
@@ -20,17 +20,20 @@ El browser redirige a Auth0 para loguearse. Auth0 devuelve un JWT con un campo `
 
 ## Base de datos — resumen del modelo
 
-13 entidades: `users`, `recipes`, `recipe_steps`, `ingredients`, `recipe_ingredients`, `labels`, `recipe_labels`, `recipe_images`, `collections`, `collection_recipes`, `weekly_plans`, `planning_entries`, `follows`.
+El detalle de cada tabla y campo está en [`db.md`](./db.md), que es la fuente de verdad del modelo. Esta sección es solo el resumen.
+
+9 entidades: `users`, `recipes`, `recipe_steps`, `ingredients`, `recipe_ingredients`, `recipe_images`, `collections`, `collection_recipes`, `planner_entries`.
 
 Puntos clave del diseño:
-- **Ingredientes y labels** son catálogos separados (no texto libre dentro de la receta) para poder buscar y filtrar de forma confiable.
-- **Tablas intermedias** (`recipe_ingredients`, `recipe_labels`, `collection_recipes`) resuelven las relaciones muchos-a-muchos.
-- **`collection_recipes`** permite guardar en una colección tanto recetas propias como de otros usuarios.
-- **`follows`** modela seguir a otros usuarios (follower/followed, ambos apuntando a `users`).
-- **`weekly_plans` + `planning_entries`**: cada usuario tiene varios plannings (uno por semana), y cada entrada asigna una receta a un día con una cantidad de porciones.
-- Sin campos de auditoría (`created_at`/`updated_at`) para mantenerlo simple — se pueden agregar después sin romper nada.
+- **Ingredientes** son un catálogo separado (no texto libre dentro de la receta) para poder buscar y filtrar de forma confiable. La receta se clasifica con una sola `category` (enum), no con etiquetas.
+- **Tablas intermedias** (`recipe_ingredients`, `collection_recipes`) resuelven las relaciones muchos-a-muchos.
+- **`collection_recipes`** permite guardar en una colección tanto recetas propias como de otros usuarios. Guardar una receta es siempre agregarla a una colección.
+- **`planner_entries`** asigna una receta a una fecha para un usuario, con una cantidad. No hay agrupamiento por semana: la vista semanal se arma consultando un rango de fechas.
+- **Imágenes**: la base guarda la key del objeto en S3 (`recipe_images.s3_key`, `collections.cover_image_key`), no la URL.
+- **Auditoría mínima**: solo `users` y `recipes` tienen `created_at` (y `users` también `updated_at`). El resto de las tablas no tiene campos de auditoría.
+- Fuera de alcance en esta versión: etiquetas (`labels`), seguir usuarios (`follows`) y planes semanales (`weekly_plans`).
 
-🔗 Diagrama editable (ERD): [ver en Lucidchart](https://lucid.app/lucidchart/86c7ca25-b806-491e-ab7c-cc99829d15a9/edit) — más detalle en [`docs/database/modelo.md`](./database/modelo.md)
+🔗 Diagrama editable (ERD): ver el link de Lucidchart en [`db.md`](./db.md#diagrama-erd-editable).
 
 ## Arquitectura de despliegue
 
