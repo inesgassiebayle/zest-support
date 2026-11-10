@@ -101,29 +101,53 @@ pieza(
         "g02-comite-de-decisiones",
         "Usar cuando haya que tomar una decisión del proyecto Zest (técnica, de alcance, de presupuesto, de equipo o de cómo presentar algo) y se quiera una mirada sin sesgo: convoca a tres subagentes en paralelo, un abogado del diablo, un aliado y un neutral, y devuelve sus posiciones con preguntas para que decida la persona.",
         "skill", ["gestion"], ["planificacion", "analisis"], ["agnostico"], [], "usado-en-proyecto",
-        ["g08-devils-advocate", "g11-analizar-cambio-alcance", "g02-control-de-cambios"],
+        ["g02-comite-abogado-del-diablo", "g02-comite-aliado", "g02-comite-neutral", "g08-devils-advocate", "g11-analizar-cambio-alcance", "g02-control-de-cambios"],
     ),
-    {
-        "skills/decision-committee.md": "SKILL.md",
-        ".claude/agents/committee-devils-advocate.md": "agents/committee-devils-advocate.md",
-        ".claude/agents/committee-advocate.md": "agents/committee-advocate.md",
-        ".claude/agents/committee-neutral.md": "agents/committee-neutral.md",
-    },
+    {"skills/decision-committee.md": "SKILL.md"},
     """
 **Pedido:** "/g02-comite-de-decisiones ¿En el Steering 3 recalculamos el EV midiendo gestión e infraestructura como nivel de esfuerzo, aunque el SPI baje, o seguimos con el método del Steering 2?"
 
 **Resultado:** Encuadra la decisión, lanza los tres subagentes en paralelo con los mismos datos y devuelve las tres posiciones (el abogado del diablo marcó que el CPI también cae, el aliado defendió recalcular y el neutral dijo qué dato da vuelta la decisión), cerrando con preguntas para la persona, sin decidir por ella.
 """,
     anexo="""
-## Instalación de los subagentes
+## Los tres subagentes
 
-Los tres miembros del comité son subagentes de Claude Code y están en
-[`agents/`](./agents). Copialos a `.claude/agents/` del repo donde vayas a usar
-la skill. En sus archivos dicen `support/skills/decision-committee.md`: si la
-skill vive en otra ruta, pasales la ruta real en el pedido (la skill ya lo
-indica).
+Cada miembro del comité es un agente propio del catálogo:
+`g02-comite-abogado-del-diablo`, `g02-comite-aliado` y `g02-comite-neutral`. Copialos a
+`.claude/agents/` del repo donde vayas a usar la skill y lanzalos en paralelo con esos
+nombres, pasándoles la misma decisión, los mismos datos y la ruta de este `SKILL.md`.
 """,
 )
+
+
+# 2b. Los tres miembros del comité, como agentes propios -----------------------
+MIEMBROS = {
+    "committee-devils-advocate": ("g02-comite-abogado-del-diablo",
+        "Usar como abogado del diablo dentro de g02-comite-de-decisiones: argumenta en contra de la opción que se está por elegir en Zest con riesgos, costos ocultos y supuestos sin verificar, y propone la mejor alternativa. Se lanza en paralelo con g02-comite-aliado y g02-comite-neutral.",
+        "Sos el abogado del diablo. Decisión: ¿recalculamos el valor ganado del Steering 3 midiendo gestión e infraestructura como nivel de esfuerzo, aunque baje el SPI? Datos: BAC USD 7.256, 66% nivel de esfuerzo, SPI 1,36 y CPI 1,33 en el Steering 2.",
+        "Entre 3 y 5 objeciones concretas, la más fuerte primero: por ejemplo, que el CPI también cae (con la cuenta aproximada), que el diagnóstico todavía no se verificó contra la planilla y que comparar dos métodos puede leerse como un empeoramiento. Cierra con la mejor alternativa: corregir el método, pero mostrando las dos series y abriendo con el CPI."),
+    "committee-advocate": ("g02-comite-aliado",
+        "Usar como aliado dentro de g02-comite-de-decisiones: arma el caso más fuerte y honesto a favor de la opción que se está evaluando en Zest y cómo mitigar sus objeciones, sin adular. Se lanza en paralelo con g02-comite-abogado-del-diablo y g02-comite-neutral.",
+        "Sos el aliado. Decisión: ¿recuperamos el stepper de porciones y la acción rápida del planificador con la contingencia, sabiendo que terminan el día del MVP?",
+        "Entre 3 y 5 argumentos a favor, el más fuerte primero (por ejemplo: el profesor lo autorizó, la contingencia lo cubre sin mover el BAC, son las piezas que completan el planificador), seguidos de cómo mitigar el riesgo de fecha: dejarlas últimas en prioridad para que, si algo se atrasa, se caigan ellas y no el planificador base."),
+    "committee-neutral": ("g02-comite-neutral",
+        "Usar como árbitro neutral dentro de g02-comite-de-decisiones: sin tomar partido, dice qué criterios deciden de verdad, qué datos faltan y cómo conseguirlos, qué tan reversible es la decisión y hacia dónde se inclina la evidencia en Zest. Se lanza en paralelo con g02-comite-abogado-del-diablo y g02-comite-aliado.",
+        "Sos el neutral. Decisión: para el Steering 3, ¿deck en React con el estilo Recetario o seguir con Google Slides como en los steerings anteriores?",
+        "Lo que realmente decide (por ejemplo, el tiempo disponible antes del 12/11 y que el deck se pueda presentar sin internet), lo que no se sabe y cómo averiguarlo barato, qué tan reversible es cada opción y hacia dónde se inclina la evidencia, con la condición que daría vuelta la decisión."),
+}
+for origen, (nombre, descripcion, pedido, resultado) in MIEMBROS.items():
+    texto = (REPO / ".claude/agents" / f"{origen}.md").read_text(encoding="utf-8")
+    cuerpo = re.sub(r"^---\n.*?\n---\n", "", texto, flags=re.S).strip()
+    cuerpo = cuerpo.replace("`support/skills/decision-committee.md`", "el `SKILL.md` de la skill `g02-comite-de-decisiones`")
+    destino = OUT / "agentes" / nombre
+    shutil.rmtree(destino, ignore_errors=True)
+    destino.mkdir(parents=True)
+    hermanos = [n for _, (n, *_r) in MIEMBROS.items() if n != nombre]
+    cabeza = ficha(nombre, descripcion, "agente", ["gestion"], ["planificacion", "analisis"], ["agnostico"], [],
+                   "usado-en-proyecto", ["g02-comite-de-decisiones", *hermanos], extra={"tools": "Read, Grep, Glob"})
+    (destino / f"{nombre}.md").write_text(
+        cabeza + cuerpo + f"\n\n## Ejemplo de uso\n\n**Pedido:** \"{pedido}\"\n\n**Resultado:** {resultado}\n",
+        encoding="utf-8")
 
 # 3. Storytelling ----------------------------------------------------------
 pieza(
