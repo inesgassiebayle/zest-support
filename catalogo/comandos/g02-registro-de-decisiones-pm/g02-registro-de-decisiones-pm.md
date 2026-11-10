@@ -42,14 +42,26 @@ Notas o link: $ARGUMENTS
 
 - Si te pasan un link a la agenda del equipo (Google Docs), leela con el conector de Google
   Drive. Si no hay conector, pedí que peguen las notas.
-- Quedate con la sesión de la fecha indicada (o la última).
+- Quedate con la sesión de la fecha indicada o, si no hay fecha, con **la última que tenga
+  contenido**: la agenda tiene fechas futuras con "(completar luego de la clase)" que hay que
+  saltear. El documento también tiene otras pestañas (tablero de estado, memo financiero): no
+  son notas de reunión.
+- Si las notas están en primera persona ("PM: yo"), preguntá quién las escribió antes de
+  asignar decisiones a "yo".
 - Leé también el registro de decisiones anterior, si existe, para detectar contradicciones.
 
 ## Paso 2. Separar decisiones de conversación
 
-Una **decisión** cambia lo que el equipo va a hacer y alguien la tomó ("se decidió usar Multica
-en vez de Jira", "todos los tickets deben tener fecha"). No son decisiones: un tema que se
-discutió sin conclusión, una idea, una pregunta abierta, un dato informado.
+Clasificá cada punto en una de cuatro categorías:
+
+- **Decisión del equipo:** cambia lo que el equipo va a hacer y alguien la tomó ("decidimos
+  empezar a usar Multica", "todos los tickets deben tener fecha").
+- **Indicación de la cátedra:** una corrección o exigencia de los profesores (por ejemplo, las
+  correcciones del primer steering: "los riesgos materializados son incidentes"). No es una
+  decisión del equipo, pero obliga: va aparte, como lección aprendida, y si toca riesgos o
+  presupuesto se pasa a la skill que corresponde.
+- **Idea o pendiente:** algo a evaluar o hacer, sin conclusión ("idea: un agente de test").
+- **Dato informado:** contexto, sin acción ("el resto de los equipos usaría Vercel").
 
 Para cada decisión:
 
@@ -83,6 +95,9 @@ usa reserva. Para esas, recomendá correr `g02-control-de-cambios`.
 | # | Decisión | Motivo | Decidió | Responsable | Fecha | Toca | Control de cambios |
 |---|---|---|---|---|---|---|---|
 
+### Indicaciones de la cátedra
+- ...
+
 ### Pendientes sin dueño
 - ...
 
@@ -102,4 +117,4 @@ y que los cree quien corresponda.
 
 **Pedido:** "/g02-registro-de-decisiones-pm Notas del jueves 13/08: se dio el challenge de la primera semana; 10 agentes por persona de 5to; tickets para los chicos lo hacemos nosotras por ahora; todos los tickets deben tener fecha; usamos Multica en vez de Jira."
 
-**Resultado:** Una tabla con tres decisiones (las gestoras crean los tickets por ahora; todos los tickets llevan fecha; se usa Multica en lugar de Jira), cada una con quién decidió, responsable y qué toca, los datos informados separados de las decisiones, un pendiente sin dueño marcado, ninguna que requiera control de cambios, y la propuesta de agregarlas al registro cuando den el OK.
+**Resultado:** Una tabla con cuatro decisiones (las gestoras crean los tickets por ahora; todos los tickets llevan fecha; se usa Multica en lugar de Jira; el PM registra las decisiones), cada una con quién decidió, responsable y qué toca; los dos datos informados (10 agentes por persona, el uso de Vercel en otros equipos) separados; ninguna que requiera control de cambios; y la propuesta de agregarlas al registro cuando den el OK.

@@ -60,7 +60,10 @@ claro, preguntá antes de seguir.
 Para cada dimensión, un número y su base:
 
 - **Horas:** de desarrollo y de gestión por separado. La restricción de Zest son **6 horas
-  semanales por dev**: traducí las horas de desarrollo a semanas calendario.
+  semanales por dev**: traducí las horas de desarrollo a semanas calendario. Si es alcance que
+  **vuelve**, buscá en el acta o en el steering del recorte cuántas horas liberó (en Zest, el
+  recorte del 13/10 liberó 7 h del planificador, USD 70): ese es el punto de partida, a validar
+  con los devs.
 - **Costo:** horas × tarifa de la línea base vigente (USD 10/h en la v2), más servicios si
   cambian.
 - **Cronograma:** qué actividades se corren, si toca la ruta crítica y si mueve un hito.

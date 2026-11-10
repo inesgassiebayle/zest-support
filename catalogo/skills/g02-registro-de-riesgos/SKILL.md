@@ -67,7 +67,10 @@ Para cada uno, en este orden:
 1. **¿Sigue siendo un riesgo?** Si ocurrió, pasalo a problemas e indicá cuánta contingencia
    consume. Si ya no puede ocurrir, cerralo con el motivo.
 2. **Probabilidad** (0 a 1) e **impacto en dinero**, con la base: horas perdidas × tarifa, o el
-   costo del alcance que se cae. El impacto cualitativo (bajo, medio, alto) se deriva de ahí.
+   costo del alcance que se cae. El impacto cualitativo (bajo, medio, alto) se deriva de ahí. Si
+   el registro vigente solo tiene impacto cualitativo (como las tablas del Steering 2), partí del
+   impacto en dinero del Charter, marcalo como `base del Charter, a revisar` y pedí la
+   actualización.
 3. **VME** = probabilidad × impacto.
 4. **Categoría (RBS)**, **estrategia** y **respuesta concreta**, con **responsable** y
    **disparador** (la señal de que está por ocurrir).

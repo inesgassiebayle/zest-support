@@ -186,6 +186,8 @@ shutil.copytree(
     ignore=shutil.ignore_patterns("node_modules", "dist", "check", "deck.pdf"),
 )
 for md in destino.rglob("*.md"):
-    md.write_text(md.read_text(encoding="utf-8").replace("decks/_template", "plantilla"), encoding="utf-8")
+    texto = md.read_text(encoding="utf-8").replace("decks/_template", "plantilla")
+    texto = texto.replace("[`../../skills/steering-deck.md`](../../skills/steering-deck.md)", "[`../SKILL.md`](../SKILL.md)")
+    md.write_text(texto, encoding="utf-8")
 
 print("Piezas 1-4 armadas en catalogo/.")

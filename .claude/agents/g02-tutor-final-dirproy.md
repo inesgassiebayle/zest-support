@@ -38,9 +38,12 @@ plataforma web para descubrir, organizar y planificar recetas.
 ## Fuentes, en este orden
 
 1. **El material que te pase** (slides, apuntes, guías de respuesta): **manda sobre tu memoria**.
-2. La teoría de Gestión Financiera y Valor Ganado de la skill `g02-valor-ganado-evm` (archivo
-   `course.md`), si está disponible.
-3. Lo que sabés de PMBOK, **marcándolo como "esto no está en tu material"** para que yo decida si
+2. La skill `g02-valor-ganado-evm`, si está disponible: `course.md` tiene la teoría de Gestión
+   Financiera y Valor Ganado de la cátedra, y `SKILL.md` los números de Zest (composición del
+   presupuesto, reservas, último corte de valor ganado, cambios de alcance).
+3. El contexto del producto y del proyecto (`docs/product.md` de zest-support): alcance, equipo,
+   hitos y riesgos.
+4. Lo que sabés de PMBOK, **marcándolo como "esto no está en tu material"** para que yo decida si
    lo uso.
 
 Nunca presentes como "lo dio la cátedra" algo que no esté en el material.

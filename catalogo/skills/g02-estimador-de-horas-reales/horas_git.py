@@ -98,7 +98,8 @@ def main():
 
     personas = sorted({p for p, _ in por_periodo})
     periodos = sorted({n for _, n in por_periodo})
-    print(f"Horas estimadas desde git ({a.desde} → {a.hasta}). Margen {a.margen} h, piso {a.piso} h, techo {a.techo} h.\n")
+    num = lambda x: f"{x:g}".replace(".", ",")
+    print(f"Horas estimadas desde git ({a.desde} → {a.hasta}). Margen {num(a.margen)} h, piso {num(a.piso)} h, techo {num(a.techo)} h.\n")
     print("| Persona | " + " | ".join(f"P{n} ({(inicio + timedelta(weeks=n - 1)).strftime('%d/%m')})" for n in periodos) + " | Total |")
     print("|---|" + "---|" * (len(periodos) + 1))
     total_general = 0.0
@@ -110,7 +111,7 @@ def main():
     if a.tarifa:
         print(f"AC estimado: USD {total_general * a.tarifa:,.0f}".replace(",", "."))
     for p, n in sorted(un_commit.items()):
-        print(f"- {p}: {n} día(s) con un solo commit, contados al piso de {a.piso} h.")
+        print(f"- {p}: {n} día(s) con un solo commit, contados al piso de {num(a.piso)} h.")
 
     if a.csv:
         with open(a.csv, "w", newline="", encoding="utf-8") as f:

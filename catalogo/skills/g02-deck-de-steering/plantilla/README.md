@@ -1,7 +1,7 @@
 # Plantilla de deck de Zest
 
 Base para cada deck: se copia a `decks/<evento>/` y se llena. Cómo se usa, en
-[`../../skills/steering-deck.md`](../../skills/steering-deck.md).
+[`../SKILL.md`](../SKILL.md).
 
 ```bash
 npm install
