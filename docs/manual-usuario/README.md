@@ -1,9 +1,9 @@
 # Manual de usuario de Zest
 
-Zest es una app de recetas: publicás tus recetas con ingredientes, pasos y foto, buscás recetas de otros usuarios y guardás las que te gustan en colecciones.
+Zest es una app de recetas: publicás tus recetas con ingredientes, pasos y foto, buscás recetas de otros usuarios, las guardás en colecciones y planificás qué cocinar cada día de la semana.
 
 - **Dirección de la app:** https://zest-frontend-five.vercel.app
-- **Versión descrita:** la que está en producción (rama `main` de `proyecto-zest/zest`, commit `16ef3e8`), revisada el 10/11/2026.
+- **Versión descrita:** la que está en producción desde el 11/11/2026 (rama `main` de `proyecto-zest/zest`, commit `19ee689`). Las capturas son de esa versión, tomadas el 12/11/2026.
 - **Idioma de la app:** las pantallas están en inglés. En este manual los botones y textos aparecen entre comillas tal como se ven en la app, por ejemplo "Publish".
 
 > Funciona en computadora y en celular. En celular, el menú de arriba se reemplaza por el ícono ☰, que abre las mismas opciones.
@@ -25,73 +25,82 @@ Zest es una app de recetas: publicás tus recetas con ingredientes, pasos y foto
 
 ## 1. Registrarse e iniciar sesión
 
-Para usar Zest necesitás una cuenta. Sin sesión iniciada solo se ven las pantallas de ingreso y registro.
+Para usar Zest necesitás una cuenta. Sin sesión iniciada solo se ve la pantalla de ingreso.
+
+![Pantalla de ingreso de Zest](./capturas/01-login.jpg)
+
+Las cuentas y contraseñas las maneja **Auth0**, un servicio externo. Zest nunca ve ni guarda tu contraseña. Por eso, al registrarte o ingresar, la app te lleva un momento a una pantalla de Auth0 ("Welcome") y después te devuelve a Zest.
 
 ### Crear una cuenta
 
-1. Entrá a https://zest-frontend-five.vercel.app. Si no tenés sesión, la app te lleva a la pantalla de ingreso.
-2. Abajo del botón, hacé clic en "Sign up". Se abre la pantalla "Create your account".
-3. Hacé clic en "Sign up". Te lleva a la página de registro de Auth0, el servicio que maneja las cuentas y contraseñas de Zest.
-4. Completá tu email y una contraseña y confirmá.
-5. Al terminar, volvés a Zest con la sesión iniciada y ves el feed.
+1. Entrá a https://zest-frontend-five.vercel.app.
+2. Abajo del botón "Log in", hacé clic en "Sign up" ("New to Zest? Sign up") y después en el botón "Sign up".
+3. En la pantalla de Auth0, completá "Email address" y "Password" y hacé clic en "Continue".
+   También podés usar tu cuenta de Google con "Continue with Google".
+4. Volvés a Zest con la sesión iniciada y ves el feed.
 
-![Pantalla "Create your account"](./capturas/01-registro.png)
+![Registro en Auth0](./capturas/03-auth0-registro.jpg)
 
 ### Iniciar sesión
 
-1. En la pantalla "Log in", hacé clic en "Log in".
-2. En la página de Auth0, ingresá tu email y contraseña.
+1. En la pantalla de Zest, hacé clic en "Log in".
+2. En la pantalla de Auth0, ingresá tu email y contraseña y hacé clic en "Continue", o usá "Continue with Google".
 3. Volvés a Zest con la sesión iniciada.
 
-![Pantalla "Log in"](./capturas/02-login.png)
+![Ingreso en Auth0](./capturas/02-auth0-login.jpg)
 
-> Zest nunca ve ni guarda tu contraseña: la maneja Auth0. Por eso, para cambiarla hay que pedir un email de cambio de contraseña (ver [Perfil](#8-perfil)).
+¿Te olvidaste la contraseña? En esa misma pantalla de Auth0, hacé clic en "Reset password" y seguí el email que te llega.
 
 ### Cerrar sesión
 
-Hacé clic en tu avatar (arriba a la derecha) y elegí "Log out".
+Hacé clic en tu avatar (el círculo con tu inicial, arriba a la derecha) y elegí "Log out".
 
 ---
 
 ## 2. Moverse por la app
 
-La barra superior tiene:
+La barra superior está en todas las pantallas:
 
 | Elemento | Qué hace |
 |---|---|
 | Logo **Zest** | Vuelve al feed |
 | "Feed" | Todas las recetas publicadas, de todos los usuarios |
 | "Collections" | Tus colecciones |
-| "New recipe" | Abre el formulario para crear una receta |
+| "Meal Planner" | Tu planificador semanal |
+| "+ New recipe" | Abre el formulario para crear una receta |
 | Tu avatar | Menú con "Edit profile" (tu perfil) y "Log out" |
-
-![Barra superior con Feed, Collections, New recipe y el avatar](./capturas/03-barra-superior.png)
 
 ---
 
 ## 3. Buscar recetas
 
-El feed ("Discover") muestra todas las recetas, de la más nueva a la más vieja, en páginas. Usá las flechas de abajo para cambiar de página.
+El feed ("Discover") muestra todas las recetas en páginas. Arriba a la derecha dice cuántas hay. Cada tarjeta muestra la foto, el tiempo, la dificultad, la categoría, el título y el autor. Usá las flechas de abajo para cambiar de página.
 
-![Feed con buscador y filtros](./capturas/04-feed.png)
+![Feed "Discover"](./capturas/04-feed.jpg)
 
 ### Buscar por nombre o por autor
 
 1. En la barra de búsqueda, elegí el criterio en el desplegable de la izquierda: "Recipe" (nombre de la receta) o "Author" (nombre de quien la publicó).
-2. Escribí el texto. Los resultados se actualizan solos mientras escribís.
-3. Para borrar la búsqueda, usá la ✕ del campo.
+2. Escribí el texto. Los resultados se actualizan solos mientras escribís y el contador cambia.
+3. Abajo de la barra aparece un chip con la búsqueda activa, por ejemplo "Recipe: Beef". La ✕ del chip la saca.
+
+No hace falta escribir tildes: "limon" encuentra "Limón".
+
+![Búsqueda por nombre](./capturas/05-busqueda.jpg)
 
 ### Filtrar
 
-Además del buscador, podés combinar estos filtros:
+Al lado del buscador hay tres filtros que se pueden combinar con la búsqueda:
 
 | Filtro | Opciones |
 |---|---|
-| Categoría ("Any category") | Desayuno, almuerzo, merienda, cena, entrada, postre, snack, bebida |
-| Dificultad ("Any difficulty") | Fácil, media, difícil |
-| Ingredientes ("Search ingredients…") | Elegí uno o varios ingredientes del catálogo |
+| "Ingredients" | Uno o varios ingredientes del catálogo |
+| "Any category" | Breakfast, lunch, dinner, dessert, etc. |
+| "Any difficulty" | Easy, Medium, Hard |
 
-![Filtro de ingredientes abierto](./capturas/05-filtro-ingredientes.png)
+En la captura, la búsqueda "Beef" está combinada con la dificultad "Hard". Para sacar todo de una vez, usá "Clear filters".
+
+![Búsqueda combinada con un filtro de dificultad](./capturas/06-busqueda-filtros.jpg)
 
 Si ninguna receta cumple los filtros, aparece "No recipes match these filters.". Sacá algún filtro para ver más resultados.
 
@@ -101,22 +110,24 @@ Si ninguna receta cumple los filtros, aparece "No recipes match these filters.".
 
 ## 4. Ver una receta
 
-Hacé clic en cualquier tarjeta del feed. La página de la receta muestra:
+Hacé clic en cualquier tarjeta. La página de la receta muestra:
 
-- La foto, el título, la descripción y el autor. Hacé clic en el autor para ver su perfil.
-- Categoría, tiempo ("Time"), dificultad ("Level") y porciones ("Servings").
+- La foto, el título, la descripción y el autor ("Recipe author"). Hacé clic en el autor para ver su perfil.
+- La categoría y tres datos: tiempo ("Time"), dificultad ("Level") y porciones ("Servings").
+- Dos botones: "Save to collection" (ver [Colecciones](#7-colecciones)) y "Add to planner" (ver [Planificador](#9-planificador-semanal)).
 - Los ingredientes ("Ingredients") con cantidad y unidad.
 - Los pasos ("Instructions"), numerados.
-- El botón para guardarla en una colección (ver [Colecciones](#7-colecciones)).
 
-![Detalle de una receta](./capturas/06-detalle-receta.png)
+"← Back" vuelve a donde estabas.
+
+![Detalle de una receta](./capturas/07-detalle-receta.jpg)
 
 ---
 
 ## 5. Crear una receta
 
-1. Hacé clic en "New recipe". Se abre "Create a recipe".
-2. **Foto de portada** (opcional): hacé clic en "Add a cover photo" y elegí una imagen JPEG, PNG o WebP de hasta 5 MB. Para cambiarla, sacala con la ✕ y subí otra.
+1. Hacé clic en "+ New recipe". Se abre "Create a recipe".
+2. **Foto de portada** (opcional): hacé clic en "Add a cover photo" y elegí una imagen JPEG, PNG o WebP de hasta 5 MB. Para cambiarla, sacala con la ✕ de la esquina y subí otra.
 3. **Datos de la receta:**
 
    | Campo | Reglas |
@@ -128,26 +139,22 @@ Hacé clic en cualquier tarjeta del feed. La página de la receta muestra:
    | "Time" + "Time unit" | Obligatorios. En minutos, hasta 59; para más tiempo, cambiá la unidad a horas (hasta 23) |
    | "Difficulty" | Obligatoria |
 
-4. **Ingredientes ("Ingredients"):** por cada ingrediente, elegilo de la lista, escribí la cantidad ("Amount", hasta 12 caracteres, por ejemplo `2` o `1/2`) y elegí la unidad ("Unit"): gramos, tazas, cucharadas, unidades, "a gusto", etc. Con "Add ingredient" agregás otra fila y con la ✕ la sacás. Hace falta al menos uno.
-5. **Pasos ("Instructions"):** escribí cada paso en su fila (hasta 500 caracteres). Con "Add step" agregás otro. Hace falta al menos uno.
+4. **Ingredientes ("Ingredients"):** por cada ingrediente, elegilo de la lista, escribí la cantidad ("Amount", hasta 12 caracteres, por ejemplo `2` o `1/2`) y elegí la unidad ("Unit"): gramos, tazas, cucharadas, unidades, "a gusto", etc. Con "+ Add ingredient" agregás otra fila y con la ✕ la sacás. Hace falta al menos uno.
+5. **Pasos ("Instructions"):** escribí cada paso en su fila. Abajo de cada uno se ve cuántos caracteres te quedan (máximo 500). Con "+ Add step" agregás otro. Hace falta al menos uno.
 6. Hacé clic en "Publish". Si subiste foto, primero vas a ver "Uploading image…" y después "Publishing…".
 7. Cuando termina, la receta ya aparece en el feed para todos los usuarios.
 
-![Formulario "Create a recipe" completo](./capturas/07-crear-receta.png)
+![Formulario "Create a recipe"](./capturas/08-crear-receta.jpg)
 
 Si falta algo, arriba aparece "Please fix the following" con la lista de lo que hay que corregir (por ejemplo, "Title is required." o "Add at least one step."), y el botón "Publish" queda deshabilitado hasta que lo arregles.
 
-![Errores de validación](./capturas/08-crear-receta-errores.png)
-
-"Cancel" vuelve al feed sin guardar nada.
+"Cancel" (arriba o al lado de "Publish") vuelve al feed sin guardar nada.
 
 ---
 
 ## 6. Editar y eliminar tus recetas
 
-Solo podés editar o eliminar recetas que publicaste vos. En tus tarjetas (en el feed y en tu perfil) aparecen dos íconos extra: lápiz (editar) y tacho (eliminar).
-
-![Tarjeta propia con los íconos de editar y eliminar](./capturas/09-tarjeta-propia.png)
+Solo podés editar o eliminar recetas que publicaste vos. En tus tarjetas aparecen dos íconos extra abajo a la derecha de la foto: lápiz (editar) y tacho (eliminar). Se ven en la captura de tu perfil, en la [sección 8](#8-perfil).
 
 ### Editar
 
@@ -157,49 +164,56 @@ Solo podés editar o eliminar recetas que publicaste vos. En tus tarjetas (en el
 
 "Cancel" vuelve a la receta sin guardar.
 
+![Editar una receta: pasos y "Save changes"](./capturas/09-editar-receta.jpg)
+
 ### Eliminar
 
 1. Hacé clic en el tacho.
 2. Confirmá en el cartel "Delete recipe?" con "Delete".
 
-**No se puede deshacer.** La receta desaparece del feed y de las colecciones donde estaba guardada.
-
-![Confirmación "Delete recipe?"](./capturas/10-eliminar-receta.png)
+**No se puede deshacer.** La receta desaparece del feed, de las colecciones donde estaba guardada y del planificador.
 
 ---
 
 ## 7. Colecciones
 
-Una colección es una lista de recetas con nombre y color, por ejemplo "Postres" o "Cenas rápidas". Puede tener recetas tuyas y de otros usuarios. **Guardar una receta en Zest es siempre agregarla a una colección.**
+Una colección es una lista de recetas con nombre y color, por ejemplo "Mis Favoritas" o "Recetas gym". Puede tener recetas tuyas y de otros usuarios. **Guardar una receta en Zest es siempre agregarla a una colección.**
+
+En "Collections" ("My Collections") ves todas tus colecciones, con la cantidad de recetas de cada una.
+
+![Mis colecciones](./capturas/10-colecciones.jpg)
 
 ### Crear una colección
 
-1. Andá a "Collections" ("My Collections").
-2. Hacé clic en "New collection".
-3. Escribí el nombre ("Collection name") y elegí un color ("Accent color").
-4. Confirmá. La colección aparece en la lista.
-
-![Ventana "New collection"](./capturas/11-nueva-coleccion.png)
+1. En "My Collections", hacé clic en "+ New collection".
+2. Escribí el nombre ("Collection name") y elegí un color ("Accent color").
+3. Confirmá. La colección aparece en la lista.
 
 ### Guardar una receta en una colección
 
-1. En una tarjeta (ícono de marcador) o en el detalle de una receta, hacé clic en "Save to collection".
-2. Se abre la lista de tus colecciones. Hacé clic en una para agregar la receta, y otra vez para sacarla.
-3. Si no tenés la colección todavía, creala desde ahí mismo con "New collection".
-
-![Ventana "Save to collection"](./capturas/12-guardar-en-coleccion.png)
+1. Hacé clic en el ícono de marcador de una tarjeta, o en "Save to collection" en el detalle de la receta.
+2. Se abre la lista de tus colecciones. Hacé clic en una para agregar la receta y otra vez para sacarla.
+3. Si todavía no tenés la colección, creala desde ahí mismo con "New collection".
 
 ### Ver y completar una colección
 
-1. En "Collections", hacé clic en una colección. Se ve el nombre, la cantidad de recetas y sus tarjetas.
-2. Con "Add recipes" podés buscar recetas por nombre o por ingrediente y agregarlas sin salir de la colección.
-3. Para volver, usá "All collections".
+1. En "My Collections", hacé clic en una colección. Ves el nombre, la cantidad de recetas ("4 recipes · curated by you") y sus tarjetas.
+2. Para volver, usá "← All collections".
 
-![Detalle de una colección](./capturas/13-detalle-coleccion.png)
+![Detalle de una colección](./capturas/11-detalle-coleccion.jpg)
+
+Para sumar recetas sin salir de la colección:
+
+1. Hacé clic en "+ Add recipes".
+2. Buscá por nombre ("Name") o por ingrediente y, si querés, filtrá por dificultad ("All", "Easy", "Medium", "Hard").
+3. Hacé clic en el "+" de cada receta que quieras agregar.
+4. Cerrá la ventana con la ✕.
+
+![Agregar recetas a una colección](./capturas/12-agregar-a-coleccion.jpg)
 
 ### Eliminar una colección
 
-1. En "Collections", hacé clic en el ícono de eliminar de la tarjeta de la colección.
+1. En "My Collections", hacé clic en la ✕ de la esquina de la colección.
 2. Confirmá en "Delete collection?" con "Delete".
 
 Se borra la colección, **pero no las recetas que tenía**. No se puede deshacer.
@@ -212,11 +226,11 @@ Abrí tu avatar y elegí "Edit profile". El perfil tiene tres pestañas:
 
 | Pestaña | Qué muestra |
 |---|---|
-| "My recipes" | Las recetas que publicaste, con los íconos de editar y eliminar |
+| "My recipes" | Las recetas que publicaste, con los íconos de editar (lápiz) y eliminar (tacho) |
 | "Collections" | Tus colecciones |
 | "Settings" | Tu nombre y el cambio de contraseña |
 
-![Perfil propio](./capturas/14-perfil.png)
+![Perfil propio, pestaña "My recipes"](./capturas/13-perfil.jpg)
 
 ### Cambiar tu nombre
 
@@ -224,22 +238,55 @@ En "Settings", editá "Name" y hacé clic en "Save name". Si sale bien, aparece 
 
 ### Cambiar tu contraseña
 
-En "Settings", hacé clic en "Change password". Zest te manda un email a tu dirección para elegir una contraseña nueva ("We sent a password reset email to …").
-
-![Pestaña "Settings"](./capturas/15-perfil-settings.png)
+En "Settings", hacé clic en "Change password". Te llega un email a tu dirección para elegir una contraseña nueva ("We sent a password reset email to …").
 
 ### Ver el perfil de otro usuario
 
-Hacé clic en el nombre del autor en una receta. Ves su perfil público con sus recetas. No podés editarlas.
+Hacé clic en el nombre del autor en una tarjeta o en una receta. Ves su nombre y sus recetas ("Recipes"). No podés editarlas, pero sí guardarlas en tus colecciones.
+
+![Perfil público de otro usuario](./capturas/14-perfil-publico.jpg)
 
 ---
 
 ## 9. Planificador semanal
 
-**Todavía no está disponible en la app.** El backend ya permite asignar una receta a un día y traer el plan de la semana (tickets ZEST-118, ZEST-119 y ZEST-122), pero la pantalla del planificador no está en la versión de producción. Cuando se publique, esta sección va a explicar cómo:
+En "Meal Planner" organizás qué vas a cocinar cada día ("Plan your week, one delicious day at a time.").
 
-- Agregar una receta a un día, con la cantidad a cocinar.
-- Ver el plan de la semana.
+![Planificador semanal](./capturas/15-planificador-semana.jpg)
+
+### Ver la semana
+
+- Cada columna es un día, con el nombre y el número. El día de hoy aparece resaltado.
+- Arriba a la derecha está la semana que estás viendo (por ejemplo "Nov 9 – 15, 2026"). Con las flechas ‹ › pasás a la semana anterior o a la siguiente.
+- Cada comida muestra la foto, el nombre de la receta, el tiempo de preparación y la cantidad.
+
+### Agregar una comida desde el planificador
+
+1. En el día que quieras, hacé clic en "+ Add meal". Se abre "Add a meal" con la fecha elegida (por ejemplo "Saturday, Nov 14").
+2. Elegí de dónde sacar la receta:
+   - "Discover": todas las recetas. Podés buscar por nombre y filtrar por dificultad.
+   - "Collections": las recetas de tus colecciones.
+3. Hacé clic en el "+" de la receta. Se agrega a ese día con cantidad 1.
+
+![Ventana "Add a meal"](./capturas/16-planificador-agregar.jpg)
+
+### Agregar una receta desde su página ("Add to planner")
+
+1. En el detalle de una receta, hacé clic en "Add to planner".
+2. Se abre un calendario. Elegí el día ("Today" marca hoy).
+3. La receta se agrega a ese día con cantidad 1 y aparece un aviso de confirmación.
+
+![Elegir el día con "Add to planner"](./capturas/17-add-to-planner.jpg)
+
+Si agregás una receta que ya estaba ese día, no se duplica: se le suma 1 a la cantidad.
+
+### Cambiar la cantidad
+
+Debajo de cada comida está el selector de cantidad ("−", el número, "+"). La cantidad va de 1 a 100. Si apretás "−" cuando está en 1, Zest te pregunta si querés quitar la comida.
+
+### Quitar una comida
+
+Hacé clic en el tacho de la comida y confirmá con "Remove".
 
 ---
 
@@ -254,3 +301,4 @@ Hacé clic en el nombre del autor en una receta. Ves su perfil público con sus 
 | No veo el lápiz para editar una receta | Solo aparece en las recetas que publicaste vos. |
 | No encuentro una receta que guardé | Las recetas guardadas están dentro de tus colecciones, en "Collections". |
 | No me llega el email para cambiar la contraseña | Revisá la carpeta de spam. El email lo manda Auth0. |
+| "Add to planner" no hace nada | Tenés que elegir un día en el calendario que se abre. Si aparece "Couldn't add to planner", probá de nuevo. |
